@@ -1,0 +1,23 @@
+[user]
+name = Lionel Johnson
+email = fairylandfuture@protonmail.com
+[http]
+sslVerify = true
+; proxy = 127.0.0.1:65353
+[https]
+; proxy = 127.0.0.1:65353
+[filter "lfs"]
+required = true
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+[init]
+defaultBranch = ReleaseMaster
+[core]
+autocrlf = input
+safecrlf = false
+eol = lf
+[safe]
+directory = *
+[credential "https://git.jetbrains.space"]
+provider = generic
