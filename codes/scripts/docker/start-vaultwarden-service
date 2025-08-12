@@ -1,0 +1,24 @@
+#!/bin/bash
+# @File: start-vaultwarden-service
+# @Editor: PyCharm
+# @Author: Austin (From Chengdu.China) https://fairy.host
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-16
+
+docker run -d --name vaultwarden-service \
+  -e DOMAIN=https://vaultwarden.service.fairy.host \
+  -e LOGIN_RATELIMIT_MAX_BURST=10 \
+  -e LOGIN_RATELIMIT_SECONDS=60 \
+  -e ADMIN_RATELIMIT_MAX_BURST=10 \
+  -e ADMIN_RATELIMIT_SECONDS=60 \
+  -e ADMIN_SESSION_LIFETIME=20 \
+  -e ADMIN_TOKEN=Ds8VvFIRxZfbpyrXC8atXdZjfs \
+  -e SENDS_ALLOWED=true \
+  -e EMERGENCY_ACCESS_ALLOWED=true \
+  -e WEB_VAULT_ENABLED=true \
+  -e SIGNUPS_ALLOWED=false \
+  -p 51007:80 \
+  -v /data/container/volume/vaultwarden-service/data:/data \
+  --restart always \
+  vaultwarden/server:latest

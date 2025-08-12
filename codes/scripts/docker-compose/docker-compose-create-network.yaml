@@ -1,0 +1,29 @@
+# @File: docker-compose-create-network.yaml
+# @Editor: PyCharm
+# @author: Lionel Johnson
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-20
+
+version: '3'
+networks:
+  docekr-internal-custom:
+    driver: bridge
+    internal: false
+    external: false
+    enable_ipv6: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 173.1.0.0/16
+          gateway: 173.1.0.1
+          ip_range: 173.1.0.0/24
+    driver_opts:
+      com.docker.network.bridge.default_bridge: "true"
+      com.docker.network.bridge.enable_icc: "true"
+      com.docker.network.bridge.enable_ip_masquerade: "true"
+      com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
+      com.docker.network.bridge.name: "docker-internal-custom"
+      com.docker.network.driver.mtu: "1500"
+    labels:
+      internal.network.name: docekr-internal-custom

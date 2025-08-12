@@ -1,0 +1,28 @@
+# @File: docker-compose-joplin.yaml
+# @Editor: PyCharm
+# @author: Lionel Johnson
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-19
+
+version: '3'
+services:
+  joplin-service:
+    image: joplin/server:latest
+    container_name: joplin-service
+    network_mode: bridge
+    ports:
+      - "51020:22300"
+    restart: unless-stopped
+    environment:
+      APP_PORT: 22300
+      APP_BASE_URL: https://joplin.cloud.fairies.ltd
+      DB_CLIENT: pg
+      POSTGRES_HOST: mapping.fairies.ltd
+      POSTGRES_USER: austinservice
+      POSTGRES_PASSWORD: Austin.pwd:112#.
+      POSTGRES_PORT: 51005
+      POSTGRES_DATABASE: internal_container_joplin
+networks:
+  bridge:
+    driver: bridge

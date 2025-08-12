@@ -1,2 +1,8 @@
+### public ###
 .idea
+
+### dev ###
+*.cookies
+temp/*
+!temp/*.md
 

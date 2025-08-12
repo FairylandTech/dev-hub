@@ -1,0 +1,20 @@
+#!/bin/bash
+# File: start-halo-service
+# Editor: PyCharm
+# Author: Austin (From Chengdu.China) https://fairy.host
+# HomePage: https://github.com/AustinFairyland
+# OS: Linux Ubuntu 22.04.4 Kernel 6.2.0-36-generic 
+# CreatedTime: 2024/1/13
+
+docker run -d --name halo-blog-service \
+-p 51015:8090 \
+-e TZ=Asia/Shanghai \
+-v /home/ace/data/docker/volume/blogs/halo/data:/root/.halo2 \
+halohub/halo:2.11 \
+--spring.r2dbc.url=r2dbc:pool:mysql://mapping.fairies.ltd:51002/austin_halo \
+--spring.r2dbc.username=austin \
+--spring.r2dbc.password=Austin.pwd:112#. \
+--spring.sql.init.platform=mysql \
+--halo.external-url=http://blog.fairies.ltd/ \
+--server.port=8090
+

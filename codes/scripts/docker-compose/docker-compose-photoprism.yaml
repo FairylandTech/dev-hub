@@ -1,0 +1,97 @@
+# @File: docker-compose-photoprism.yaml
+# @Editor: PyCharm
+# @author: Lionel Johnson
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-20
+
+version: '3.5'
+networks:
+  docker-internal-custon:
+    external: true
+services:
+  photoprism:
+    image: photoprism/photoprism:latest
+    container_name: photoprism-service
+    network_mode: bridge
+    # restart: unless-stopped
+    stop_grace_period: 10s
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    ports:
+      - "8080:2342"
+    environment:
+      PHOTOPRISM_ADMIN_USER: "admin"                 # 管理员登录用户名
+      PHOTOPRISM_ADMIN_PASSWORD: "insecure"          # 初始管理员密码（8-72个字符）
+      PHOTOPRISM_AUTH_MODE: "password"               # 认证模式（public，password）
+      PHOTOPRISM_SITE_URL: "http://localhost:2342/"  # 服务器 URL 格式为 "http(s)://domain.name(:port)/(path)"
+      PHOTOPRISM_DISABLE_TLS: "false"                # 即使网站 URL 以 https:// 开头并且可用证书也禁用 HTTPS/TLS
+      PHOTOPRISM_DEFAULT_TLS: "true"                 # 如果没有其他证书可用，默认使用自签名 HTTPS/TLS 证书
+      PHOTOPRISM_ORIGINALS_LIMIT: 5000               # 原始文件的大小限制，以 MB 为单位（提高高分辨率视频的限制）
+      PHOTOPRISM_HTTP_COMPRESSION: "gzip"            # 提高传输速度和带宽利用率（none 或 gzip）
+      PHOTOPRISM_LOG_LEVEL: "info"                   # 日志级别：trace, debug, info, warning, error, fatal, 或 panic
+      PHOTOPRISM_READONLY: "false"                   # 不修改原始目录（功能减少）
+      PHOTOPRISM_EXPERIMENTAL: "false"               # 启用实验性功能
+      PHOTOPRISM_DISABLE_CHOWN: "false"              # 禁用在启动时通过 chmod 和 chown 更新存储权限
+      PHOTOPRISM_DISABLE_WEBDAV: "false"             # 禁用内置的 WebDAV 服务器
+      PHOTOPRISM_DISABLE_SETTINGS: "false"           # 禁用设置 UI 和 API
+      PHOTOPRISM_DISABLE_TENSORFLOW: "false"         # 禁用所有依赖 TensorFlow 的功能
+      PHOTOPRISM_DISABLE_FACES: "false"              # 禁用人脸检测和识别（需要 TensorFlow）
+      PHOTOPRISM_DISABLE_CLASSIFICATION: "false"     # 禁用图像分类（需要 TensorFlow）
+      PHOTOPRISM_DISABLE_VECTORS: "false"            # 禁用矢量图形支持
+      PHOTOPRISM_DISABLE_RAW: "false"                # 禁用 RAW 图像的索引和转换
+      PHOTOPRISM_RAW_PRESETS: "false"                # 启用在转换 RAW 图像时应用用户预设（降低性能）
+      PHOTOPRISM_JPEG_QUALITY: 85                    # 提高 JPEG 图像和缩略图的质量和文件大小的值（25-100）
+      PHOTOPRISM_DETECT_NSFW: "false"                # 自动将可能冒犯的照片标记为私有（需要 TensorFlow）
+      PHOTOPRISM_UPLOAD_NSFW: "true"                 # 允许上传可能冒犯的内容（没有 TensorFlow 无效）
+      # PHOTOPRISM_DATABASE_DRIVER: "sqlite"         # SQLite 是一个不需要服务器的嵌入式数据库
+      PHOTOPRISM_DATABASE_DRIVER: "mysql"            # 使用 MariaDB 10.5+ 或 MySQL 8+ 而不是 SQLite 以提高性能
+      PHOTOPRISM_DATABASE_SERVER: "mariadb:3306"     # MariaDB 或 MySQL 数据库服务器（主机名:端口）
+      PHOTOPRISM_DATABASE_NAME: "photoprism"         # MariaDB 或 MySQL 数据库架构名称
+      PHOTOPRISM_DATABASE_USER: "photoprism"         # MariaDB 或 MySQL 数据库用户名
+      PHOTOPRISM_DATABASE_PASSWORD: "insecure"       # MariaDB 或 MySQL 数据库用户密码
+      PHOTOPRISM_SITE_CAPTION: "AI-Powered Photos App"
+      PHOTOPRISM_SITE_DESCRIPTION: ""                # 网站描述元信息
+      PHOTOPRISM_SITE_AUTHOR: ""                     # 网站作者元信息
+      ## 视频转码（https://docs.photoprism.app/getting-started/advanced/transcoding/）：
+      PHOTOPRISM_FFMPEG_ENCODER: "software"        # H.264/AVC 编码器（software, intel, nvidia, apple, raspberry, 或 vaapi）
+      PHOTOPRISM_FFMPEG_SIZE: "1920"               # 视频尺寸限制，以像素为单位（720-7680）（默认值：3840）
+      PHOTOPRISM_FFMPEG_BITRATE: "32"              # 视频比特率限制，以 Mbit/s 为单位（默认值：50）
+      ## 首次启动时运行/安装（选项：update https gpu tensorflow davfs clitools clean）：
+      # PHOTOPRISM_INIT: "https gpu tensorflow"
+      ## 初始化后以非 root 用户身份运行（支持：0, 33, 50-99, 500-600, 以及 900-1200）：
+      # PHOTOPRISM_UID: 1000
+      # PHOTOPRISM_GID: 1000
+      # PHOTOPRISM_UMASK: 0000
+    ## 在初始化之前以非 root 用户身份启动（支持：0, 33, 50-99, 500-600, 以及 900-1200）：
+    # user: "1000:1000"
+    ## 与 FFmpeg 和 TensorFlow 共享硬件设备（可选）：
+    # devices:
+    #  - "/dev/dri:/dev/dri"                         # Intel QSV
+    #  - "/dev/nvidia0:/dev/nvidia0"                 # Nvidia CUDA
+    #  - "/dev/nvidiactl:/dev/nvidiactl"
+    #  - "/dev/nvidia-modeset:/dev/nvidia-modeset"
+    #  - "/dev/nvidia-nvswitchctl:/dev/nvidia-nvswitchctl"
+    #  - "/dev/nvidia-uvm:/dev/nvidia-uvm"
+    #  - "/dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools"
+    #  - "/dev/video11:/dev/video11"                 # Video4Linux 视频编码设备 (h264_v4l2m2m)
+    working_dir: "/photoprism"
+    volumes:
+      - ~/Pictures:/photoprism/originals               # 原始媒体文件（不要移除）
+      - /example/family:/photoprism/originals/family # 可以像这样挂载*额外的*媒体文件夹
+      - ~/Import:/photoprism/import                  # *可选*可以从中将文件导入到原始文件的基础文件夹
+      - ./storage:/photoprism/storage                  # *可写的*存储文件夹，用于缓存、数据库和旁路文件（不要移除）
+  ## Watchtower 自动升级服务（可选）
+  ## 参见 https://docs.photoprism.app/getting-started/updates/#watchtower
+  ## 通过 "COMPOSE_PROFILES=update docker compose up -d" 激活
+  watchtower:
+    restart: unless-stopped
+    image: containrrr/watchtower
+    profiles: [ "update" ]
+    environment:
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_POLL_INTERVAL: 7200 # 每两小时检查一次更新
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "~/.docker/config.json:/config.json" # 可选，如果您有 Docker Hub 账户用于认证

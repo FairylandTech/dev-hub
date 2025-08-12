@@ -1,0 +1,13 @@
+#!/bin/bash
+# @File: remove-all-ports
+# @Editor: PyCharm
+# @Author: Austin (From Chengdu.China) https://fairy.host
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-16
+
+IFS=" " read -r -a port_array <<<"$(firewall-cmd --list-ports)"
+for port in "${port_array[@]}"; do
+  firewall-cmd --remove-port="$port" --permanent --zone=public
+done
+firewall-cmd --reload

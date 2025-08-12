@@ -1,0 +1,50 @@
+#!/bin/bash
+# @File: podman-container
+# @Editor: PyCharm
+# @Author: Austin (From Chengdu.China) https://fairy.host
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-16
+
+RESET_COLOR="\e[0m"
+RED_COLOR="\e[31m"
+GREEN_COLOR="\e[32m"
+
+checkPodmanService() {
+  if ! nc -z 127.0.0.1 "$2"; then
+    echo -e "${RED_COLOR}Podman服务 $1 在端口 $2 不可达，正在尝试重启...${RESET_COLOR}"
+    podman restart "$1" >>/dev/null
+    #    checkPodmanService "$1" "$2"
+  else
+    echo -e "${GREEN_COLOR}Podman服务 $1 在端口 $2 可达，运行正常。${RESET_COLOR}"
+  fi
+}
+
+main() {
+  declare -A containers=(
+    ["minio-service"]="51000 51001"
+    ["mysql8.0.35-service"]="51002"
+    ["postgresql-service"]="51005"
+    ["siyuan-service"]="51006"
+    ["redis-standalone-service"]="51007"
+    ["nginx-proxy-manger-service"]="51008 51009 51010"
+    ["protainer-serivce"]="51011 51012"
+    #  ["solo"]="51013"
+    ["halo-blog-service"]="51015"
+    ["picsur-service"]="51017"
+    ["pingvin-share-service"]="51019"
+  )
+  local service
+  local ports
+  local port
+  for service in "${!containers[@]}"; do
+    IFS=' ' read -r -a ports <<<"${containers[$service]}"
+    for port in "${ports[@]}"; do
+      checkPodmanService "$service" "$port"
+    done
+  done
+}
+
+main
+
+echo -e "----------------------------------------"

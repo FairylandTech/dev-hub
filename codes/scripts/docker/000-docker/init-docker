@@ -1,0 +1,79 @@
+#!/bin/bash
+# @software: PyCharm
+# @author: Lionel Johnson
+# @contact: https://fairy.host
+# @organization: https://github.com/FairylandFuture
+# @since: 2024-06-20 15:24:29 UTC+8
+
+# Terminal output color
+RESET_COLOR="\e[0m"
+RED_COLOR="\e[31m"
+GREEN_COLOR="\e[32m"
+
+EXCE_ROOT="$HOME/tmp"
+CURRENT_PATH="$(pwd)"
+DOCKER_CONFIG_DIR="/etc/docker"
+DOCKER_VOLUME_DIR="/data/container/volume"
+DOCKER_CONTRAINER_ENV="/data/container/env.d"
+DOCKER_INIT_NETWORK=""
+DOCKER_CONFIG=""
+
+ValidateVolumeDir() {
+  echo -e "正在检查容器运行数据卷挂载本地路径..."
+  local dir="$DOCKER_VOLUME_DIR"
+  local status_code=1
+  if [ ! -d "$dir" ]; then
+    echo -e "${RED_COLOR}目录不存在, 正在创建目录: ${dir}${RESET_COLOR}"
+    if mkdir -p "$dir"; then
+      echo -e "${GREEN_COLOR}目录创建成功: ${dir}${RESET_COLOR}"
+    else
+      echo -e "${RED_COLOR}目录创建失败${RESET_COLOR}"
+      status_code=0
+    fi
+  else
+    echo -e "${GREEN_COLOR}目录已存在: ${dir}${RESET_COLOR}"
+  fi
+  echo -e "容器数据卷挂载本地路径检查完成..."
+  return $status_code
+}
+
+ValidateEnvDir() {
+  echo -e "正在检查容器运行环境配置文件路径..."
+  local dir="$DOCKER_CONTRAINER_ENV"
+  local status_code=1
+  if [ ! -d "$dir" ]; then
+    echo -e "${RED_COLOR}目录不存在, 正在创建目录: ${dir}${RESET_COLOR}"
+    if mkdir -p "$dir"; then
+      echo -e "${GREEN_COLOR}目录创建成功: ${dir}${RESET_COLOR}"
+    else
+      echo -e "${RED_COLOR}目录创建失败${RESET_COLOR}"
+      status_code=0
+    fi
+  else
+    echo -e "${GREEN_COLOR}目录已存在: ${dir}${RESET_COLOR}"
+  fi
+  echo -e "容器运行环境配置文件路径检查完成..."
+  return $status_code
+}
+
+main() {
+  cd "$EXCE_ROOT" || mkdir "$EXCE_ROOT" || exit 0
+
+  if [ "$EUID" -ne 0 ]; then
+    echo -e "${RED_COLOR}The script must be run as root or with sudo.${RESET_COLOR}"
+    exit
+  fi
+
+  # Check volume dir
+  ValidateVolumeDir
+  printf "%.0s-" {1..30}
+  echo
+  # Check env dir
+  ValidateEnvDir
+  printf "%.0s-" {1..30}
+  echo
+  echo -e "Docker容器运行前置配置检查完成"
+  cd "$CURRENT_PATH" || exit 0
+}
+
+main

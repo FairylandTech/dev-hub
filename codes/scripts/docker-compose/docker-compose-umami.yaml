@@ -1,0 +1,29 @@
+# @File: docker-compose-umami.yaml
+# @Editor: PyCharm
+# @author: Lionel Johnson
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-20
+
+version: '3'
+networks:
+  bridge:
+    driver: bridge
+    external: true
+services:
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    container_name: umami-service
+    network_mode: bridge
+    ports:
+      - "51007:3000"
+    environment:
+      DATABASE_TYPE: postgresql
+      DATABASE_URL: postgresql://austinservice:Austin.pwd%3A112%23.@mapping.fairies.ltd:51005/internal_container_umami
+      APP_SECRET: ast_OJxwRfkSa6gKkZ8aaKnOvyFKTLJJGQ
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "curl http://localhost:3000/api/heartbeat" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5

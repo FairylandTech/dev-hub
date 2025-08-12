@@ -1,0 +1,13 @@
+#!/bin/bash
+# @File: start-trilium-service
+# @Editor: PyCharm
+# @Author: Austin (From Chengdu.China) https://fairy.host
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-20
+
+docker run -d --name trilium-service \
+  -p 51021:8080 \
+  -v /home/ace/data/docker/volume/trilium/data:/home/node/trilium-data \
+  --restart always \
+  docker.io/nriver/trilium-cn:latest

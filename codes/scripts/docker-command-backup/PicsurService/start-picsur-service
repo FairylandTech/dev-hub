@@ -1,0 +1,22 @@
+#!/bin/bash
+# File: start-picsur-service
+# Editor: PyCharm
+# Author: Austin (From Chengdu.China) https://fairy.host
+# HomePage: https://github.com/AustinFairyland
+# OS: Linux Ubuntu 22.04.4 Kernel 6.2.0-36-generic 
+# CreatedTime: 2024/1/15
+
+docker run -d --nmae picsur-service \
+-e TZ=Asis/Shanghai \
+-p 51006:8080 \
+-e PICSUR_HOME="0.0.0.0" \
+-e PICSUR_PORT=8080 \
+-e PICSUR_DB_HOST="mapping.fairies.ltd" \
+-e PICSUR_DB_PORT=51005 \
+-e PICSUR_DB_USERNAME="austinservice" \
+-e PICSUR_DB_PASSWORD="Austin.pwd:112#." \
+-e PICSUR_DB_DATABASE="service" \
+-e PICSUR_ADMIN_PASSWORD="Admin.pwd:112#>." \
+-e PICSUR_MAX_FILE_SIZE=67108864 \
+--restart always \
+ghcr.io/caramelfur/picsur:latest

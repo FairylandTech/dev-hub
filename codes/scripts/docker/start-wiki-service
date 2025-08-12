@@ -1,0 +1,19 @@
+#!/bin/bash
+# @File: start-wiki-service
+# @Editor: PyCharm
+# @Author: Austin (From Chengdu.China) https://fairy.host
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-21
+
+docker run -d --name wiki-service \
+  -p 51022:3000 \
+  -e "TZ=Asia/Shanghai" \
+  -e "DB_TYPE=postgres" \
+  -e "DB_HOST=mapping.fairies.ltd" \
+  -e "DB_PORT=51005" \
+  -e "DB_USER=austinservice" \
+  -e "DB_PASS=Austin.pwd:112#." \
+  -e "DB_NAME=internal_container_wiki" \
+  --restart unless-stopped \
+  ghcr.io/requarks/wiki:2

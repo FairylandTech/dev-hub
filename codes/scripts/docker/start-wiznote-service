@@ -1,0 +1,26 @@
+#!/bin/bash
+# @File: start-wiznote-service
+# @Editor: PyCharm
+# @Author: Austin (From Chengdu.China) https://fairy.host
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-20
+
+docker run --name wiz --restart=always -it -d -v ~/wizdata:/wiz/storage \
+  -v /etc/localtime:/etc/localtime -p 8080:80 -p 9269:9269/udp wiznote/wizserver
+
+docker run -d --name wiznote-service \
+  -e TZ=Asia/Shanghai \
+  v ~/wizdata:/wiz/storage \
+  -p 8080:80 \
+  -p 9269:9269/udp \
+  --restart always \
+  wiznote/wizserver
+
+
+docker run -d --name wiznote-service \
+  -e TZ=Asia/Shanghai \
+  -p 8080:80 \
+  -p 9269:9269/udp \
+  --restart always \
+  wiznote/wizserver:latest
