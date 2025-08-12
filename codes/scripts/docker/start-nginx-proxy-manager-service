@@ -1,0 +1,17 @@
+#!/bin/bash
+# File: start-nginx-proxy-manager-service
+# Editor: PyCharm
+# Author: Austin (From Chengdu.China) https://fairy.host
+# HomePage: https://github.com/AustinFairyland
+# OS: Linux Ubuntu 22.04.4 Kernel 6.2.0-36-generic
+# CreatedTime: 2023/12/23
+
+docker run -d --name nginx-proxy-manger-service \
+  -e TZ=Asia/Shanghai \
+  -p 80:80 \
+  -p 51000:81 \
+  -p 443:443 \
+  -v /data/container/volume/nginx-proxy-manager/latest/data:/data \
+  -v /data/container/volume/nginx-proxy-manager/latest/letsencrypt:/etc/letsencrypt \
+  --restart always \
+  jc21/nginx-proxy-manager:latest

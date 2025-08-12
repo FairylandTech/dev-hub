@@ -1,0 +1,128 @@
+#!/bin/bash
+# @software: PyCharm
+# @author: Lionel Johnson
+# @contact: https://fairy.host
+# @organization: https://github.com/FairylandFuture
+# @since: 2024-06-20 15:53:21 UTC+8
+
+# Terminal output color
+RESET_COLOR="\e[0m"
+RED_COLOR="\e[31m"
+GREEN_COLOR="\e[32m"
+
+EXECUTE_PATH="$(dirname "$0")"
+
+CONTAINER_NAME="mysql-service"
+CONTAINER_USER="$(id -u)"
+CONTAINER_GROUP="$(id -g)"
+DOCKER_VOLUME_DIR="/data/container/volume"
+
+MYSQL_CONF_PATH="${EXECUTE_PATH}/conf.d/mysql.cnf"
+MYSQL_ROOT_PASSWORD="7JquBHx3Vm5MrKh7"
+
+LOCAL_MYSQL_CONF_PATH="${DOCKER_VOLUME_DIR}/${CONTAINER_NAME}/conf"
+LOCAL_MYSQL_DATA_PATH="${DOCKER_VOLUME_DIR}/${CONTAINER_NAME}/data"
+LOCAL_MYSQL_LOG_PATH="${DOCKER_VOLUME_DIR}/${CONTAINER_NAME}/log"
+
+check_requirements() {
+  if ! command -v docker &>/dev/null; then
+    echo -e "${RED_COLOR}Docker is not installed. Please install Docker and try again.${RESET_COLOR}"
+    exit 1
+  fi
+}
+
+check_directory() {
+  local dir_path=$1
+  if [ -d "$dir_path" ]; then
+    echo -e "${GREEN_COLOR}Directory ${dir_path} exists.${RESET_COLOR}"
+  else
+    echo -e "${GREEN_COLOR}Directory ${dir_path} does not exist, creating it${RESET_COLOR}"
+    if mkdir -p "$dir_path"; then
+      echo -e "${GREEN_COLOR}Directory ${dir_path} created successfully.${RESET_COLOR}"
+    else
+      echo -e "${RED_COLOR}Failed to create directory ${dir_path}.${RESET_COLOR}"
+      exit 1
+    fi
+  fi
+}
+
+change_directory_owner() {
+  local dir_path=$1
+  echo -e "${GREEN_COLOR}Changing ownership of directory ${dir_path} ...${RESET_COLOR}"
+  if sudo chown -R "$CONTAINER_USER":"$CONTAINER_GROUP" "$dir_path"; then
+    echo -e "${GREEN_COLOR}Successfully changed ownership of directory ${dir_path}.${RESET_COLOR}"
+  else
+    echo -e "${RED_COLOR}Failed to change ownership of directory ${dir_path}.${RESET_COLOR}"
+    exit 1
+  fi
+}
+
+main() {
+  check_requirements
+
+  if [ "$EUID" -ne 0 ]; then
+    echo -e "${RED_COLOR}Please run the script as root or with sudo.${RESET_COLOR}"
+    exit 1
+  fi
+
+  if [ "$SUDO_USER" = "root" ] || [ "$USER" == "root" ]; then
+    echo -e "${RED_COLOR}Running as root, creating docker-run user and group...${RESET_COLOR}"
+    useradd -M -N -s /sbin/nologin -g docker docker-executor >>/dev/null
+    usermod -aG docker docker-executor
+    CONTAINER_USER=$(id -u docker-executor)
+    CONTAINER_GROUP=$(id -g docker-executor)
+  else
+    CONTAINER_USER=$(id -u "$SUDO_USER")
+    CONTAINER_GROUP=$(id -g "$SUDO_USER")
+  fi
+
+  check_directory $LOCAL_MYSQL_CONF_PATH
+  check_directory $LOCAL_MYSQL_DATA_PATH
+  check_directory $LOCAL_MYSQL_LOG_PATH
+
+  if [[ -f "$MYSQL_CONF_PATH" ]]; then
+    echo -e "${GREEN_COLOR}File exists: ${MYSQL_CONF_PATH}${RESET_COLOR}"
+    if cp "$MYSQL_CONF_PATH" "$LOCAL_MYSQL_CONF_PATH"; then
+      echo -e "${GREEN_COLOR}Successfully copied file.${RESET_COLOR}"
+    else
+      echo -e "${RED_COLOR}Failed to copy file.${RESET_COLOR}"
+      exit 1
+    fi
+  else
+    echo -e "${RED_COLOR}File does not exist: ${MYSQL_CONF_PATH}${RESET_COLOR}"
+    exit 1
+  fi
+
+  change_directory_owner $LOCAL_MYSQL_CONF_PATH
+  change_directory_owner $LOCAL_MYSQL_DATA_PATH
+  change_directory_owner $LOCAL_MYSQL_LOG_PATH
+
+  local docker_command=(
+    "docker"
+    "run"
+    "-d"
+    "--name" "$CONTAINER_NAME"
+    "--network" "DockerCustomNet"
+    "--ip" "173.1.10.1"
+    "--user" "$CONTAINER_USER":"$CONTAINER_GROUP"
+    "--privileged=true"
+    "-e" "TZ=Asia/Shanghai"
+    "-e" "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD"
+    "-p" "51001:3306"
+    "-v" "${LOCAL_MYSQL_CONF_PATH}:/etc/mysql/conf.d"
+    "-v" "${LOCAL_MYSQL_DATA_PATH}:/var/lib/mysql"
+    "-v" "${LOCAL_MYSQL_LOG_PATH}:/var/log/mysql"
+    "--restart" "always"
+    "mysql:8.0.35"
+  )
+
+  if "${docker_command[@]}"; then
+    echo -e "${GREEN_COLOR}MySQL is now running...${RESET_COLOR}"
+  else
+    echo -e "${RED_COLOR}Failed to start MySQL.${RESET_COLOR}"
+  fi
+
+  docker logs -f "$CONTAINER_NAME"
+}
+
+main "$@"

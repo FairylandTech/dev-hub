@@ -1,0 +1,91 @@
+#!/bin/bash
+# @software: PyCharm
+# @author: Lionel Johnson
+# @contact: https://fairy.host
+# @organization: https://github.com/FairylandFuture
+# @since: 2024-06-20 23:14:05 UTC+8
+
+# Terminal output color
+RESET_COLOR="\e[0m"
+RED_COLOR="\e[31m"
+GREEN_COLOR="\e[32m"
+
+CONTAINER_NAME="mysql-service"
+DOCKER_VOLUME_DIR="/data/container/volume"
+LOCAL_MYSQL_DATA_PATH="${DOCKER_VOLUME_DIR}/${CONTAINER_NAME}/data"
+CONTAINER_USER="$(id -u)"
+CONTAINER_GROUP="$(id -g)"
+
+check_directory() {
+  local dir_path=$1
+  if [ -d "$dir_path" ]; then
+    return 0
+  else
+    echo -e "${GREEN_COLOR}Directory ${dir_path} does not exist, creating it${RESET_COLOR}"
+    if mkdir -p "$dir_path"; then
+      echo -e "${GREEN_COLOR}Directory ${dir_path} create success.${RESET_COLOR}"
+      return 0
+    else
+      return 1
+    fi
+  fi
+}
+
+main() {
+  if [ "$EUID" -ne 0 ]; then
+    echo -e "${RED_COLOR}The script must be run as root or with sudo.${RESET_COLOR}"
+    exit
+  fi
+
+  if [ "$SUDO_USER" = "root" ]; then
+    echo -e "${RED_COLOR}Running as root, creating docker-run user and group...${RESET_COLOR}"
+    useradd -M -N -s /sbin/nologin -g docker docker-run >>/dev/null
+    usermod -aG docker docker-run
+    usermod -aG docker "$SUDO_USER"
+    CONTAINER_USER=$(id -u docker-run)
+    CONTAINER_GROUP=$(id -g docker)
+  else
+    CONTAINER_USER=$(id -u "$SUDO_USER")
+    CONTAINER_GROUP=$(id -g "$SUDO_USER")
+  fi
+
+  # Check if the directory is empty
+  check_directory $LOCAL_MYSQL_DATA_PATH
+
+  echo -e "${GREEN_COLOR}Changing ownership of the $LOCAL_MYSQL_DATA_PATH ...${RESET_COLOR}"
+  if sudo chown -R "$CONTAINER_USER":"$CONTAINER_GROUP" $LOCAL_MYSQL_DATA_PATH; then
+    echo -e "${GREEN_COLOR}Ownership change success.${RESET_COLOR}"
+  else
+    echo -e "${RED_COLOR}Ownership change failed.${RESET_COLOR}"
+    exit
+  fi
+
+
+  local docker_command=(
+    "docker"
+    "run"
+    "-d"
+    "--name" "$CONTAINER_NAME"
+    "--network" "DockerCustomNet"
+    "--ip" "173.1.10.1"
+    "--user" "$CONTAINER_USER":"$CONTAINER_GROUP"
+    "--privileged=true"
+    "-e" "TZ=Asia/Shanghai"
+    "-e" "MYSQL_ROOT_PASSWORD=\"PQ,Z0|yiwzVns*HT\""
+    "-p" "51001:3306"
+    "-v" "${LOCAL_MYSQL_DATA_PATH}:/var/lib/mysql"
+    "--restart" "always"
+    "mysql:8.0.35"
+  )
+
+  if "${docker_command[@]}"; then
+    echo -e "${GREEN_COLOR}MySQL running...${RESET_COLOR}"
+  else
+    echo -e "${RED_COLOR}MySQL start failed...${RESET_COLOR}"
+  fi
+
+  docker logs -f "$CONTAINER_NAME"
+
+}
+
+main

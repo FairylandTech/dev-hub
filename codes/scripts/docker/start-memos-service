@@ -1,0 +1,13 @@
+#!/bin/bash
+# @File: start-memos-service
+# @Editor: PyCharm
+# @Author: Austin (From Chengdu.China) https://fairy.host
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-20
+
+docker run -d --name memos-service \
+  -p 51008:5230 \
+  -e TZ=Asia/Shanghai \
+  -v /data/container/volume/memos:/var/opt/memos \
+  neosmemo/memos:latest

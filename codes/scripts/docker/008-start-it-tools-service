@@ -1,0 +1,14 @@
+#!/bin/bash
+# @File: start-it-tools-service
+# @Editor: PyCharm
+# @Author: Lionel Johnson
+# @HomePage: https://fairy.host
+# @CreatedTime: 2024-03-01
+
+docker run -d --name it-tools-service \
+  --network DockerCustomNet \
+  --ip 173.1.10.8 \
+  -e TZ=Asia/Shanghai \
+  -p 51010:80 \
+  --restart always \
+  ghcr.io/corentinth/it-tools:latest

@@ -1,0 +1,19 @@
+# @File: docker-compose-ittools.yaml
+# @Editor: PyCharm
+# @author: Lionel Johnson
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-16
+
+version: '3'
+services:
+  it-tools:
+    image: 'corentinth/it-tools:latest'
+    container_name: it-tools-service
+    network_mode: bridge
+    ports:
+      - '51003:80'
+    restart: unless-stopped
+networks:
+  bridge:
+    driver: bridge

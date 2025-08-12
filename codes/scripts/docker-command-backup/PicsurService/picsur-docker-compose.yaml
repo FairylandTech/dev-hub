@@ -1,0 +1,31 @@
+version: '3'
+services:
+  picsur:
+    image: ghcr.io/caramelfur/picsur:latest
+    container_name: picsur-service
+    ports:
+      - '51004:8080'
+    environment:
+      PICSUR_HOST: '0.0.0.0'
+      PICSUR_PORT: 8080
+      PICSUR_DB_HOST: mapping.fairies.ltd
+      PICSUR_DB_PORT: 51005
+      PICSUR_DB_USERNAME: austinservice
+      PICSUR_DB_PASSWORD: Austin.pwd:112#.
+      PICSUR_DB_DATABASE: service
+
+      ## 默认管理员账户是 admin, 这个没法改，密码就是下面这个你设置的
+      PICSUR_ADMIN_PASSWORD: different-nice-long-str0n6-passw0rd-here       
+
+      ## 可选的，如果没有设置会默认生产随机字符
+      # PICSUR_JWT_SECRET: CHANGE_ME
+      # PICSUR_JWT_EXPIRY: 7d
+      
+      ## 最大可以上传的字节数
+      PICSUR_MAX_FILE_SIZE: 128000000  # 128 MB
+      ## No need to touch this, unless you use a custom frontend
+      # PICSUR_STATIC_FRONTEND_ROOT: "/picsur/frontend/dist"
+
+      ## Warning: Verbose mode might log sensitive data
+      # PICSUR_VERBOSE: "true"
+    restart: unless-stopped

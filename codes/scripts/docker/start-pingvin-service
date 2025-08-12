@@ -1,0 +1,14 @@
+#!/bin/bash
+# File: start-pingvin-service
+# Editor: PyCharm
+# Author: Austin (From Chengdu.China) https://fairy.host
+# HomePage: https://github.com/AustinFairyland
+# OS: Linux Ubuntu 22.04.4 Kernel 6.2.0-36-generic
+# CreatedTime: 2024/1/15
+
+docker run -d --name pingvin-share-service \
+  -e TZ=Asia/Shanghai \
+  -p 51019:3000 \
+  -v /home/ace/data/docker/volume/pingvin-service/data:/opt/app/backend/data \
+  --restart always \
+  stonith404/pingvin-share:latest

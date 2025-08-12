@@ -1,0 +1,2 @@
+*/5 * * * * ~/script/monitor/podman-container >> ~/logs/monitor-podman-container.log 2>&1
+0 * * * * ~/script/podman/restart-auto-git-commit-service >> /dev/null

@@ -1,0 +1,33 @@
+# @File: docker-compose-vaultwarden.yaml
+# @Editor: PyCharm
+# @author: Lionel Johnson
+# @HomePage: https://github.com/AustinFairyland
+# @OperatingSystem: Windows 11 Professional Workstation 23H2 Canary Channel
+# @CreatedTime: 2024-01-16
+
+version: "3"
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden-service
+    network_mode: bridge
+    ports:
+      - "51005:80"
+    volumes:
+      - /data/container/volume/vaultwarden/data:/data
+    environment:
+      - DOMAIN=https://vaultwarden.cloud.fairies.ltd  # 关联的域名。
+      - LOGIN_RATELIMIT_MAX_BURST=10 # 允许在一阵登录/两步验证尝试中的最大请求次数。
+      - LOGIN_RATELIMIT_SECONDS=60 # 这是来自同一IP的登录请求之间的平均秒数，在Vaultwarden限制登录次数之前。
+      - ADMIN_RATELIMIT_MAX_BURST=10 # 这与LOGIN_RATELIMIT_MAX_BURST相同，只争对admin面板。
+      - ADMIN_RATELIMIT_SECONDS=60 # 这与LOGIN_RATELIMIT_SECONDS相同
+      - ADMIN_SESSION_LIFETIME=20 # 会话持续时间
+      - ADMIN_TOKEN=Ds8VvFIRxZfbpyrXC8atXdZjfs
+      - SENDS_ALLOWED=true  # 此设置决定是否允许用户创建Bitwarden发送 - 一种凭证共享形式。
+      - EMERGENCY_ACCESS_ALLOWED=true # 此设置控制用户是否可以启用紧急访问其账户的权限。
+      - WEB_VAULT_ENABLED=true # 此设置决定了网络保险库是否可访问。
+      - SIGNUPS_ALLOWED=true  # 用户注册
+    restart: unless-stopped
+networks:
+  bridge:
+    driver: bridge
