@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore')
 
 import openai
 
-openai.api_key = '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'
+openai.api_key = ''
 
 openai.proxy = 'http://127.0.0.1:65351'
 
