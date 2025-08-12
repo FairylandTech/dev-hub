@@ -63,9 +63,8 @@ class PicBiAn(object):
 
     def __get_image_token(self, pid: str):
         url_path = "/e/extend/downpic.php"
-        response = requests.get(
-            urllib.parse.urljoin(self.url, url_path), params={"id": pid, "t": 0.3858164721970141}, cookies=self.cookies, headers=self.headers, timeout=10
-        )
+        params = {"id": pid, "t": 0.3858164721970141}
+        response = requests.get(urllib.parse.urljoin(self.url, url_path), params=params, cookies=self.cookies, headers=self.headers, timeout=10)
         response.raise_for_status()
 
         try:
@@ -128,14 +127,10 @@ class PicBiAn(object):
             return urllib.parse.urljoin(self.url, f"{slug}/index_{page}.html")
 
     def _download_single_image(self, pid: str, filename: str):
-        """
-        Downloads a single image. Designed to be called by a thread.
-        """
         try:
             # 1. Get the image download URL with a token
             image_token = self.__get_image_token(pid)
             if not image_token:
-                # Error message is already printed in __get_image_token
                 return f"Token Error for {filename}"
 
             # 2. Download the image content
@@ -155,14 +150,12 @@ class PicBiAn(object):
             return f"An error occurred with {filename}: {e}"
 
     def download(self):
-        # 1. Get total pages for the category
         pages = self.__get_pages()
         if pages == 0:
             print(f"Could not determine the number of pages for `{self.image_type}`. Exiting.")
             return
         print(f"`{self.image_type}`分类一共有{pages}页")
 
-        # 2. Get all image information, from local cache or by scraping
         local_images_filename = f"{self.image_type}.json"
         if os.path.isfile(local_images_filename):
             print("从本地获取图片信息..")
@@ -171,7 +164,6 @@ class PicBiAn(object):
         else:
             info_images = {}
             print("开始从网络获取所有图片信息...")
-            # Use tqdm for scraping progress as well
             for page in tqdm(range(1, pages + 1), desc="Scraping pages"):
                 page_url = self.__make_image_info_url(page)
                 try:
@@ -184,16 +176,12 @@ class PicBiAn(object):
                 json.dump(info_images, local_data, ensure_ascii=False, indent=2)
             print(f"\n图片信息获取完毕, 共 {len(info_images)} 张图片. 信息已保存至 `{local_images_filename}`")
 
-        # 3. Create the output directory if it doesn't exist
         os.makedirs("imgs", exist_ok=True)
 
-        # 4. Use a ThreadPoolExecutor to download images concurrently
         print(f"开始使用 {self.max_workers} 个线程下载 {len(info_images)} 张图片...")
         with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
-            # Submit download tasks to the executor
             future_to_pid = {executor.submit(self._download_single_image, pid, filename): filename for pid, filename in info_images.items()}
 
-            # Use tqdm to create a progress bar as tasks are completed
             for future in tqdm(as_completed(future_to_pid), total=len(info_images), desc="Downloading Images"):
                 filename = future_to_pid[future]
                 try:
@@ -213,7 +201,7 @@ def main():
         raise
 
     print(cookies)
-    client = PicBiAn(cookies, "4K动漫", max_workers=5)
+    client = PicBiAn(cookies, "4K动物", max_workers=5)
     client.download()
 
 
