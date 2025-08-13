@@ -27,5 +27,5 @@ Development Environment
 
 示例
 
-1. [数值拆分](src/main/java/org/example/demo/Demo1.java): 键盘录入一个三位数, 将其拆分为个位, 十位, 百位, 输出打印控制台
-2. [其中一个为6, 返回true, 如果他们的和是6的倍数, 输入true]()
+1. [数值拆分](src/main/java/org/example/demo/Demo1.java)
+2. [其中一个为6, 返回true, 如果他们的和是6的倍数, 输入true](src/main/java/org/example/demo/Demo2.java)

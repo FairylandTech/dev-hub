@@ -17,12 +17,12 @@ Development Environment
 
 ---
 
-判断语句
-
-- [if语句](src/main/java/org/example/judgment/If.java)
-- [switch语句](src/main/java/org/example/judgment/Switch.java)
+- [if语句](src/main/java/org/example/judgment/IfJudgment.java)
+- [switch语句](src/main/java/org/example/judgment/SwitchJudgment.java)
 - [for循环](src/main/java/org/example/loop/ForLoop.java)
-- [while循环](src/main/java/org/example/loop/While.java)
+- [while循环](src/main/java/org/example/loop/WhileLoop.java)
+- [do-while循环](src/main/java/org/example/loop/DoWhileLoop.java)
+- [无限循环的三种格式](src/main/java/org/example/loop/InfiniteLoop.java)
 
 示例
 
@@ -38,4 +38,11 @@ Development Environment
 10. [求1-100偶数和](src/main/java/org/example/loop/demo/Demo4.java)
 11. [指定数字范围, 那些可以被3整除，又能被5整除](src/main/java/org/example/loop/demo/Demo5.java)
 12. [打印折纸的次数](src/main/java/org/example/loop/demo/Demo6.java)
-13. [回文数]()
+13. [回文数](src/main/java/org/example/loop/demo/Demo7.java)
+14. [求商和余数](src/main/java/org/example/loop/demo/Demo8.java)
+15. [小老虎吃包子(continue的用法)](src/main/java/org/example/loop/demo/Demo9.java)
+16. [小老虎吃包子(break的用法)](src/main/java/org/example/loop/demo/Demo10.java)
+17. [封7过](src/main/java/org/example/loop/demo/Demo11.java)
+18. [求平方根](src/main/java/org/example/loop/demo/Demo12.java)
+19. [判断质数](src/main/java/org/example/loop/demo/Demo13.java)
+20. [猜数字游戏](src/main/java/org/example/loop/demo/Demo14.java)

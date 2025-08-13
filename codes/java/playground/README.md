@@ -1,4 +1,4 @@
-# Java - playground
+# Java - Playground
 
 > @software: PyCharm  
 > @author: [Lionel Johnson](https://fairy.host)  
