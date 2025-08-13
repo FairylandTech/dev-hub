@@ -25,3 +25,7 @@ Development Environment
 4. [方法](learn-04-method/README.md)
 5. [面向对象](learn-05-oop/README.md)
 6. [字符串](learn-06-string/README.md)
+
+练习
+
+- [卖飞机票](playground-test/src/main/java/org/example/Test1.java)
