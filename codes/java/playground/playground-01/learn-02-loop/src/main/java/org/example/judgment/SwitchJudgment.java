@@ -10,7 +10,7 @@ package org.example.judgment;
 /**
  * @author Lionel Johnson
  */
-public class Switch {
+public class SwitchJudgment {
 
     public static void main(String[] args) {
 

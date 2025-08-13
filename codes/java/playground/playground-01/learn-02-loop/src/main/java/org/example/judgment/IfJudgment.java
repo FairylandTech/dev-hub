@@ -12,7 +12,7 @@ import java.util.Scanner;
 /**
  * @author Lionel Johnson
  */
-public class If {
+public class IfJudgment {
 
     // if 语句
 

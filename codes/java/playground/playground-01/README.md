@@ -21,3 +21,7 @@ Development Environment
 
 1. [运算符](learn-01-operation/README.md)
 2. [判断和循环](learn-02-loop/README.md)
+3. [数组](learn-03-array/README.md)
+4. [方法](learn-04-method/README.md)
+5. [面向对象](learn-05-oop/README.md)
+6. [字符串](learn-06-string/README.md)

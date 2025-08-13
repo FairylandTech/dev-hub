@@ -3,28 +3,21 @@
  * @author: Lionel Johnson
  * @contact: https://fairy.host
  * @organization: https://github.com/FairylandFuture
- * @datetime: 2025-08-12 21:29:56 UTC+08:00
+ * @datetime: 2025-08-13 12:22:52 UTC+08:00
  ****************************************************/
-package org.example.loop;
+package org.example.array;
 
 /**
  * @author Lionel Johnson
  */
-public class While {
-
-    /*
-     * 利用 while 循环打印 1-100
-     * */
-
+public class GetArrayElement {
     public static void main(String[] args) {
-
-        int i = 1;
-
-        while (i < 101) {
-            System.out.println(i);
-            i++;
-        }
-
+        int[] ints = {1, 2, 3, 4, 5};
+        
+        System.out.println(ints[0]);
+        System.out.println(ints[1]);
+        System.out.println(ints[2]);
+        System.out.println(ints[3]);
+        System.out.println(ints[4]);
     }
-
 }

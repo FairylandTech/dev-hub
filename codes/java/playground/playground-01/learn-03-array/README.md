@@ -1,10 +1,10 @@
-# 运算符
+# 数组
 
 > @software: IntelliJ IDEA  
 > @author: [Lionel Johnson](https://fairy.host)  
 > @contact: [Blog](https://blog.fairy.host/) | [GitHub](https://github.com/FairylandTech) | [Telegram](https://t.me/FairylandFuture)  
 > @organization: [GitHub·FairylandFuture](https://github.com/FairylandFuture)  
-> @datetime: 2025-08-12 18:19:38 UTC+08:00
+> @datetime: 2025-08-13 11:55:36 UTC+08:00
 
 [![Author](https://img.shields.io/badge/Author-Lionel_Johnson-orange)](https://t.me/FairylandFuture) [![github](https://img.shields.io/badge/Github-FairylandFuture-green)](https://github.com/FairylandTech) [![GitBook](https://img.shields.io/badge/GitBook-Interesting-green)](https://interestingbooks.gitbook.io/) [![Editor](https://img.shields.io/badge/Editor-Typora-yellow)]() [![Language](https://img.shields.io/badge/Language-Markdown-orange)]() [![Version](https://img.shields.io/badge/Version-Release-blue)]() [![Docs](https://img.shields.io/badge/Docs-Passing-brightgreen)]() [![Type](https://img.shields.io/badge/Type-Documents-blue)]() [![wakatime](https://wakatime.com/badge/user/fa851759-c657-4b1e-8bcb-3ec3a693a2cd.svg)](https://wakatime.com/@fa851759-c657-4b1e-8bcb-3ec3a693a2cd) [![Sign](https://img.shields.io/badge/%E7%AD%89%E6%88%91%E4%BB%A3%E7%A0%81%E7%BC%96%E6%88%90-%E5%A8%B6%E4%BD%A0%E4%B8%BA%E5%A6%BB%E5%8F%AF%E5%A5%BD-red)](https://github.com/FairylandTech)
 
@@ -17,15 +17,17 @@ Development Environment
 
 ---
 
-- [算数运算符](src/main/java/org/example/ArithmeticOperator.java)
-- [赋值运算符](src/main/java/org/example/AssignmentOperator.java)
-- [自增/减运算符](src/main/java/org/example/AutoAddSub.java)
-- [比较运算符](src/main/java/org/example/ComparisonOperator.java)
-- [逻辑运算符](src/main/java/org/example/LogicalOperator.java)
-- [短路逻辑运算符](src/main/java/org/example/ShortLogicOperator.java)
-- [自动类型转换](src/main/java/org/example/ConvertType.java)
+- [数组静态初始化](src/main/java/org/example/array/ArrayStaticInit.java)
+- [获取数组的元素](src/main/java/org/example/array/GetArrayElement.java)
+- [覆盖元素](src/main/java/org/example/array/ReplaceArrayElement.java)
+- [数组的遍历](src/main/java/org/example/array/ArrayLoop.java)
 
 示例
 
-1. [数值拆分](src/main/java/org/example/demo/Demo1.java)
-2. [其中一个为6, 返回true, 如果他们的和是6的倍数, 输入true](src/main/java/org/example/demo/Demo2.java)
+1. [遍历数组并求和](src/main/java/org/example/array/demo/Demo1.java)
+2. [统计个数](src/main/java/org/example/array/demo/Demo2.java)
+3. [变化数据](src/main/java/org/example/array/demo/Demo3.java)
+4. [求最大值](src/main/java/org/example/array/demo/Demo4.java)
+5. [遍历数组求和(进阶)](src/main/java/org/example/array/demo/Demo5.java)
+6. [交换数组中的数据](src/main/java/org/example/array/demo/Demo6.java)
+7. [打乱数组中的数据](src/main/java/org/example/array/demo/Demo7.java)
