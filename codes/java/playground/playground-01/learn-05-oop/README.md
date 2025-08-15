@@ -17,8 +17,10 @@ Development Environment
 
 ---
 
-- 类和对象: [手机类](src/main/java/org/example/oop/Phone.java) [测试手机类](src/main/java/org/example/oop/test/PhoneTest.java)
+- 类和对象: [手机](src/main/java/org/example/oop/Phone.java) [测试](src/main/java/org/example/oop/test/PhoneTest.java)
+- 类的封装: [封装](src/main/java/org/example/oop/wrapper/GirlFriendWrapper.java) [测试](src/main/java/org/example/oop/test/GirlFriendWrapperTest.java)
 
 示例
 
-1. [女朋友](src/main/java/org/example/oop/GirlFriend.java) [测试女朋友类](src/main/java/org/example/oop/test/GirlFriendTest.java)
+1. [女朋友](src/main/java/org/example/oop/GirlFriend.java) [测试](src/main/java/org/example/oop/test/GirlFriendTest.java)
+2. [文字格斗游戏]()
