@@ -11,16 +11,16 @@ package org.example;
  * @author Lionel Johnson
  */
 public class Main {
-
+    
     public static void main(String[] args) {
-
+        
         String string = "中国人";
-
+        
         System.out.println(string);
-
+        
         for (char character : string.toCharArray()) {
             System.out.println(character);
         }
-
+        
     }
 }

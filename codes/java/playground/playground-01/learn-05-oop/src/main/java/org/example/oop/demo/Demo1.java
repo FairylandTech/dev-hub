@@ -7,7 +7,7 @@
  ****************************************************/
 package org.example.oop.demo;
 
-import java.util.Random;
+import org.example.oop.demo.cls.Rule;
 
 /**
  * @author Lionel Johnson
@@ -16,48 +16,23 @@ public class Demo1 {
     /*
      * 格斗游戏，每个游戏角色的姓名，血量，都不相同，在选定人物的时候（new对象的时候），这些信息就应该被确定下来。
      * */
-}
-
-class Rule {
-    private String name;
-    private int blood;
-    
-    public String getName() {
-        return name;
-    }
-    
-    public void setName(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("名字不能为null或空");
-        }
-        if (name.length() > 255) {
-            throw new IllegalArgumentException("名字的长度不能大于255");
-        }
-        this.name = name;
-    }
-    
-    public int getBlood() {
-        return blood;
-    }
-    
-    public void setBlood(int blood) {
-        if (blood < 0 || blood > 100) {
-            throw new IllegalArgumentException("初始血量不能等于0, 并且需要再100内");
-        }
-        this.blood = blood;
-    }
-    
-    private void gg() {
-        if (this.getBlood() <= 0){
-            System.out.println();
-        }
-    }
-    
-    public void attack(Rule opp) {
-        int value = new Random().nextInt(20) + 1;
+    public static void main(String[] args) {
+        Rule r1 = new Rule("R1", 100);
+        Rule r2 = new Rule("R2", 100);
         
-        System.out.println(this.getName() + "攻击了" + opp.getName() + ", 造成了" + value + "点伤害, " + opp.getName() + "还有" + (opp.getBlood() - value) + "点血量");
+        while (true) {
+            if (r2.status() && r1.status()) {
+                r1.attack(r2);
+            } else {
+                break;
+            }
+            
+            if (r1.status() && r2.status()) {
+                r2.attack(r1);
+            } else {
+                break;
+            }
+        }
         
-        opp.setBlood(opp.getBlood() - value);
     }
 }

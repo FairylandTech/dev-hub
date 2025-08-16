@@ -1,10 +1,10 @@
-# 面向对象
+# 集合
 
 > @software: IntelliJ IDEA  
 > @author: [Lionel Johnson](https://fairy.host)  
 > @contact: [Blog](https://blog.fairy.host/) | [GitHub](https://github.com/FairylandTech) | [Telegram](https://t.me/FairylandFuture)  
 > @organization: [GitHub·FairylandFuture](https://github.com/FairylandFuture)  
-> @datetime: 2025-08-13 13:04:02 UTC+08:00
+> @datetime: 2025-08-16 15:44:36 UTC+08:00
 
 [![Author](https://img.shields.io/badge/Author-Lionel_Johnson-orange)](https://t.me/FairylandFuture) [![github](https://img.shields.io/badge/Github-FairylandFuture-green)](https://github.com/FairylandTech) [![GitBook](https://img.shields.io/badge/GitBook-Interesting-green)](https://interestingbooks.gitbook.io/) [![Editor](https://img.shields.io/badge/Editor-Typora-yellow)]() [![Language](https://img.shields.io/badge/Language-Markdown-orange)]() [![Version](https://img.shields.io/badge/Version-Release-blue)]() [![Docs](https://img.shields.io/badge/Docs-Passing-brightgreen)]() [![Type](https://img.shields.io/badge/Type-Documents-blue)]() [![wakatime](https://wakatime.com/badge/user/fa851759-c657-4b1e-8bcb-3ec3a693a2cd.svg)](https://wakatime.com/@fa851759-c657-4b1e-8bcb-3ec3a693a2cd) [![Sign](https://img.shields.io/badge/%E7%AD%89%E6%88%91%E4%BB%A3%E7%A0%81%E7%BC%96%E6%88%90-%E5%A8%B6%E4%BD%A0%E4%B8%BA%E5%A6%BB%E5%8F%AF%E5%A5%BD-red)](https://github.com/FairylandTech)
 
@@ -17,14 +17,9 @@ Development Environment
 
 ---
 
-- 类和对象: [手机](src/main/java/org/example/oop/Phone.java) [测试](src/main/java/org/example/oop/test/PhoneTest.java)
-- 类的封装: [封装](src/main/java/org/example/oop/wrapper/GirlFriendWrapper.java) [测试](src/main/java/org/example/oop/test/GirlFriendWrapperTest.java)
+- [集合的基本使用](src/main/java/org/example/usageSet.java)
 
 示例
 
-1. [女朋友](src/main/java/org/example/oop/GirlFriend.java) [测试](src/main/java/org/example/oop/test/GirlFriendTest.java)
-2. [文字格斗游戏](src/main/java/org/example/oop/demo/Demo1.java)
-3. [对象数组](src/main/java/org/example/oop/demo/Demo2.java)
-4. [对象数组(进阶版)](src/main/java/org/example/oop/demo/Demo3.java)
-5. [对象数组(进阶版2)](src/main/java/org/example/oop/demo/Demo4.java)
-6. [对象数组(进阶版3)](src/main/java/org/example/oop/demo/Demo5.java)
+1. [集合的遍历](src/main/java/org/example/demo/Demo1.java)
+2. [添加学生对象并遍历](src/main/java/org/example/demo/Demo2.java)
