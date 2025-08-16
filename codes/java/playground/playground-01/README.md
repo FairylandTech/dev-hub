@@ -25,6 +25,7 @@ Development Environment
 4. [方法](learn-04-method/README.md)
 5. [面向对象](learn-05-oop/README.md)
 6. [字符串](learn-06-string/README.md)
+7. [集合](learn-07-set/README.md)
 
 练习
 

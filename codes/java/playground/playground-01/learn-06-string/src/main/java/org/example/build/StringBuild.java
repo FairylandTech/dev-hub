@@ -13,19 +13,19 @@ import java.util.ArrayList;
  * @author Lionel Johnson
  */
 public class StringBuild {
-
+    
     public static String build(ArrayList<String> stringArrayList) {
         StringBuilder stringBuilder = new StringBuilder();
-
+        
         for (String s : stringArrayList) {
             stringBuilder.append(s);
         }
-
+        
         return stringBuilder.toString();
     }
-
+    
     public static String reverse(String string) {
         return new StringBuilder(string).reverse().toString();
     }
-
+    
 }
