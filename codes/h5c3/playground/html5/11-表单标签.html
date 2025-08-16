@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!---------------------------------------------------------
+@software: WebStorm
+@author: Lionel Johnson
+@contact: https://fairy.host
+@organization: https://github.com/FairylandFuture
+@datetime: 2025-08-16 20:11:36 UTC+08:00
+---------------------------------------------------------->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单标签</title>
+</head>
+<body>
+<form action="http://127.0.0.1:8000/api/example/v1/example/submit/" method="post" name="表单域" enctype="multipart/form-data">
+    <!-- input 标签元素传入后台的信息 (name 表示字段, value 表示自动的值)-->
+    <!-- label 标签 -->
+
+    <!-- text 文本输入框 maxlength: 最大长度 -->
+    <label for="username">用户名: </label><input type="text" id="username" name="username" maxlength="255"> <br>
+    <!-- password 密码输入框 -->
+    密码: <input type="password" name="password"> <br>
+    <!-- radio 单选框, name属性必须要一样, checked: 默认勾选 -->
+    性别: <input type="radio" name="gender" value="male" checked> 男 <input type="radio" name="gender" value="female"> 女 <br>
+    <!-- checkbox 多选框 -->
+    爱好: <input type="checkbox" name="hobby" value="eat"> 吃饭 <input type="checkbox" name="hobby" value="sleep"> 睡觉 <br>
+    <!-- file 文件 -->
+    图片: <input type="file" name="file">
+
+    <input type="submit" value="提交"> <input type="reset" value="重置">
+</form>
+</body>
+</html>
