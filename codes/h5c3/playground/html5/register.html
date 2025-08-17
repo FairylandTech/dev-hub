@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!---------------------------------------------------------
+@software: WebStorm
+@author: Lionel Johnson
+@contact: https://fairy.host
+@organization: https://github.com/FairylandFuture
+@datetime: 2025-08-17 12:30:30 UTC+08:00
+---------------------------------------------------------->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户注册</title>
+</head>
+<body>
+<form action="http://127.0.0.1:8000/api/example/v1/example/submit/" method="post" enctype="multipart/form-data">
+    <h4>青春不常在, 抓紧谈恋爱</h4>
+    <table width="500">
+        <tr>
+            <td>性别</td>
+            <td>
+                <label for="male">
+                    <input type="radio" id="male" name="gender" value="male" checked>
+                    <img src="assets/images/man.jpg" alt="男">
+                    男
+                </label>
+                <label for="female">
+                    <input type="radio" id="female" name="gender" value="female">
+                    <img src="assets/images/women.jpg" alt="女">
+                    女
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>生日</td>
+            <td>
+                <label for="select-year">
+                    <select name="year" id="select-year">
+                        <option value="">--请选择年--</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                    </select>
+                </label>
+                <label for="select-month">
+                    <select name="month" id="select-month">
+                        <option value="">--请选择月--</option>
+                        <option value="1">1月</option>
+                        <option value="2">2月</option>
+                        <option value="3">3月</option>
+                        <option value="4">4月</option>
+                        <option value="5">5月</option>
+                        <option value="6">6月</option>
+                        <option value="7">7月</option>
+                        <option value="8">8月</option>
+                        <option value="9">9月</option>
+                        <option value="10">10月</option>
+                        <option value="11">11月</option>
+                        <option value="12">12月</option>
+                    </select>
+                </label>
+                <label for="select-day">
+                    <select name="day" id="select-day">
+                        <option value="">--请选择日--</option>
+                        <option value="1">1日</option>
+                        <option value="2">2日</option>
+                        <option value="3">3日</option>
+                        <option value="4">4日</option>
+                    </select>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>所在地区</td>
+            <td>
+                <label for="area">
+                    <input type="text" name="area" id="area">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>婚姻状况</td>
+            <td>
+                <label for="unmarried">
+                    <input type="radio" id="unmarried" name="marry-status" value="unmarried" checked>
+                    未婚
+                </label>
+                <label for="married">
+                    <input type="radio" id="married" name="marry-status" value="married">
+                    已婚
+                </label>
+                <label for="divorced">
+                    <input type="radio" id="divorced" name="marry-status" value="divorced">
+                    离婚
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>学历</td>
+            <td>
+                <label for="education">
+                    <input type="text" name="education" id="education">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>喜欢的类型</td>
+            <td>
+                <label for="favored-type-1">
+                    <input type="checkbox" name="favored-type" id="favored-type-1">
+                    妩媚的
+                </label>
+                <label for="favored-type-2">
+                    <input type="checkbox" name="favored-type" id="favored-type-2">
+                    可爱的
+                </label>
+                <label for="favored-type-3">
+                    <input type="checkbox" name="favored-type" id="favored-type-3">
+                    小鲜肉
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>自我介绍</td>
+            <td>
+                <label for="resume">
+                    <textarea name="resume" id="resume" cols="50" rows="5"></textarea>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <label for="submit">
+                    <input type="submit" id="submit" value="免费注册">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <label for="protocol">
+                    <input type="checkbox" name="protocol" id="protocol">
+                    我同意注册条款和会员加入标准
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <a href="login.html">我是会员, 立即登录</a>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <h3>我承诺</h3>
+                <ul>
+                    <li>年满18岁, 单身</li>
+                    <li>抱着严肃的态度</li>
+                    <li>真诚寻找另一半</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

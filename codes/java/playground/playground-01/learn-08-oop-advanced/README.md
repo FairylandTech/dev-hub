@@ -1,10 +1,10 @@
-# playground-01
+# 面向对象 - 高阶
 
 > @software: IntelliJ IDEA  
 > @author: [Lionel Johnson](https://fairy.host)  
 > @contact: [Blog](https://blog.fairy.host/) | [GitHub](https://github.com/FairylandTech) | [Telegram](https://t.me/FairylandFuture)  
 > @organization: [GitHub·FairylandFuture](https://github.com/FairylandFuture)  
-> @datetime: 2025-08-12 18:33:02 UTC+08:00
+> @datetime: 2025-08-17 21:34:28 UTC+08:00
 
 [![Author](https://img.shields.io/badge/Author-Lionel_Johnson-orange)](https://t.me/FairylandFuture) [![github](https://img.shields.io/badge/Github-FairylandFuture-green)](https://github.com/FairylandTech) [![GitBook](https://img.shields.io/badge/GitBook-Interesting-green)](https://interestingbooks.gitbook.io/) [![Editor](https://img.shields.io/badge/Editor-Typora-yellow)]() [![Language](https://img.shields.io/badge/Language-Markdown-orange)]() [![Version](https://img.shields.io/badge/Version-Release-blue)]() [![Docs](https://img.shields.io/badge/Docs-Passing-brightgreen)]() [![Type](https://img.shields.io/badge/Type-Documents-blue)]() [![wakatime](https://wakatime.com/badge/user/fa851759-c657-4b1e-8bcb-3ec3a693a2cd.svg)](https://wakatime.com/@fa851759-c657-4b1e-8bcb-3ec3a693a2cd) [![Sign](https://img.shields.io/badge/%E7%AD%89%E6%88%91%E4%BB%A3%E7%A0%81%E7%BC%96%E6%88%90-%E5%A8%B6%E4%BD%A0%E4%B8%BA%E5%A6%BB%E5%8F%AF%E5%A5%BD-red)](https://github.com/FairylandTech)
 
@@ -17,17 +17,9 @@ Development Environment
 
 ---
 
-模块:
+- [`static`静态变量](src/main/java/org/example/staticvariables/Student.java) [测试](src/main/java/org/example/staticvariables/test/StudentTest.java)
+- [`static`静态方法和工具类](src/main/java/org/example/staticmethod/arrayUtils.java)
 
-1. [运算符](learn-01-operation/README.md)
-2. [判断和循环](learn-02-loop/README.md)
-3. [数组](learn-03-array/README.md)
-4. [方法](learn-04-method/README.md)
-5. [面向对象](learn-05-oop/README.md)
-6. [字符串](learn-06-string/README.md)
-7. [集合](learn-07-set/README.md)
-8. [面向对象-进阶](learn-08-oop-advanced/README.md)
+示例
 
-练习
-
-- [卖飞机票](playground-test/src/main/java/org/example/Test1.java)
+1. [学生工具类](src/main/java/org/example/demo/demo1/StudentUtils.java) [测试](src/main/java/org/example/demo/demo1/Main.java)
