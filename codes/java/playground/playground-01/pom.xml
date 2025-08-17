@@ -18,6 +18,7 @@
         <module>learn-05-oop</module>
         <module>learn-06-string</module>
         <module>learn-07-set</module>
+        <module>learn-08-oop-advanced</module>
 
         <module>playground-test</module>
     </modules>
