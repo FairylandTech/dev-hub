@@ -7,7 +7,8 @@
  ****************************************************/
 package org.example.demo.demo1;
 
-import com.sun.istack.internal.NotNull;
+
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 

@@ -7,7 +7,8 @@
  ****************************************************/
 package org.example.staticmethod;
 
-import com.sun.istack.internal.NotNull;
+
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Arrays;
 

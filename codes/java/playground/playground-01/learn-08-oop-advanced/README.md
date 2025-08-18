@@ -17,9 +17,10 @@ Development Environment
 
 ---
 
-- [`static`静态变量](src/main/java/org/example/staticvariables/Student.java) [测试](src/main/java/org/example/staticvariables/test/StudentTest.java)
+- [`static`静态变量](src/main/java/org/example/staticvariables/Student.java), [测试](src/main/java/org/example/staticvariables/test/StudentTest.java)
 - [`static`静态方法和工具类](src/main/java/org/example/staticmethod/arrayUtils.java)
+- [继承]()
 
 示例
 
-1. [学生工具类](src/main/java/org/example/demo/demo1/StudentUtils.java) [测试](src/main/java/org/example/demo/demo1/Main.java)
+1. [学生工具类](src/main/java/org/example/demo/demo1/StudentUtils.java), [测试](src/main/java/org/example/demo/demo1/Main.java)

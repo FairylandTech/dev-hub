@@ -7,7 +7,7 @@
  ****************************************************/
 package org.example.enums;
 
-import com.sun.istack.internal.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author Lionel Johnson
