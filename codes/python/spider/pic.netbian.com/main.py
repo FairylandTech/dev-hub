@@ -94,7 +94,7 @@ class PicBiAn(object):
         return total_pages
 
     def __get_current_images_info(self, url):
-        result = {}
+        result: t.Dict[str, str] = {}
 
         response = requests.get(url, cookies=self.cookies, headers=self.headers)
         response.raise_for_status()
