@@ -11,16 +11,17 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>learn-01-operation</module>
-        <module>learn-02-loop</module>
-        <module>learn-03-array</module>
-        <module>learn-04-method</module>
-        <module>learn-05-oop</module>
-        <module>learn-06-string</module>
-        <module>learn-07-set</module>
-        <module>learn-08-oop-advanced</module>
+        <module>playground-01-operation</module>
+        <module>playground-02-loop</module>
+        <module>playground-03-array</module>
+        <module>playground-04-method</module>
+        <module>playground-05-oop</module>
+        <module>playground-06-string</module>
+        <module>playground-07-set</module>
+        <module>playground-08-oop-advanced</module>
 
-        <module>playground-test</module>
+        <module>playground-demo</module>
+        <module>playground-puzzle-game</module>
     </modules>
 
     <properties>
@@ -37,7 +38,47 @@
                 <artifactId>jakarta.validation-api</artifactId>
                 <version>3.0.2</version>
             </dependency>
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>8.0.1.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.18.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- mvn clean -->
+            <!-- 删除 Maven 依赖源码和Javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${settings.localRepository}</directory>
+                            <includes>
+                                <include>**/*-sources.jar</include>
+                                <include>**/*-javadoc.jar</include>
+                                <include>**/*-sources.jar.sha1</include>
+                                <include>**/*-javadoc.jar.sha1</include>
+                                <include>**/*-javadoc.jar.lastUpdated</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
