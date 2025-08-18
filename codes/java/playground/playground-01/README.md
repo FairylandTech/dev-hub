@@ -17,17 +17,21 @@ Development Environment
 
 ---
 
-模块:
+模块
 
-1. [运算符](learn-01-operation/README.md)
-2. [判断和循环](learn-02-loop/README.md)
-3. [数组](learn-03-array/README.md)
-4. [方法](learn-04-method/README.md)
-5. [面向对象](learn-05-oop/README.md)
-6. [字符串](learn-06-string/README.md)
-7. [集合](learn-07-set/README.md)
-8. [面向对象-进阶](learn-08-oop-advanced/README.md)
+1. [运算符](playground-01-operation/README.md)
+2. [判断和循环](playground-02-loop/README.md)
+3. [数组](playground-03-array/README.md)
+4. [方法](playground-04-method/README.md)
+5. [面向对象](playground-05-oop/README.md)
+6. [字符串](playground-06-string/README.md)
+7. [集合](playground-07-set/README.md)
+8. [面向对象-进阶](playground-08-oop-advanced/README.md)
 
 练习
 
-- [卖飞机票](playground-test/src/main/java/org/example/Test1.java)
+- [卖飞机票](playground-demo/src/main/java/org/example/Test1.java)
+
+阶段练习
+
+- [拼图游戏](playground-puzzle-game/README.md)
