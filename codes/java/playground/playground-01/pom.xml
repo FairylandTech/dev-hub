@@ -19,6 +19,7 @@
         <module>playground-06-string</module>
         <module>playground-07-set</module>
         <module>playground-08-oop-advanced</module>
+        <module>playground-09-common-api</module>
 
         <module>playground-demo</module>
         <module>playground-puzzle-game</module>
@@ -33,20 +34,51 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Jakarta Bean Validation API (规范接口) -->
             <dependency>
                 <groupId>jakarta.validation</groupId>
                 <artifactId>jakarta.validation-api</artifactId>
                 <version>3.0.2</version>
             </dependency>
+
+            <!-- Hibernate Validator (Jakarta规范的实现引擎) -->
+            <!-- 实际执行验证逻辑，支持自定义校验规则 -->
+            <!-- 必须与jakarta.validation-api配合使用 -->
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>8.0.1.Final</version>
             </dependency>
+
+            <!-- Apache Commons Lang 工具库 -->
+            <!-- 提供字符串处理(StringUtils)、对象操作(ObjectUtils)、数组处理(ArrayUtils)等工具 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.18.0</version>
+            </dependency>
+
+            <!-- SLF4J API (日志门面接口) -->
+            <!-- 提供统一的日志操作接口，解耦具体日志实现 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <!--                <version>2.0.16</version>-->
+                
+                <!-- 与 Logback 1.2.x 兼容 -->
+                <version>1.7.36</version>
+            </dependency>
+
+            <!-- Logback 日志实现 -->
+            <!-- SLF4J的默认实现，高性能日志框架 -->
+            <!-- 需要搭配slf4j-api使用 -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <!--                <version>1.5.13</version>-->
+                
+                <!-- JDK 1.8 -->
+                <version>1.2.13</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
