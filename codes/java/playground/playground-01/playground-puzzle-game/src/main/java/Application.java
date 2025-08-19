@@ -14,5 +14,7 @@ import org.example.ui.GameJFrame;
 public class Application {
     public static void main(String[] args) {
         new GameJFrame();
+        
+        System.out.println("DEBUG");
     }
 }

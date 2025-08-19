@@ -7,4 +7,5 @@ temp/*
 !temp/*.md
 input
 output
+logs
 
