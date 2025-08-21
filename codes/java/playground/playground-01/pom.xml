@@ -20,6 +20,7 @@
         <module>playground-07-set</module>
         <module>playground-08-oop-advanced</module>
         <module>playground-09-common-api</module>
+        <module>playground-10-set-advanced</module>
 
         <module>playground-demo</module>
         <module>playground-puzzle-game</module>
@@ -91,7 +92,11 @@
     </dependencyManagement>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.18.0</version>
+        </dependency>
     </dependencies>
 
     <build>
