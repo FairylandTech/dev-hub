@@ -27,6 +27,7 @@ Development Environment
 - [正则表达式](src/main/java/org/example/regex/Main.java)
 - [DateTime](src/main/java/org/example/date/Main.java)
 - [Calender](src/main/java/org/example/calender/Main.java)
+- [Collections(集合工具类)](src/main/java/org/example/collection/Main.java)
 
 示例
 

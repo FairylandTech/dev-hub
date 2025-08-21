@@ -87,7 +87,9 @@ public class Main {
         System.out.println("LocalDateTime.now().format(DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\")) = " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         
         LocalDateTime from = LocalDateTime.from(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").parse("2015-02-14 14:34:21"));
+        LocalDateTime localDateTime = from.minusDays(14);
         System.out.println("from = " + from);
+        System.out.println("localDateTime = " + localDateTime);
         
     }
 }
