@@ -23,7 +23,7 @@ Development Environment
 - [IO流](src/main/java/org/example/io/IOStream.java)
 - [FileReader](src/main/java/org/example/io/FileIOStream.java)
 - [缓存流(字节)](src/main/java/org/example/io/buffered/Buffered.java)
-- [缓存流(字符)]()
+- [缓存流(字符)](src/main/java/org/example/io/buffered/BufferedCharacter.java)
 
 示例
 
