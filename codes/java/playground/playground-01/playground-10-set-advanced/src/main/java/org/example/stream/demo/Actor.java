@@ -18,9 +18,6 @@ public class Actor {
     private String name;
     private int age;
     
-    private Actor() {
-    }
-    
     public Actor(String name, int age) {
         this.name = name;
         this.age = age;
