@@ -32,7 +32,7 @@ Development Environment
 
 练习
 
-- [卖飞机票](playground-demo/src/main/java/org/example/Test1.java)
+- [卖飞机票](playground-demo/src/main/java/org/example/AirplaneTicket.java)
 
 阶段练习
 

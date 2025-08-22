@@ -54,6 +54,7 @@ graph LR
 - [双列集合(Map)](src/main/java/org/example/map/Main.java)
 - [可变参数](src/main/java/org/example/args/Main.java)
 - [不可变集合](src/main/java/org/example/list/ForzenSet.java)
+- [Stream流](src/main/java/org/example/stream/Main.java)
 
 示例
 
@@ -61,4 +62,6 @@ graph LR
 2. [TreeSet示例](src/main/java/org/example/set/demo/Main.java)
 3. [HashMap示例](src/main/java/org/example/map/demo/demo1/Main.java)
 4. [统计投票人数](src/main/java/org/example/map/demo/demo2/Main.java)
+5. [字符串过滤并收集](src/main/java/org/example/stream/demo/Demo1.java)
+6. [数据操作](src/main/java/org/example/stream/demo/Demo2.java)
 

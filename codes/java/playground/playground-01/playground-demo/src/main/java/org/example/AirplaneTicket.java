@@ -12,7 +12,7 @@ import java.util.Scanner;
 /**
  * @author Lionel Johnson
  */
-public class Test1 {
+public class AirplaneTicket {
     /*
      * 卖飞机票
      *
