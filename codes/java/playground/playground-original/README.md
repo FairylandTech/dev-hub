@@ -1,4 +1,4 @@
-# playground-01
+# Java SE 基础
 
 > @software: IntelliJ IDEA  
 > @author: [Lionel Johnson](https://fairy.host)  
