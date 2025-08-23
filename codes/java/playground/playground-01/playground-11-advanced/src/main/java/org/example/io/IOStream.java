@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
  * @author Lionel Johnson
  */
 public class IOStream {
-    public static final String PATH = "D:\\Develops\\Github\\FairylandTech\\dev-hub\\codes\\java\\playground\\playground-01\\playground-11-advanced\\files";
+    public static final String PATH = "E:\\DevData\\files";
     
     /*
      * 字节输入流

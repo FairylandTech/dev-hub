@@ -1,10 +1,10 @@
-# 高级
+# 多线程和JUC并发
 
 > @software: IntelliJ IDEA  
 > @author: [Lionel Johnson](https://fairy.host)  
 > @contact: [Blog](https://blog.fairy.host/) | [GitHub](https://github.com/FairylandTech) | [Telegram](https://t.me/FairylandFuture)  
 > @organization: [GitHub·FairylandFuture](https://github.com/FairylandFuture)  
-> @datetime: 2025-08-22 12:11:59 UTC+08:00
+> @datetime: 2025-08-23 15:47:50 UTC+08:00
 
 [![Author](https://img.shields.io/badge/Author-Lionel_Johnson-orange)](https://t.me/FairylandFuture) [![github](https://img.shields.io/badge/Github-FairylandFuture-green)](https://github.com/FairylandTech) [![GitBook](https://img.shields.io/badge/GitBook-Interesting-green)](https://interestingbooks.gitbook.io/) [![Editor](https://img.shields.io/badge/Editor-Typora-yellow)]() [![Language](https://img.shields.io/badge/Language-Markdown-orange)]() [![Version](https://img.shields.io/badge/Version-Release-blue)]() [![Docs](https://img.shields.io/badge/Docs-Passing-brightgreen)]() [![Type](https://img.shields.io/badge/Type-Documents-blue)]() [![wakatime](https://wakatime.com/badge/user/fa851759-c657-4b1e-8bcb-3ec3a693a2cd.svg)](https://wakatime.com/@fa851759-c657-4b1e-8bcb-3ec3a693a2cd) [![Sign](https://img.shields.io/badge/%E7%AD%89%E6%88%91%E4%BB%A3%E7%A0%81%E7%BC%96%E6%88%90-%E5%A8%B6%E4%BD%A0%E4%B8%BA%E5%A6%BB%E5%8F%AF%E5%A5%BD-red)](https://github.com/FairylandTech)
 
@@ -17,15 +17,4 @@ Development Environment
 
 ---
 
-- [方法引用](src/main/java/org/example/function/MethodReference.java)
-- [异常处理](src/main/java/org/example/exception/ExceptionCapture.java)
-- [File对象](src/main/java/org/example/file/Files.java)
-- [IO流](src/main/java/org/example/io/IOStream.java)
-- [FileReader](src/main/java/org/example/io/FileIOStream.java)
-- [缓存流(字节)](src/main/java/org/example/io/buffered/Buffered.java)
-- [缓存流(字符)](src/main/java/org/example/io/buffered/BufferedCharacter.java)
-
-示例
-
-1. [拷贝文件夹](src/main/java/org/example/io/CopyDir.java)
-2. [制造假姓名](src/main/java/org/example/faker/FakerName.java)
+-[多线程初步使用](src/main/java/org/example/Main.java)

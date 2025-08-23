@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class CopyDir {
     public static void main(String[] args) throws IOException {
         String dirName = IOStream.PATH;
-        String targetName = "D:\\Develops\\Github\\FairylandTech\\dev-hub\\codes\\java\\playground\\playground-01\\playground-11-advanced\\copy";
+        String targetName = "E:\\DevData\\copy";
         
         copyDir(new File(dirName), new File(targetName));
     }

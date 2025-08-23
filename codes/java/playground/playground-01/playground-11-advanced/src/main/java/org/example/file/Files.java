@@ -23,7 +23,7 @@ import java.util.stream.Stream;
  */
 public class Files {
     public static void main(String[] args) throws IOException {
-        String parentPath = "D:\\Develops\\Github\\FairylandTech\\dev-hub\\codes\\java\\playground\\playground-01\\playground-11-advanced\\files";
+        String parentPath = "E:\\DevData\\files";
         File file = new File(parentPath, "文件1.txt");
         File file1 = new File("pom.xml");
         

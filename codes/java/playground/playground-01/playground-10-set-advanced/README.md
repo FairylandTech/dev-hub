@@ -44,6 +44,7 @@ graph LR
     Map(Map双列顶层接口) --> HashMap[HashMap实现类: Hash哈希表结构 Map集合系列, 无序, 键不重复, 无索引]
     Map(Map双列顶层接口) --> Hashtable[Hashtable]
     Map(Map双列顶层接口) --> TreeMap[TreeMap实现类: Tree红黑树结构, Map集合系列, 有序, 键不重复, 无索引]
+    Hashtable[Hashtable] --> Properties[Properties]
     HashMap[HashMap实现类: Hash哈希表结构 Map集合系列, 无序, 键不重复, 无索引] --> LinkedHashMap[LinkedHashMap实现类: Linked双向链表和Hash哈希表结构, Map集合系列, 有序, 键不重复, 无索引]
 ```
 

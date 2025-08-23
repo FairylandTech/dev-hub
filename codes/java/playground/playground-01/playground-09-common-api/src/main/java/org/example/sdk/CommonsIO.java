@@ -5,7 +5,7 @@
  * @organization: https://github.com/FairylandFuture
  * @datetime: 2025-08-22 22:16:17 UTC+08:00
  ****************************************************/
-package org.example.commonsio;
+package org.example.sdk;
 
 import org.apache.commons.io.FileUtils;
 
@@ -17,8 +17,8 @@ import java.io.IOException;
  */
 public class CommonsIO {
     public static void main(String[] args) throws IOException {
-        String srcPath = "D:\\Develops\\Github\\FairylandTech\\dev-hub\\codes\\java\\playground\\playground-01\\playground-11-advanced\\files\\file1.txt";
-        String destPath = "D:\\Develops\\Github\\FairylandTech\\dev-hub\\codes\\java\\playground\\playground-01\\playground-11-advanced\\files\\file1-copy.txt";
+        String srcPath = "E:\\DevData\\files\\file1.txt";
+        String destPath = "E:\\DevData\\files\\file1-copy.txt";
         // 复制文件
         FileUtils.copyFile(new File(srcPath), new File(destPath));
     }
