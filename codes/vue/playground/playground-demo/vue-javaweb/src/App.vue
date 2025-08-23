@@ -1,28 +1,34 @@
+<!---------------------------------------------------------
+@software: WebStorm
+@author: Lionel Johnson
+@contact: https://fairy.host
+@organization: https://github.com/FairylandFuture
+@datetime: 2025-08-23 21:52:54 UTC+08:00
+---------------------------------------------------------->
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <!--    <h1>{{ message }}</h1>-->
+    <element-view></element-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import ElementView from "@/views/element/ElementView.vue";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: {ElementView},
+  data() {
+    return {
+      message: "Hello Vue"
+    }
+  },
+
+  methods: {}
 }
+
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+
 </style>
