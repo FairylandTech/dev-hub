@@ -13,6 +13,9 @@ output
 
 ### Java ###
 target
+application-dev.properties
+application-test.properties
+application-prod.properties
 
 ### NodeJS ###
 node_modules
