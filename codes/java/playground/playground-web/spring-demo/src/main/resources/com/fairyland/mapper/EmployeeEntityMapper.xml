@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+@software: IntelliJ IDEA
+@author: Lionel Johnson
+@contact: https://fairy.host
+@organization: https://github.com/FairylandFuture
+@datetime: 2025-08-24 20:46:19 UTC+08:00
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fairyland.mapper.EmployeeEntityMapper">
+    <!--@Table employee-->
+
+    <resultMap id="BaseResultMap" type="com.fairyland.entity.EmployeeEntity" autoMapping="true">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="image" column="image"/>
+        <result property="job" column="job"/>
+        <result property="entryDate" column="entrydate"/>
+        <result property="departmentId" column="department_id"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="updatedTime" column="updated_time"/>
+    </resultMap>
+
+    <sql id="selectAllFields">
+        select id,
+               username,
+               password,
+               name,
+               gender,
+               image,
+               job,
+               entrydate,
+               department_id,
+               created_time,
+               updated_time
+        from employee
+    </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        <include refid="selectAllFields"/>
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        <include refid="selectAllFields"/>
+        where id = #{id};
+    </select>
+
+    <select id="selectByConditions" resultMap="BaseResultMap">
+        <include refid="selectAllFields"/>
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%', #{name}, '%')
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="beginDate != null and endDate != null ">
+                and entrydate between #{beginDate} and #{endDate}
+            </if>
+        </where>
+        order by updated_time desc;
+    </select>
+
+    <update id="updateById">
+        update employee
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="image != null and image != ''">
+                image = #{image},
+            </if>
+            <if test="job != null">
+                job = #{job},
+            </if>
+            <if test="entryDate != null">
+                entrydate = #{entryDate},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--
+        collection: 遍历的集合
+        item: 遍历出来的元素
+        separator: 分隔符
+        open: 遍历开始拼接的SQL片段
+        close: 遍历结束拼接的SQL片段
+    -->
+    <delete id="batchDeleteByIds">
+        delete from employee where id in
+        <foreach collection="ids" item="id" separator=" or " open="(" close=")">
+            id = #{id}
+        </foreach>
+    </delete>
+</mapper>
