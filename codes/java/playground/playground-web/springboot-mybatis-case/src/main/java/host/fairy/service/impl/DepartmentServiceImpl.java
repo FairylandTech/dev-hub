@@ -20,6 +20,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
+ * 部门管理Service实现类
+ *
  * @author Lionel Johnson
  */
 @Slf4j
