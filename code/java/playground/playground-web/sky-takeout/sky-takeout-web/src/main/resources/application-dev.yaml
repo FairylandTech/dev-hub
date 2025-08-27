@@ -1,0 +1,22 @@
+debug: true
+server:
+  port: 51013
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://aliyun.ecs.chengdu1.fairy.host:51001/sky_takeout?useSSL=false&allowPublicKeyRetrieval=true?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 7JquBHx3Vm5MrKh7
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+logging:
+  level:
+    root: info
+    host.fairy.Application: debug
+    org.springframework.boot.autoconfigure.logging: info
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

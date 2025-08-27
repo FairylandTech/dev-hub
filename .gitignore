@@ -5,6 +5,7 @@
 temp/*
 !temp/*.md
 logs
+*.iml
 
 ### Python ###
 *.cookies
