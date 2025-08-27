@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+@software: IntelliJ IDEA
+@author: Lionel Johnson
+@contact: https://fairy.host
+@organization: https://github.com/FairylandFuture
+@datetime: 2025-08-26 08:09:31 UTC+08:00
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="host.fairy.mapper.EmployeeMapper">
+    <!--@Table employee-->
+    
+    <resultMap id="BaseResultMap" type="host.fairy.entity.EmployeeEntity" autoMapping="true">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
+        <result property="image" column="image" jdbcType="VARCHAR"/>
+        <result property="job" column="job" jdbcType="INTEGER"/>
+        <result property="entryDate" column="entrydate" jdbcType="DATE"/>
+        <result property="departmentId" column="department_id" jdbcType="INTEGER"/>
+        <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+        <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    
+    <sql id="QueryAllFields">
+        select id, username, password, name, gender, image, job, entrydate, department_id, created_time, updated_time
+        from employee
+    </sql>
+    
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, name, image, gender, job, entrydate, updated_time
+        from employee
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%', #{name}, '%')
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="entryDateStartTime != null and entryDateEndTime != null">
+                and entrydate between #{entryDateStartTime} and #{entryDateEndTime}
+            </if>
+        </where>
+        order by updated_time desc
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(id)
+        from employee
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%', #{name}, '%')
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="entryDateStartTime != null and entryDateEndTime != null">
+                and entrydate between #{entryDateStartTime} and #{entryDateEndTime}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectById" resultMap="BaseResultMap">
+        <include refid="QueryAllFields"/>
+        where id = #{id}
+    </select>
+    
+    <insert id="insert">
+        insert employee(username, name, gender, image, job, entrydate, department_id, created_time, updated_time)
+        values (#{username}, #{name}, #{gender}, #{image}, #{job}, #{entryDate}, #{departmentId}, #{createdTime}, #{updatedTime});
+    </insert>
+    
+    <update id="updateById">
+        update employee
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="image != null and image != ''">
+                image = #{image},
+            </if>
+            <if test="job != null">
+                job = #{job},
+            </if>
+            <if test="entryDate != null">
+                entrydate = #{entryDate},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <delete id="delete">
+        delete from employee where id = #{id}
+    </delete>
+    
+    <delete id="batchDeleteByIds">
+        delete from employee where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

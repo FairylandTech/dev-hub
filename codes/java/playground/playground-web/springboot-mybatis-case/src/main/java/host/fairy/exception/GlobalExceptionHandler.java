@@ -12,10 +12,13 @@ import host.fairy.common.record.ResponseResult;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,6 +31,7 @@ import java.util.stream.Collectors;
  * @author Lionel Johnson
  */
 @Slf4j
+@Order(Ordered.LOWEST_PRECEDENCE)
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     
@@ -39,6 +43,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseResult handleAllExceptions(Exception exception) {
+        log.error("Exception: {}", exception.toString());
         log.error("系统异常: {}", exception.getMessage(), exception);
         return ResponseResult.failure(500, "系统内部错误");
     }
@@ -114,6 +119,20 @@ public class GlobalExceptionHandler {
         }
         
         log.error("请求体缺失: {}", errorMessage, exception);
+        return ResponseResult.failure(400, errorMessage);
+    }
+    
+    /**
+     * 请求参数缺失
+     *
+     * @param exception 异常
+     * @return 响应
+     */
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseResult handleMissingServletRequestParameterException(MissingServletRequestParameterException exception) {
+        String errorMessage = String.format("缺少必要的请求参数: %s", exception.getParameterName());
+        
+        log.error("请求参数缺失: {}", errorMessage, exception);
         return ResponseResult.failure(400, errorMessage);
     }
 }

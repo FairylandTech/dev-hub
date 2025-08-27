@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+@software: IntelliJ IDEA
+@author: Lionel Johnson
+@contact: https://fairy.host
+@organization: https://github.com/FairylandFuture
+@datetime: 2025-08-26 16:30:35 UTC+08:00
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="host.fairy.mapper.FileMapper">
+    <!--@Table files-->
+
+    <resultMap id="BaseResultMap" type="host.fairy.entity.FileEntity" autoMapping="true">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="filename" column="filename" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="extension" column="extension" jdbcType="VARCHAR"/>
+        <result property="size" column="size" jdbcType="INTEGER"/>
+        <result property="path" column="path" jdbcType="VARCHAR"/>
+        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+        <result property="existed" column="existed" jdbcType="BOOLEAN"/>
+    </resultMap>
+    
+    <sql id="QueryAllFields">
+        select id, filename, type, name, extension, size, path, created_at, updated_at, existed
+        from files
+    </sql>
+    
+    <select id="selectById" resultMap="BaseResultMap">
+        <include refid="QueryAllFields"/>
+        where id = #{id}
+    </select>
+    
+    <insert id="insert">
+        insert into files (filename, type, name, extension, size, path, created_at, updated_at, existed)
+        values (#{filename}, #{type}, #{name}, #{extension}, #{size}, #{path}, #{createdAt}, #{updatedAt}, #{existed});
+    </insert>
+</mapper>
