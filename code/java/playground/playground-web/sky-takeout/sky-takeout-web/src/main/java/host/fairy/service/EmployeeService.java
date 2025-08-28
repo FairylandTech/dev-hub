@@ -24,11 +24,11 @@ public interface EmployeeService {
     
     EmployeeEntity selectById(Integer id);
     
-    Boolean add(EmployeeDTO employeeDTO);
+    Boolean add(String token, EmployeeDTO employeeDTO);
     
     Boolean verifyUsername(String username);
     
-    Boolean update(EmployeeDTO employeeDTO);
+    Boolean updateById(EmployeeDTO employeeDTO);
     
     Boolean forbidden(String token, Integer id, Boolean forbidden);
     

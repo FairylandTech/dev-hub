@@ -22,7 +22,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 员工Controller
@@ -54,15 +54,8 @@ public class EmployeeController {
         log.info("员工登录: {}", employeeLoginDTO);
         EmployeeEntity employeeEntity = employeeService.login(employeeLoginDTO);
         String token = jwtService.generateToken(employeeEntity);
-        
-        EmployeeLoginOV build = EmployeeLoginOV.builder()
-                .id(employeeEntity.getId())
-                .username(employeeEntity.getUsername())
-                .name(employeeEntity.getName())
-                .token(token)
-                .build();
-        
-        return ResponseBodyResult.success(build);
+        EmployeeLoginOV employeeLoginOV = convertToLoginVO(employeeEntity, token);
+        return ResponseBodyResult.success(employeeLoginOV);
     }
     
     /**
@@ -75,22 +68,12 @@ public class EmployeeController {
     public ResponseBodyResult<ListRocordResult<EmployeeQueryVO>> query(EmployeeQueryDTO employeeQueryDTO) {
         log.info("查询员工: {}", employeeQueryDTO);
         ListRocordResult<EmployeeEntity> result = employeeService.selectAll(employeeQueryDTO);
-        ArrayList<EmployeeQueryVO> queryVOArrayList = new ArrayList<>();
         
-        result.getRocords().forEach(
-                rocord -> queryVOArrayList.add(
-                        EmployeeQueryVO.builder()
-                                .id(rocord.getId())
-                                .name(rocord.getName())
-                                .username(rocord.getUsername())
-                                .phone(rocord.getPhone())
-                                .forbidden(rocord.getForbidden())
-                                .updatedAt(rocord.getUpdatedAt())
-                                .build()
-                )
-        );
+        List<EmployeeQueryVO> queryVOList = result.getRocords().stream()
+                .map(this::convertToQueryVO)
+                .toList();
         
-        return ResponseBodyResult.success(new ListRocordResult<>(result.getTotal(), queryVOArrayList));
+        return ResponseBodyResult.success(new ListRocordResult<>(result.getTotal(), queryVOList));
     }
     
     /**
@@ -103,17 +86,8 @@ public class EmployeeController {
     public ResponseBodyResult<EmployeeDetailOV> detail(@RequestParam Integer id) {
         log.info("查询员工详情: id={}", id);
         EmployeeEntity employeeEntity = employeeService.selectById(id);
-        EmployeeDetailOV result = EmployeeDetailOV.builder()
-                .id(employeeEntity.getId())
-                .username(employeeEntity.getUsername())
-                .name(employeeEntity.getName())
-                .gender(employeeEntity.getGender())
-                .phone(employeeEntity.getPhone())
-                .idNumber(employeeEntity.getIdNumber())
-                .createdAt(employeeEntity.getCreatedAt())
-                .updatedAt(employeeEntity.getUpdatedAt())
-                .build();
-        return ResponseBodyResult.success(result);
+        EmployeeDetailOV employeeDetailOV = convertToDetailVO(employeeEntity);
+        return ResponseBodyResult.success(employeeDetailOV);
     }
     
     /**
@@ -126,8 +100,7 @@ public class EmployeeController {
     @PostMapping
     public ResponseBodyResult<Object> add(@RequestHeader(name = "X-Csrf-Token") String token, @RequestBody EmployeeDTO employeeDTO) {
         log.info("添加员工: {}", employeeDTO);
-        employeeDTO.setOperatorId(jwtService.parseToken(token).get("id", Integer.class));
-        Boolean addResult = employeeService.add(employeeDTO);
+        Boolean addResult = employeeService.add(token, employeeDTO);
         log.info("添加员工结果: {}", addResult);
         if (!addResult) {
             return ResponseBodyResult.failure("添加失败");
@@ -160,7 +133,7 @@ public class EmployeeController {
     public ResponseBodyResult<EmployeeDetailOV> update(@RequestHeader(name = "X-Csrf-Token") String token, @RequestBody EmployeeDTO employeeDTO) {
         log.info("更新员工: {}", employeeDTO);
         employeeDTO.setOperatorId(jwtService.parseToken(token).get("id", Integer.class));
-        Boolean updateResult = employeeService.update(employeeDTO);
+        Boolean updateResult = employeeService.updateById(employeeDTO);
         log.info("更新员工结果: {}", updateResult);
         EmployeeEntity employeeEntity = employeeService.selectById(employeeDTO.getId());
         EmployeeDetailOV result = EmployeeDetailOV.builder()
@@ -208,5 +181,57 @@ public class EmployeeController {
         Boolean deleteResult = employeeService.deleteById(token, id);
         log.info("删除员工结果: {}", deleteResult);
         return ResponseBodyResult.success(deleteResult);
+    }
+    
+    /**
+     * 将 EmployeeEntity 转换为 EmployeeLoginVO
+     *
+     * @param entity 员工实体对象
+     * @param token  JWT令牌
+     * @return 员工登录视图对象
+     */
+    private EmployeeLoginOV convertToLoginVO(EmployeeEntity entity, String token) {
+        return EmployeeLoginOV.builder()
+                .id(entity.getId())
+                .username(entity.getUsername())
+                .name(entity.getName())
+                .token(token)
+                .build();
+    }
+    
+    /**
+     * 将 EmployeeEntity 转换为 EmployeeQueryVO
+     *
+     * @param entity 员工实体对象
+     * @return 员工查询视图对象
+     */
+    private EmployeeQueryVO convertToQueryVO(EmployeeEntity entity) {
+        return EmployeeQueryVO.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .username(entity.getUsername())
+                .phone(entity.getPhone())
+                .forbidden(entity.getForbidden())
+                .updatedAt(entity.getUpdatedAt())
+                .build();
+    }
+    
+    /**
+     * 将 EmployeeEntity 转换为 EmployeeDetailOV
+     *
+     * @param entity 员工实体对象
+     * @return 员工详情视图对象
+     */
+    private EmployeeDetailOV convertToDetailVO(EmployeeEntity entity) {
+        return EmployeeDetailOV.builder()
+                .id(entity.getId())
+                .username(entity.getUsername())
+                .name(entity.getName())
+                .gender(entity.getGender())
+                .phone(entity.getPhone())
+                .idNumber(entity.getIdNumber())
+                .createdAt(entity.getCreatedAt())
+                .updatedAt(entity.getUpdatedAt())
+                .build();
     }
 }

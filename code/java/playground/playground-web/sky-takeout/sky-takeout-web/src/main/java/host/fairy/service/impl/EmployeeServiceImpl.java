@@ -54,6 +54,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeEntity login(EmployeeLoginDTO employeeLoginDTO) {
         EmployeeEntity employeeEntity = employeeMapper.selectByUsername(employeeLoginDTO.getUsername());
+        // TODO: 加密传输密码, 需要解密后再加密
         String hashPassword = PasswordUtils.hashPassword(employeeLoginDTO.getPassword().toCharArray(), PasswordUtils.SALT);
         
         if (employeeEntity == null) {
@@ -108,18 +109,12 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return 是否新增成功
      */
     @Override
-    public Boolean add(EmployeeDTO employeeDTO) {
-        EmployeeEntity employeeEntity = new EmployeeEntity();
-        employeeEntity.setUsername(employeeDTO.getUsername());
+    public Boolean add(String token, EmployeeDTO employeeDTO) {
+        employeeDTO.setOperatorId(getOperatorIdFromToken(token));
+        EmployeeEntity employeeEntity = createEmployeeEntityFromDTO(employeeDTO);
         employeeEntity.setPassword(PasswordUtils.hashPassword("123456".toCharArray(), PasswordUtils.SALT));
-        employeeEntity.setName(employeeDTO.getName());
-        employeeEntity.setGender(employeeDTO.getGender());
-        employeeEntity.setPhone(employeeDTO.getPhone());
-        employeeEntity.setIdNumber(employeeDTO.getIdNumber());
-        employeeEntity.setCreatedBy(employeeDTO.getOperatorId());
-        employeeEntity.setUpdatedBy(employeeDTO.getOperatorId());
         employeeEntity.setCreatedAt(LocalDateTime.now());
-        employeeEntity.setUpdatedAt(LocalDateTime.now());
+        employeeEntity.setCreatedBy(employeeDTO.getOperatorId());
         log.info("新增员工: {}", employeeEntity);
         Integer line = employeeMapper.insert(employeeEntity);
         return line == 1;
@@ -144,16 +139,8 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return 是否更新成功
      */
     @Override
-    public Boolean update(EmployeeDTO employeeDTO) {
-        EmployeeEntity employeeEntity = new EmployeeEntity();
-        employeeEntity.setId(employeeDTO.getId());
-        employeeEntity.setUsername(employeeDTO.getUsername());
-        employeeEntity.setName(employeeDTO.getName());
-        employeeEntity.setGender(employeeDTO.getGender());
-        employeeEntity.setPhone(employeeDTO.getPhone());
-        employeeEntity.setIdNumber(employeeDTO.getIdNumber());
-        employeeEntity.setUpdatedBy(employeeDTO.getOperatorId());
-        employeeEntity.setUpdatedAt(LocalDateTime.now());
+    public Boolean updateById(EmployeeDTO employeeDTO) {
+        EmployeeEntity employeeEntity = createEmployeeEntityFromDTO(employeeDTO);
         Integer updateResult = employeeMapper.updateById(employeeEntity);
         return updateResult == 1;
     }
@@ -171,7 +158,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity = new EmployeeEntity();
         employeeEntity.setId(id);
         employeeEntity.setForbidden(forbidden);
-        employeeEntity.setUpdatedBy(jwtService.parseToken(token).get("id", Integer.class));
+        employeeEntity.setUpdatedBy(getOperatorIdFromToken(token));
         employeeEntity.setUpdatedAt(LocalDateTime.now());
         Integer updateResult = employeeMapper.updateById(employeeEntity);
         return updateResult == 1;
@@ -188,10 +175,39 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Boolean deleteById(String token, Integer id) {
         EmployeeEntity employeeEntity = new EmployeeEntity();
         employeeEntity.setId(id);
-        employeeEntity.setUpdatedBy(jwtService.parseToken(token).get("id", Integer.class));
+        employeeEntity.setUpdatedBy(getOperatorIdFromToken(token));
         employeeEntity.setUpdatedAt(LocalDateTime.now());
         employeeEntity.setDeleted(true);
         Integer updateResult = employeeMapper.updateById(employeeEntity);
         return updateResult == 1;
+    }
+    
+    /**
+     * 将 EmployeeDTO 转换为 EmployeeEntity
+     *
+     * @param employeeDTO 员工数据传输对象
+     * @return 员工实体对象
+     */
+    private EmployeeEntity createEmployeeEntityFromDTO(EmployeeDTO employeeDTO) {
+        EmployeeEntity employeeEntity = new EmployeeEntity();
+        employeeEntity.setId(employeeDTO.getId());
+        employeeEntity.setUsername(employeeDTO.getUsername());
+        employeeEntity.setName(employeeDTO.getName());
+        employeeEntity.setGender(employeeDTO.getGender());
+        employeeEntity.setPhone(employeeDTO.getPhone());
+        employeeEntity.setIdNumber(employeeDTO.getIdNumber());
+        employeeEntity.setUpdatedBy(employeeDTO.getOperatorId());
+        employeeEntity.setUpdatedAt(LocalDateTime.now());
+        return employeeEntity;
+    }
+    
+    /**
+     * 从Token中提取操作员工ID
+     *
+     * @param token JWT令牌
+     * @return 操作员工ID
+     */
+    private Integer getOperatorIdFromToken(String token) {
+        return jwtService.parseToken(token).get("id", Integer.class);
     }
 }
