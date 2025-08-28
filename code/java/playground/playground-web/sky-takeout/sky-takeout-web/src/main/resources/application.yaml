@@ -3,3 +3,8 @@ spring:
     name: sky-takeout-web
   profiles:
     active: dev
+sky:
+  jwt:
+    secret-key: 7QXqrqtaWVwOAV0ACT4sDRvmIDXvv6XQqymI/iabs/U=
+    ttl: 86400
+    token-name: token

@@ -19,14 +19,14 @@ import store from '@/store'
 import router from '@/router'
 import '@/icons/components'
 import '@/permission'
-import { checkProcessEnv } from '@/utils/common'
+import {checkProcessEnv} from '@/utils/common'
 
 Vue.use(ElementUI)
 Vue.use(VueAreaLinkage)
 Vue.use(SvgIcon, {
-  'tagName': 'svg-icon',
-  'defaultWidth': '1em',
-  'defaultHeight': '1em'
+    'tagName': 'svg-icon',
+    'defaultWidth': '1em',
+    'defaultHeight': '1em'
 })
 
 Vue.config.productionTip = false
@@ -34,11 +34,11 @@ Vue.prototype.moment = moment
 Vue.prototype.$checkProcessEnv = checkProcessEnv
 const routerPush = Router.prototype.push
 Router.prototype.push = function push(location) {
- return routerPush.call(this, location).catch(error=> error)
+    return routerPush.call(this, location).catch(error => error)
 }
 Vue.prototype.$echarts = echarts
 new Vue({
-  router,
-  store,
-  'render': (h) => h(App)
+    router,
+    store,
+    'render': (h) => h(App)
 }).$mount('#app')

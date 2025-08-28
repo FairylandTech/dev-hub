@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://aliyun.ecs.chengdu1.fairy.host:51001/sky_takeout?useSSL=false&allowPublicKeyRetrieval=true?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://aliyun.ecs.chengdu1.fairy.host:51001/sky_takeout?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
     password: 7JquBHx3Vm5MrKh7
   servlet:

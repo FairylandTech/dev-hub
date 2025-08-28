@@ -5,7 +5,7 @@
  * @organization: https://github.com/FairylandFuture
  * @datetime: 2025-08-27 21:59:39 UTC+08:00
  ****************************************************/
-package host.fairy.common;
+package host.fairy.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +13,9 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
+ * 统一响应结果封装
+ * 包含状态码、消息和数据
+ *
  * @author Lionel Johnson
  */
 @Data
@@ -33,11 +36,27 @@ public class ResponseBodyResult<T> implements Serializable {
         return new ResponseBodyResult<>(200, ResponseBodyResult.success, data);
     }
     
+    public static <T> ResponseBodyResult<T> success(String message, T data) {
+        return new ResponseBodyResult<>(200, message, data);
+    }
+    
     public static <T> ResponseBodyResult<T> failure() {
         return new ResponseBodyResult<>(500, ResponseBodyResult.failure, null);
     }
     
     public static <T> ResponseBodyResult<T> failure(String message) {
         return new ResponseBodyResult<>(500, message, null);
+    }
+    
+    public static <T> ResponseBodyResult<T> failure(Integer code, String message) {
+        return new ResponseBodyResult<>(code, message, null);
+    }
+    
+    public static <T> ResponseBodyResult<T> failure(String message, T data) {
+        return new ResponseBodyResult<>(500, message, data);
+    }
+    
+    public static <T> ResponseBodyResult<T> failure(Integer code, String message, T data) {
+        return new ResponseBodyResult<>(code, message, data);
     }
 }
