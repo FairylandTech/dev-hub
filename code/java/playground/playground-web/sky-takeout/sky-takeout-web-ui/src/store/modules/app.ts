@@ -1,77 +1,78 @@
-import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators'
-import { getSidebarStatus, setSidebarStatus } from '@/utils/cookies'
+import {VuexModule, Module, Mutation, Action, getModule} from 'vuex-module-decorators'
+import {getSidebarStatus, setSidebarStatus} from '@/utils/cookies'
 import store from '@/store'
 
 export enum DeviceType {
-  Mobile,
-  Desktop
+    Mobile,
+    Desktop
 }
 
 export interface IAppState {
-  device: DeviceType
-  sidebar: {
-    opened: boolean
-    withoutAnimation: boolean
-    
-  }
-  statusNumber:Number
+    device: DeviceType
+    sidebar: {
+        opened: boolean
+        withoutAnimation: boolean
+
+    }
+    statusNumber: Number
 }
 
-@Module({ 'dynamic': true, store, 'name': 'app' })
+@Module({'dynamic': true, store, 'name': 'app'})
 class App extends VuexModule implements IAppState {
-  public sidebar = {
-    'opened': true, //getSidebarStatus() !== 'closed',
-    'withoutAnimation': false
-  }
-  public device = DeviceType.Desktop
-  public statusNumber = 0
-  @Mutation
-  private TOGGLE_SIDEBAR(withoutAnimation: boolean) {
-    this.sidebar.opened = !this.sidebar.opened
-    this.sidebar.withoutAnimation = withoutAnimation
-    if (this.sidebar.opened) {
-      setSidebarStatus('opened')
-    } else {
-      setSidebarStatus('closed')
+    public sidebar = {
+        'opened': true, //getSidebarStatus() !== 'closed',
+        'withoutAnimation': false
     }
-  }
+    public device = DeviceType.Desktop
+    public statusNumber = 0
 
-  @Mutation
-  private CLOSE_SIDEBAR(withoutAnimation: boolean) {
-    this.sidebar.opened = false
-    this.sidebar.withoutAnimation = withoutAnimation
-    setSidebarStatus('closed')
-  }
+    @Action
+    public ToggleSideBar(withoutAnimation: boolean) {
+        this.TOGGLE_SIDEBAR(withoutAnimation)
+    }
 
-  @Mutation
-  private STATUS_NUMBER(device: DeviceType) {
-    this.statusNumber = device
-  }
+    @Action
+    public CloseSideBar(withoutAnimation: boolean) {
+        this.CLOSE_SIDEBAR(withoutAnimation)
+    }
 
-  @Mutation
-  private TOGGLE_DEVICE(device: DeviceType) {
-    this.device = device
-  }
+    @Action
+    public ToggleDevice(device: DeviceType) {
+        this.TOGGLE_DEVICE(device)
+    }
 
-  @Action
-  public ToggleSideBar(withoutAnimation: boolean) {
-    this.TOGGLE_SIDEBAR(withoutAnimation)
-  }
+    @Action
+    public StatusNumber(device: any) {
+        this.STATUS_NUMBER(device)
+    }
 
-  @Action
-  public CloseSideBar(withoutAnimation: boolean) {
-    this.CLOSE_SIDEBAR(withoutAnimation)
-  }
+    @Mutation
+    private TOGGLE_SIDEBAR(withoutAnimation: boolean) {
+        this.sidebar.opened = !this.sidebar.opened
+        this.sidebar.withoutAnimation = withoutAnimation
+        if (this.sidebar.opened) {
+            setSidebarStatus('opened')
+        } else {
+            setSidebarStatus('closed')
+        }
+    }
 
-  @Action
-  public ToggleDevice(device: DeviceType) {
-    this.TOGGLE_DEVICE(device)
-  }
+    @Mutation
+    private CLOSE_SIDEBAR(withoutAnimation: boolean) {
+        this.sidebar.opened = false
+        this.sidebar.withoutAnimation = withoutAnimation
+        setSidebarStatus('closed')
+    }
 
-  @Action
-  public StatusNumber(device: any) {
-    this.STATUS_NUMBER(device)
-  }
+    @Mutation
+    private STATUS_NUMBER(device: DeviceType) {
+        this.statusNumber = device
+    }
+
+    @Mutation
+    private TOGGLE_DEVICE(device: DeviceType) {
+        this.device = device
+    }
 }
 
 export const AppModule = getModule(App)
