@@ -52,7 +52,9 @@ public class CategoryController {
     }
     
     @PostMapping
-    private ResponseBodyResult<Object> add(@RequestBody )
+    private ResponseBodyResult<Object> add() {
+        return ResponseBodyResult.failure("功能未完成");
+    }
     
     @GetMapping("/detail")
     public ResponseBodyResult<CategoryDetailOV> detail(@RequestParam Integer id) {
