@@ -64,4 +64,12 @@ public class EmployeeDetailOV implements Serializable {
      */
     @JsonFormat(pattern = DateTimeConstant.DEFAULT_DATE_TIME_FORMAT)
     private LocalDateTime updatedAt;
+    
+    public String getGender() {
+        return switch (gender) {
+            case 0 -> "女";
+            case 1 -> "男";
+            default -> "未知";
+        };
+    }
 }

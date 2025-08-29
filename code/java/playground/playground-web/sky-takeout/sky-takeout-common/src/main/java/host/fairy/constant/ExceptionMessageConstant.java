@@ -17,4 +17,7 @@ public class ExceptionMessageConstant {
     public static final String USER_DISABLED = "用户已被禁用";
     public static final String PASSWORD_ERROR = "密码错误";
     public static final String JWT_ERROR = "身份认证异常";
+    public static final String OLD_PASSWORD_ERROR = "旧密码错误";
+    public static final String NEW_PASSWORD_CONFIRM_ERROR = "新密码与确认密码不一致";
+    public static final String USERNAME_EXISTS = "用户名已存在";
 }

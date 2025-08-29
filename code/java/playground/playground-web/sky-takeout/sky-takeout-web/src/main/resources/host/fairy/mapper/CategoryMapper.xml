@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+@software: IntelliJ IDEA
+@author: Lionel Johnson
+@contact: https://fairy.host
+@organization: https://github.com/FairylandFuture
+@datetime: 2025-08-28 12:47:12 UTC+08:00
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="host.fairy.mapper.CategoryMapper">
+    <!--@Table sky_tb_category-->
+
+    <resultMap id="BaseResultMap" type="host.fairy.entity.CategoryEntity" autoMapping="true">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="forbidden" column="forbidden" jdbcType="BOOLEAN"/>
+        <result property="createdBy" column="created_by" jdbcType="INTEGER"/>
+        <result property="updatedBy" column="updated_by" jdbcType="INTEGER"/>
+        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+        <result property="deleted" column="deleted" jdbcType="BOOLEAN"/>
+    </resultMap>
+
+    <sql id="FindAllFields">
+        select id, name, type, sort, forbidden, created_by, updated_by, created_at, updated_at, deleted
+        from sky_tb_category
+    </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        <include refid="FindAllFields"/>
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%', #{name}, '%')
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+        order by sort, created_at desc
+    </select>
+    
+    <select id="selectById" resultMap="BaseResultMap">
+        <include refid="FindAllFields"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert">
+        insert into sky_tb_category (name, type, sort, created_by, updated_by, created_at, updated_at)
+        values (#{name}, #{type}, #{sort}, #{createdBy}, #{updatedBy}, #{createdAt}, #{updatedAt});
+    </insert>
+</mapper>

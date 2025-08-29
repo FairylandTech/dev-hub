@@ -8,6 +8,7 @@
 package host.fairy.result;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.io.Serializable;
  * @author Lionel Johnson
  */
 @Data
+@Builder
 @AllArgsConstructor
 public class ResponseBodyResult<T> implements Serializable {
     private static final String success = "success";

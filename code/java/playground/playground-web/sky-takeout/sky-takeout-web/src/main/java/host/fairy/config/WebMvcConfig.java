@@ -9,6 +9,7 @@ package host.fairy.config;
 
 import host.fairy.interceptor.JwtTokenInterceptor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -32,7 +33,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      * @param registry 拦截器注册表
      */
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(@NonNull InterceptorRegistry registry) {
         registry.addInterceptor(jwtTokenInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/employee/login");

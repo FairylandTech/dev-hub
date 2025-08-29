@@ -8,6 +8,7 @@
 package host.fairy.interceptor;
 
 import host.fairy.constant.JwtClaimsConstant;
+import host.fairy.context.BaseContext;
 import host.fairy.properties.JwtProperties;
 import host.fairy.service.JwtService;
 import io.jsonwebtoken.Claims;
@@ -17,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import java.util.HashMap;
 
 /**
  * JWT Token拦截器
@@ -65,6 +68,11 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
             String employeeUsername = claims.get(JwtClaimsConstant.EMPLOYEE_USERNAME, String.class);
             log.info("当前员工id: {}", employeeId);
             log.info("当前员工用户名: {}", employeeUsername);
+            // 将解析JWT的员工信息存入线程上下文
+            BaseContext.set(new HashMap<>() {{
+                put(JwtClaimsConstant.EMPLOYEE_ID, String.valueOf(employeeId));
+                put(JwtClaimsConstant.EMPLOYEE_USERNAME, employeeUsername);
+            }});
             return true;
         } catch (Exception exception) {
             log.error("jwt校验失败: {}", exception.getMessage());

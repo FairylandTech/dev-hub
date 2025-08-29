@@ -8,8 +8,10 @@
 package host.fairy.mapper;
 
 import com.github.pagehelper.Page;
+import host.fairy.annotation.AutoFillCommonFields;
 import host.fairy.dto.employee.EmployeeQueryDTO;
 import host.fairy.entity.EmployeeEntity;
+import host.fairy.enumerate.DatabaseOperationEnum;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -19,14 +21,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface EmployeeMapper {
-    /**
-     * 根据用户名查询员工
-     *
-     * @param username 用户名
-     * @return 员工实体
-     */
-    EmployeeEntity selectByUsername(String username);
-    
     /**
      * 查询所有员工
      *
@@ -49,6 +43,7 @@ public interface EmployeeMapper {
      * @param employeeEntity 员工实体
      * @return 影响行数
      */
+    @AutoFillCommonFields(type = DatabaseOperationEnum.INSERT)
     Integer insert(EmployeeEntity employeeEntity);
     
     /**
@@ -57,5 +52,14 @@ public interface EmployeeMapper {
      * @param employeeEntity 员工实体
      * @return 影响行数
      */
+    @AutoFillCommonFields(type = DatabaseOperationEnum.UPDATE)
     Integer updateById(EmployeeEntity employeeEntity);
+    
+    /**
+     * 根据用户名查询员工
+     *
+     * @param username 用户名
+     * @return 员工实体
+     */
+    EmployeeEntity selectByUsername(String username);
 }

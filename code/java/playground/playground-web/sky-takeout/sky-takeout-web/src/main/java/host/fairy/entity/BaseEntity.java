@@ -3,49 +3,49 @@
  * @author: Lionel Johnson
  * @contact: https://fairy.host
  * @organization: https://github.com/FairylandFuture
- * @datetime: 2025-08-28 13:04:19 UTC+08:00
+ * @datetime: 2025-08-29 15:18:47 UTC+08:00
  ****************************************************/
-package host.fairy.dto.employee;
+package host.fairy.entity;
 
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
- * 员工DTO
- * 新增/修改员工信息
+ * 公共实体类(公共字段)
  *
  * @author Lionel Johnson
  */
 @Data
-public class EmployeeDTO implements Serializable {
+public abstract class BaseEntity implements Serializable {
     /**
-     * ID
+     * 主键ID
      */
     private Integer id;
     
     /**
-     * 用户名
+     * 创建人ID
      */
-    private String username;
+    private Integer createdBy;
     
     /**
-     * 姓名
+     * 更新人ID
      */
-    private String name;
+    private Integer updatedBy;
     
     /**
-     * 手机号
+     * 创建时间
      */
-    private String phone;
+    private LocalDateTime createdAt;
     
     /**
-     * 性别 0 女 1 男
+     * 更新时间
      */
-    private Integer gender;
+    private LocalDateTime updatedAt;
     
     /**
-     * 身份证号
+     * 是否删除
      */
-    private String idNumber;
+    private Boolean deleted;
 }
