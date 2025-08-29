@@ -10,6 +10,7 @@ package host.fairy.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import host.fairy.constant.ExceptionMessageConstant;
+import host.fairy.constant.JwtClaimsConstant;
 import host.fairy.dto.employee.EmployeeDTO;
 import host.fairy.dto.employee.EmployeeLoginDTO;
 import host.fairy.dto.employee.EmployeeQueryDTO;
@@ -23,6 +24,7 @@ import host.fairy.service.EmployeeService;
 import host.fairy.service.JwtService;
 import host.fairy.utils.PasswordUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -103,24 +105,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     
     /**
-     * 新增员工
-     *
-     * @param employeeDTO 员工信息
-     * @return 是否新增成功
-     */
-    @Override
-    public Boolean add(String token, EmployeeDTO employeeDTO) {
-        employeeDTO.setOperatorId(getOperatorIdFromToken(token));
-        EmployeeEntity employeeEntity = createEmployeeEntityFromDTO(employeeDTO);
-        employeeEntity.setPassword(PasswordUtils.hashPassword("123456".toCharArray(), PasswordUtils.SALT));
-        employeeEntity.setCreatedAt(LocalDateTime.now());
-        employeeEntity.setCreatedBy(employeeDTO.getOperatorId());
-        log.info("新增员工: {}", employeeEntity);
-        Integer line = employeeMapper.insert(employeeEntity);
-        return line == 1;
-    }
-    
-    /**
      * 校验用户名是否可用
      *
      * @param username 用户名
@@ -133,13 +117,34 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     
     /**
+     * 新增员工
+     *
+     * @param employeeDTO 员工信息
+     * @return 是否新增成功
+     */
+    @Override
+    public Boolean add(String token, EmployeeDTO employeeDTO) {
+        employeeDTO.setOperatorId(getOperatorIdFromToken(token));
+        EmployeeEntity employeeEntity = createEmployeeEntityFromDTO(employeeDTO);
+        employeeEntity.setPassword(PasswordUtils.hashPassword("123456".toCharArray(), PasswordUtils.SALT));
+        employeeEntity.setCreatedBy(employeeDTO.getOperatorId());
+        employeeEntity.setUpdatedBy(employeeDTO.getOperatorId());
+        employeeEntity.setCreatedAt(LocalDateTime.now());
+        log.info("新增员工: {}", employeeEntity);
+        Integer line = employeeMapper.insert(employeeEntity);
+        return line == 1;
+    }
+    
+    /**
      * 更新员工信息
      *
+     * @param token       操作员工Token
      * @param employeeDTO 员工信息
      * @return 是否更新成功
      */
     @Override
-    public Boolean updateById(EmployeeDTO employeeDTO) {
+    public Boolean updateById(String token, EmployeeDTO employeeDTO) {
+        employeeDTO.setOperatorId(getOperatorIdFromToken(token));
         EmployeeEntity employeeEntity = createEmployeeEntityFromDTO(employeeDTO);
         Integer updateResult = employeeMapper.updateById(employeeEntity);
         return updateResult == 1;
@@ -190,14 +195,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     private EmployeeEntity createEmployeeEntityFromDTO(EmployeeDTO employeeDTO) {
         EmployeeEntity employeeEntity = new EmployeeEntity();
-        employeeEntity.setId(employeeDTO.getId());
-        employeeEntity.setUsername(employeeDTO.getUsername());
-        employeeEntity.setName(employeeDTO.getName());
-        employeeEntity.setGender(employeeDTO.getGender());
-        employeeEntity.setPhone(employeeDTO.getPhone());
-        employeeEntity.setIdNumber(employeeDTO.getIdNumber());
-        employeeEntity.setUpdatedBy(employeeDTO.getOperatorId());
-        employeeEntity.setUpdatedAt(LocalDateTime.now());
+        BeanUtils.copyProperties(employeeDTO, employeeEntity);
         return employeeEntity;
     }
     
@@ -208,6 +206,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return 操作员工ID
      */
     private Integer getOperatorIdFromToken(String token) {
-        return jwtService.parseToken(token).get("id", Integer.class);
+        return jwtService.parseToken(token).get(JwtClaimsConstant.EMPLOYEE_ID, Integer.class);
     }
 }

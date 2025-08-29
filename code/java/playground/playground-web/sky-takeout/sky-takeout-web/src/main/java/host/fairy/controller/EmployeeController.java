@@ -59,6 +59,16 @@ public class EmployeeController {
     }
     
     /**
+     * 员工登出
+     *
+     * @return 统一响应结果
+     */
+    @PostMapping("/logout")
+    public ResponseBodyResult<Object> logout() {
+        return ResponseBodyResult.success();
+    }
+    
+    /**
      * 查询员工
      *
      * @param employeeQueryDTO 查询条件
@@ -91,24 +101,6 @@ public class EmployeeController {
     }
     
     /**
-     * 添加员工
-     *
-     * @param token       操作员工Token
-     * @param employeeDTO 员工信息
-     * @return 统一响应结果
-     */
-    @PostMapping
-    public ResponseBodyResult<Object> add(@RequestHeader(name = "X-Csrf-Token") String token, @RequestBody EmployeeDTO employeeDTO) {
-        log.info("添加员工: {}", employeeDTO);
-        Boolean addResult = employeeService.add(token, employeeDTO);
-        log.info("添加员工结果: {}", addResult);
-        if (!addResult) {
-            return ResponseBodyResult.failure("添加失败");
-        }
-        return ResponseBodyResult.success();
-    }
-    
-    /**
      * 验证用户名重复
      *
      * @param username 用户名
@@ -123,6 +115,24 @@ public class EmployeeController {
     }
     
     /**
+     * 添加员工
+     *
+     * @param token       操作员工Token
+     * @param employeeDTO 员工信息
+     * @return 统一响应结果
+     */
+    @PostMapping
+    public ResponseBodyResult<Object> add(@RequestHeader(name = "token") String token, @RequestBody EmployeeDTO employeeDTO) {
+        log.info("添加员工: {}", employeeDTO);
+        Boolean addResult = employeeService.add(token, employeeDTO);
+        log.info("添加员工结果: {}", addResult);
+        if (!addResult) {
+            return ResponseBodyResult.failure("添加失败");
+        }
+        return ResponseBodyResult.success();
+    }
+    
+    /**
      * 更新员工
      *
      * @param token       操作员工Token
@@ -130,10 +140,9 @@ public class EmployeeController {
      * @return 统一响应结果
      */
     @PutMapping
-    public ResponseBodyResult<EmployeeDetailOV> update(@RequestHeader(name = "X-Csrf-Token") String token, @RequestBody EmployeeDTO employeeDTO) {
+    public ResponseBodyResult<EmployeeDetailOV> update(@RequestHeader(name = "token") String token, @RequestBody EmployeeDTO employeeDTO) {
         log.info("更新员工: {}", employeeDTO);
-        employeeDTO.setOperatorId(jwtService.parseToken(token).get("id", Integer.class));
-        Boolean updateResult = employeeService.updateById(employeeDTO);
+        Boolean updateResult = employeeService.updateById(token, employeeDTO);
         log.info("更新员工结果: {}", updateResult);
         EmployeeEntity employeeEntity = employeeService.selectById(employeeDTO.getId());
         EmployeeDetailOV result = EmployeeDetailOV.builder()
@@ -161,7 +170,7 @@ public class EmployeeController {
      * @return 统一响应结果
      */
     @GetMapping("/state")
-    public ResponseBodyResult<Boolean> forbidden(@RequestHeader(name = "X-Csrf-Token") String token, @RequestParam Integer id, @RequestParam Boolean status) {
+    public ResponseBodyResult<Boolean> forbidden(@RequestHeader(name = "token") String token, @RequestParam Integer id, @RequestParam Boolean status) {
         log.info("修改员工状态: id={}, 禁用状态: {}", id, status);
         Boolean forbiddenResult = employeeService.forbidden(token, id, status);
         log.info("禁用员工结果: {}", forbiddenResult);
@@ -176,7 +185,7 @@ public class EmployeeController {
      * @return 统一响应结果
      */
     @DeleteMapping
-    public ResponseBodyResult<Boolean> delete(@RequestHeader(name = "X-Csrf-Token") String token, @RequestParam Integer id) {
+    public ResponseBodyResult<Boolean> delete(@RequestHeader(name = "token") String token, @RequestParam Integer id) {
         log.info("删除员工: id={}", id);
         Boolean deleteResult = employeeService.deleteById(token, id);
         log.info("删除员工结果: {}", deleteResult);

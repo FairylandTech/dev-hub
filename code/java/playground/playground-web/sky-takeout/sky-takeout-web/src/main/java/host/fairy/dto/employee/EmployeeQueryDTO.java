@@ -21,11 +21,23 @@ import java.io.Serializable;
  */
 @Data
 public class EmployeeQueryDTO implements Serializable {
+    /**
+     * 姓名，模糊查询
+     */
     private String name;
     
+    /**
+     * 页码，默认1
+     */
     private Integer page = 1;
     
+    /**
+     * 每页条数，默认10
+     */
     private Integer size = 10;
     
-    private Boolean deleted = false;
+    /**
+     * 是否删除
+     */
+    private Boolean deleted = null;
 }

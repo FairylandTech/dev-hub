@@ -78,15 +78,15 @@ public class PasswordUtils {
     
     public static void main(String[] args) {
         String password = "123456";
-        // 注册时：生成盐值并计算哈希，然后将它们存入数据库
+        // 注册时: 生成盐值并计算哈希，然后将它们存入数据库
         String salt = generateSalt();
         System.out.println("salt = " + salt);
         String hash = hashPassword(password.toCharArray(), SALT);
         System.out.println("Salt(Base64): " + SALT);
         System.out.println("Hash(Base64): " + hash);
         
-        // 登录时：从数据库取出 salt 和 hash，再对用户输入的密码做同样运算并校验
+        // 登录时: 从数据库取出 salt 和 hash，再对用户输入的密码做同样运算并校验
         boolean match = verifyPassword("123456".toCharArray(), hash, SALT);
-        System.out.println("密码校验：" + (match ? "通过" : "失败"));
+        System.out.println("密码校验: " + (match ? "通过" : "失败"));
     }
 }

@@ -27,19 +27,7 @@
     </resultMap>
 
     <sql id="FindAllFields">
-        select id,
-               username,
-               password,
-               name,
-               gender,
-               phone,
-               id_number,
-               forbidden,
-               created_by,
-               updated_by,
-               created_at,
-               updated_at,
-               deleted
+        select id, username, password, name, gender, phone, id_number, forbidden, created_by, updated_by, created_at, updated_at, deleted
         from sky_tb_employee
     </sql>
 

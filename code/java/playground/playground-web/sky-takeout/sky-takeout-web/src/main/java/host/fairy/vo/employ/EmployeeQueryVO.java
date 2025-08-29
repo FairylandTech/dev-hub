@@ -22,16 +22,34 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class EmployeeQueryVO {
+    /**
+     * 员工ID
+     */
     private Integer id;
     
+    /**
+     * 员工姓名
+     */
     private String name;
     
+    /**
+     * 员工用户名
+     */
     private String username;
     
+    /**
+     * 员工手机号
+     */
     private String phone;
     
+    /**
+     * 禁用状态
+     */
     private Boolean forbidden;
     
+    /**
+     * 创建时间, 序列化日期时间格式字符串
+     */
     @JsonFormat(pattern = DateTimeConstant.DEFAULT_DATE_TIME_FORMAT)
     private LocalDateTime updatedAt;
 }
