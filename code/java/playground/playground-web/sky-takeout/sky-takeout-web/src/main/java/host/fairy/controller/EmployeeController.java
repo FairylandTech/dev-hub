@@ -154,7 +154,7 @@ public class EmployeeController {
         EmployeeEntity employeeEntity = employeeService.queryById(employeeDTO.getId());
         EmployeeDetailOV result = convertToDetailVO(employeeEntity);
         if (!updateResult) {
-            return ResponseBodyResult.failure("更新失败", result);
+            return ResponseBodyResult.failure("更新失败");
         }
         return ResponseBodyResult.success("更新成功", result);
     }

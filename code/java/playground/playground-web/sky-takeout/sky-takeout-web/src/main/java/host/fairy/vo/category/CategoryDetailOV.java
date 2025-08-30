@@ -35,6 +35,8 @@ public class CategoryDetailOV {
     private LocalDateTime updateAt;
     
     public String getType() {
+        if (type == null) return null;
+        
         return switch (type) {
             case 1 -> "菜品分类";
             case 2 -> "套餐分类";

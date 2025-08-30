@@ -7,6 +7,7 @@
  ****************************************************/
 package host.fairy.controller;
 
+import host.fairy.dto.category.CategoryDTO;
 import host.fairy.dto.category.CategoryQueryDTO;
 import host.fairy.entity.CategoryEntity;
 import host.fairy.result.ListRocord;
@@ -14,14 +15,16 @@ import host.fairy.result.ResponseBodyResult;
 import host.fairy.service.CategoryService;
 import host.fairy.vo.category.CategoryDetailOV;
 import host.fairy.vo.category.CategoryQueryOV;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
+ * 分类管理 Controller
+ *
  * @author Lionel Johnson
  */
 @Slf4j
@@ -40,10 +43,6 @@ public class CategoryController {
     public ResponseBodyResult<ListRocord<CategoryQueryOV>> list(CategoryQueryDTO categoryQueryDTO) {
         ListRocord<CategoryEntity> queryList = categoryService.queryList(categoryQueryDTO);
         
-        if (queryList == null) {
-            return ResponseBodyResult.success(null);
-        }
-        
         List<CategoryQueryOV> queryOVList = queryList.getRocords().stream()
                 .map(this::convertTOQueryVO)
                 .toList();
@@ -52,8 +51,11 @@ public class CategoryController {
     }
     
     @PostMapping
-    private ResponseBodyResult<Object> add() {
-        return ResponseBodyResult.failure("功能未完成");
+    private ResponseBodyResult<Object> add(@Valid @RequestBody CategoryDTO categoryDTO) {
+        log.info("新增分类, categoryDTO: {}", categoryDTO);
+        Boolean addResult = categoryService.add(categoryDTO);
+        if (!addResult) return ResponseBodyResult.failure("新增分类失败");
+        return ResponseBodyResult.success();
     }
     
     @GetMapping("/detail")
@@ -61,6 +63,9 @@ public class CategoryController {
         log.info("查询分类详情, id: {}", id);
         CategoryEntity categoryEntity = categoryService.queryByid(id);
         CategoryDetailOV categoryDetailOV = convertToDetailVO(categoryEntity);
+        
+        if (categoryDetailOV == null) return ResponseBodyResult.success(CategoryDetailOV.builder().build());
+        
         return ResponseBodyResult.success(categoryDetailOV);
     }
     

@@ -20,4 +20,6 @@ public interface CategoryMapper {
     Page<CategoryEntity> selectAll(CategoryQueryDTO categoryQueryDTO);
     
     CategoryEntity selectById(Integer id);
+    
+    Integer insert(CategoryEntity entity);
 }

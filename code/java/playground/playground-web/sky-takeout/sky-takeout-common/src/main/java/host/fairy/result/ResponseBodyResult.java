@@ -8,7 +8,6 @@
 package host.fairy.result;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,7 +19,6 @@ import java.io.Serializable;
  * @author Lionel Johnson
  */
 @Data
-@Builder
 @AllArgsConstructor
 public class ResponseBodyResult<T> implements Serializable {
     private static final String success = "success";
@@ -42,20 +40,20 @@ public class ResponseBodyResult<T> implements Serializable {
         return new ResponseBodyResult<>(200, message, data);
     }
     
+    public static <T> ResponseBodyResult<T> success(Integer code, String message, T data) {
+        return new ResponseBodyResult<>(code, message, data);
+    }
+    
     public static <T> ResponseBodyResult<T> failure() {
-        return new ResponseBodyResult<>(500, ResponseBodyResult.failure, null);
+        return new ResponseBodyResult<>(400, ResponseBodyResult.failure, null);
     }
     
     public static <T> ResponseBodyResult<T> failure(String message) {
-        return new ResponseBodyResult<>(500, message, null);
+        return new ResponseBodyResult<>(400, message, null);
     }
     
     public static <T> ResponseBodyResult<T> failure(Integer code, String message) {
         return new ResponseBodyResult<>(code, message, null);
-    }
-    
-    public static <T> ResponseBodyResult<T> failure(String message, T data) {
-        return new ResponseBodyResult<>(500, message, data);
     }
     
     public static <T> ResponseBodyResult<T> failure(Integer code, String message, T data) {

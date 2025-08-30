@@ -18,12 +18,23 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class CategoryEntity extends BaseEntity {
-    
+    /**
+     * 分类名称
+     */
     private String name;
     
+    /**
+     * 分类类型 1 菜品分类 2 套餐分类
+     */
     private Integer type;
     
+    /**
+     * 顺序
+     */
     private Integer sort;
     
+    /**
+     * 是否禁用
+     */
     private Boolean forbidden;
 }
