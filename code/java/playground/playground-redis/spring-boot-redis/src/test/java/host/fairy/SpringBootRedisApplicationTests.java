@@ -1,15 +1,18 @@
 package host.fairy;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 
 @SpringBootTest
 class SpringBootRedisApplicationTests {
     
-    private final RedisTemplate<String, String> redisTemplate;
     
-    SpringBootRedisApplicationTests(RedisTemplate<String, String> redisTemplate) {
+    private final RedisTemplate<String, Object> redisTemplate;
+    
+    @Autowired
+    SpringBootRedisApplicationTests(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
     
@@ -17,8 +20,7 @@ class SpringBootRedisApplicationTests {
     void contextLoads() {
         redisTemplate.opsForValue().set("key1", "value1");
         
-        String value = redisTemplate.opsForValue().get("key1");
+        Object value = redisTemplate.opsForValue().get("key1");
         System.out.println("key1: " + value);
     }
-    
 }
