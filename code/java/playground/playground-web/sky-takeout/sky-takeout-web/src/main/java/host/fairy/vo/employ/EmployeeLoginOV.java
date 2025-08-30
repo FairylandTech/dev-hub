@@ -18,12 +18,23 @@ import lombok.Data;
 @Data
 @Builder
 public class EmployeeLoginOV {
-    
+    /**
+     * 员工ID
+     */
     private Integer id;
     
+    /**
+     * 员工用户名
+     */
     private String username;
     
+    /**
+     * 员工姓名
+     */
     private String name;
     
+    /**
+     * token
+     */
     private String token;
 }

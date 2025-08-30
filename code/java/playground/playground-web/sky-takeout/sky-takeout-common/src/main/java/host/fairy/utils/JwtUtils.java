@@ -25,6 +25,14 @@ import java.util.Map;
  */
 public class JwtUtils {
     
+    /**
+     * 生成 JWT Token
+     *
+     * @param sercret   密钥
+     * @param ttlSecond 有效期（秒）
+     * @param claims    自定义claims
+     * @return JWT Token
+     */
     public static String generateToken(String sercret, Long ttlSecond, Map<String, Object> claims) {
         
         long expiration = LocalDateTime.now().plusSeconds(ttlSecond).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
@@ -37,6 +45,13 @@ public class JwtUtils {
         return jwtBuilder.compact();
     }
     
+    /**
+     * 解析 JWT Token
+     *
+     * @param token  JWT Token
+     * @param secret 密钥
+     * @return Claims
+     */
     public static Claims parseToken(String token, String secret) {
         return Jwts.parser()
                 .verifyWith(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)))

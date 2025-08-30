@@ -21,9 +21,18 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "sky.jwt")
 public class JwtProperties {
     
+    /**
+     * 管理端员工生成JWT令牌相关配置
+     */
     private String secretKey;
     
+    /**
+     * 过期时间，单位: 秒 (默认1天)
+     */
     private long ttl;
     
+    /**
+     * 令牌名称
+     */
     private String tokenName;
 }

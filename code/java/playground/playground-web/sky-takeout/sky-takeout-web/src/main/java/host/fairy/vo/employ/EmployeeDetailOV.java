@@ -23,22 +23,53 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class EmployeeDetailOV implements Serializable {
-    
+    /**
+     * 员工ID
+     */
     private Integer id;
     
+    /**
+     * 员工用户名
+     */
     private String username;
     
+    /**
+     * 员工姓名
+     */
     private String name;
     
+    /**
+     * 员工性别
+     */
     private Integer gender;
     
+    /**
+     * 员工手机号
+     */
     private String phone;
     
+    /**
+     * 员工身份证号
+     */
     private String idNumber;
     
+    /**
+     * 创建时间, 序列化日期时间格式字符串
+     */
     @JsonFormat(pattern = DateTimeConstant.DEFAULT_DATE_TIME_FORMAT)
     private LocalDateTime createdAt;
     
+    /**
+     * 更新时间, 序列化日期时间格式字符串
+     */
     @JsonFormat(pattern = DateTimeConstant.DEFAULT_DATE_TIME_FORMAT)
     private LocalDateTime updatedAt;
+    
+    public String getGender() {
+        return switch (gender) {
+            case 0 -> "女";
+            case 1 -> "男";
+            default -> "未知";
+        };
+    }
 }

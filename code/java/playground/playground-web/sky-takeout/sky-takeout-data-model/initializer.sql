@@ -20,8 +20,8 @@ create table sky_tb_employee
     forbidden  boolean          not null default false comment '禁用状态',
     created_by integer unsigned not null comment '创建人',
     updated_by integer unsigned not null comment '修改人',
-    created_at datetime         not null comment '创建时间',
-    updated_at datetime         not null comment '修改时间',
+    created_at datetime         not null default current_timestamp comment '创建时间',
+    updated_at datetime         not null default current_timestamp on update current_timestamp comment '修改时间',
     deleted    boolean          not null default false comment '数据状态'
 ) comment '员工表';
 
@@ -29,3 +29,17 @@ drop table sky_tb_employee;
 
 insert into sky_tb_employee (username, password, name, gender, phone, id_number, forbidden, created_by, updated_by, created_at, updated_at, deleted)
 values ('admin', 'e10adc3949ba59abbe56e057f20f883e', '管理员', 1, '13800138000', '110101199003074512', false, 0, 0, now(), now(), false);
+
+create table sky_tb_category
+(
+    id         integer unsigned primary key auto_increment,
+    name       varchar(32)      not null unique comment '分类名称',
+    type       tinyint(1)       not null comment '分类类型 1 菜品分类 2 套餐分类',
+    sort       integer          not null comment '排序',
+    forbidden  boolean          not null default false comment '禁用状态',
+    created_by integer unsigned not null comment '创建人',
+    updated_by integer unsigned not null comment '修改人',
+    created_at datetime         not null default current_timestamp comment '创建时间',
+    updated_at datetime         not null default current_timestamp on update current_timestamp comment '修改时间',
+    deleted    boolean          not null default false comment '数据状态'
+) comment '分类表';

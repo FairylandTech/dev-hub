@@ -8,8 +8,9 @@
 package host.fairy.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -18,31 +19,41 @@ import java.time.LocalDateTime;
  * @author Lionel Johnson
  */
 @Data
-public class EmployeeEntity implements Serializable {
-    
-    private Integer id;
-    
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class EmployeeEntity extends BaseEntity {
+    /**
+     * 用户名
+     */
     private String username;
     
+    /**
+     * 密码
+     */
     private String password;
     
+    /**
+     * 姓名
+     */
     private String name;
     
+    /**
+     * 性别 0 女 1 男
+     */
     private Integer gender;
     
+    /**
+     * 手机号
+     */
     private String phone;
     
+    /**
+     * 身份证号
+     */
     private String idNumber;
     
+    /**
+     * 是否禁用
+     */
     private Boolean forbidden;
-    
-    private Integer createdBy;
-    
-    private Integer updatedBy;
-    
-    private LocalDateTime createdAt;
-    
-    private LocalDateTime updatedAt;
-    
-    private Boolean deleted;
 }

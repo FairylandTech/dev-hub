@@ -10,27 +10,31 @@ package host.fairy.service;
 import host.fairy.dto.employee.EmployeeDTO;
 import host.fairy.dto.employee.EmployeeLoginDTO;
 import host.fairy.dto.employee.EmployeeQueryDTO;
+import host.fairy.dto.employee.EmployeeSetPasswordDTO;
 import host.fairy.entity.EmployeeEntity;
-import host.fairy.result.ListRocordResult;
+import host.fairy.result.ListRocord;
+import lombok.NonNull;
 
 /**
  * @author Lionel Johnson
  */
 public interface EmployeeService {
     
-    EmployeeEntity login(EmployeeLoginDTO employeeLoginDTO);
+    EmployeeEntity login(@NonNull EmployeeLoginDTO employeeLoginDTO);
     
-    ListRocordResult<EmployeeEntity> selectAll(EmployeeQueryDTO employeeQueryDTO);
+    ListRocord<EmployeeEntity> queryList(@NonNull EmployeeQueryDTO employeeQueryDTO);
     
-    EmployeeEntity selectById(Integer id);
+    EmployeeEntity queryById(@NonNull Integer id);
     
-    Boolean add(String token, EmployeeDTO employeeDTO);
+    Boolean verifyUsernameByUsername(@NonNull String username);
     
-    Boolean verifyUsername(String username);
+    Boolean add(@NonNull EmployeeDTO employeeDTO);
     
-    Boolean updateById(EmployeeDTO employeeDTO);
+    Boolean updateById(@NonNull EmployeeDTO employeeDTO);
     
-    Boolean forbidden(String token, Integer id, Boolean forbidden);
+    Boolean deleteById(@NonNull Integer id);
     
-    Boolean deleteById(String token, Integer id);
+    Boolean setForbiddenById(@NonNull Integer id, Boolean forbidden);
+    
+    Boolean setPasswordById(@NonNull EmployeeSetPasswordDTO employeeSetPasswordDTO);
 }

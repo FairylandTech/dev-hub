@@ -7,6 +7,8 @@
  ****************************************************/
 package host.fairy.dto.employee;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -21,11 +23,27 @@ import java.io.Serializable;
  */
 @Data
 public class EmployeeQueryDTO implements Serializable {
+    /**
+     * 姓名，模糊查询
+     */
     private String name;
     
+    /**
+     * 页码，默认1
+     */
+    @Min(value = 1, message = "页码最小为1")
+    @Positive(message = "页码必须为正数")
     private Integer page = 1;
     
+    /**
+     * 每页条数，默认10
+     */
+    @Min(value = 1, message = "每页条数最小为1")
+    @Positive(message = "每页条数必须为正数")
     private Integer size = 10;
     
-    private Boolean deleted = false;
+    /**
+     * 是否删除
+     */
+    private Boolean deleted = null;
 }

@@ -8,6 +8,7 @@
 package host.fairy.result;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,8 +21,9 @@ import java.util.List;
  * @author Lionel Johnson
  */
 @Data
+@Builder
 @AllArgsConstructor
-public class ListRocordResult<T> implements Serializable {
+public class ListRocord<T> implements Serializable {
     
     private Long total;
     private List<T> rocords;
