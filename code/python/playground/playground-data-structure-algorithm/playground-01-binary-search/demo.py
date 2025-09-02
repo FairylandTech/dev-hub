@@ -12,7 +12,7 @@ import typing as t
 
 def binary_search_basic(array: t.List[int], target: int) -> int:
     """
-    基础版二分查找
+    二分查找基础版
 
     :param array: 有序数组
     :type array: list
@@ -23,7 +23,7 @@ def binary_search_basic(array: t.List[int], target: int) -> int:
     """
     left, right = 1, len(array) - 1
     while left <= right:
-        mid = left + (right - left) // 2
+        mid = (left + right) // 2
 
         if target > array[mid]:
             left = mid + 1
@@ -35,8 +35,33 @@ def binary_search_basic(array: t.List[int], target: int) -> int:
     return -1
 
 
+def binary_search(array: t.List[int], target: int) -> int:
+    """
+    二分查找
+    :param array: 有序数组
+    :type array: list
+    :param target: 目标值
+    :type target: int
+    :return: 目标值索引, -1表示未找到
+    :rtype: int
+    """
+    left, right = 0, len(array)
+
+    while left < right:
+        mid = left + (right - left) // 2
+
+        if target < array[mid]:
+            right = mid
+        elif target > array[mid]:
+            left = mid + 1
+        else:
+            return mid
+
+    return -1
+
+
 if __name__ == '__main__':
     arrays = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     target = 7
-    index = binary_search_basic(arrays, target)
+    index = binary_search(arrays, target)
     print(f"目标值: {target} 的索引为: {index}")
