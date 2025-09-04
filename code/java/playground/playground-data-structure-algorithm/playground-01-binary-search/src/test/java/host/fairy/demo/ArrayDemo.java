@@ -5,14 +5,14 @@
  * @organization: https://github.com/FairylandFuture
  * @datetime: 2025-08-31 18:31:05 UTC+08:00
  ****************************************************/
-package host.fairy.datastructure.array.demo;
+package host.fairy.demo;
 
 import host.fairy.datastructure.array.DynamicIntegerArray;
 
 /**
  * @author Lionel Johnson
  */
-public class Demo {
+public class ArrayDemo {
     public static void main(String[] args) {
         DynamicIntegerArray integers = new DynamicIntegerArray();
         
