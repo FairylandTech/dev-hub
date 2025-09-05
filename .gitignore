@@ -6,7 +6,6 @@ temp/*
 !temp/*.md
 logs
 *.iml
-DirectoryV3.xml
 
 ### Python ###
 *.cookies
