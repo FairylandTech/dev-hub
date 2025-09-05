@@ -5,9 +5,7 @@
  * @organization: https://github.com/FairylandFuture
  * @datetime: 2025-08-31 18:31:05 UTC+08:00
  ****************************************************/
-package host.fairy.demo;
-
-import host.fairy.datastructure.array.DynamicIntegerArray;
+package host.fairy.array;
 
 /**
  * @author Lionel Johnson

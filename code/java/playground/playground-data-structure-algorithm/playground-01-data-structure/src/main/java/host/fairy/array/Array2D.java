@@ -5,7 +5,7 @@
  * @organization: https://github.com/FairylandFuture
  * @datetime: 2025-09-01 12:11:44 UTC+08:00
  ****************************************************/
-package host.fairy.datastructure.array;
+package host.fairy.array;
 
 /**
  * @author Lionel Johnson

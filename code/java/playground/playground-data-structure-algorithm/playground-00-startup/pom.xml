@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>playground-01-binary-search</artifactId>
+    <artifactId>playground-00-startup</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

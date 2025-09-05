@@ -5,8 +5,9 @@
  * @organization: https://github.com/FairylandFuture
  * @datetime: 2025-09-01 13:21:38 UTC+08:00
  ****************************************************/
-package host.fairy.datastructure.linkedlist;
+package host.fairy.linkedlist;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
@@ -19,11 +20,20 @@ public class SinglyLinkedList implements Iterable<Integer> {
     private Node head = null;
     
     /**
+     * 添加元素到链表头部
+     *
+     * @param value 元素值
+     */
+    public void addHead(Integer value) {
+        head = new Node(value, head);
+    }
+    
+    /**
      * 获取链表最后一个节点
      *
      * @return 最后一个节点
      */
-    private Node fileLast() {
+    private Node findLast() {
         Node current = head;
         if (current == null) {
             return null;
@@ -34,20 +44,6 @@ public class SinglyLinkedList implements Iterable<Integer> {
         return current;
     }
     
-    /**
-     * 添加元素到链表头部
-     *
-     * @param value 元素值
-     */
-    public void addHead(Integer value) {
-        if (head == null) {
-            // 1. 链表为空
-            head = new Node(value, null);
-        } else {
-            // 2. 链表不为空
-            head = new Node(value, head);
-        }
-    }
     
     /**
      * 添加元素到链表尾部
@@ -55,7 +51,7 @@ public class SinglyLinkedList implements Iterable<Integer> {
      * @param value 元素值
      */
     public void addTail(Integer value) {
-        Node last = fileLast();
+        Node last = findLast();
         
         if (last == null) {
             head = new Node(value, null);
@@ -66,23 +62,13 @@ public class SinglyLinkedList implements Iterable<Integer> {
     }
     
     /**
-     * 获取指定位置的元素
-     *
-     * @param index 位置
-     * @return 元素值
-     */
-    public Integer get(Integer index) {
-        Node node = findNode(index);
-        return node.value;
-    }
-    
-    /**
      * 查找指定位置的节点
      *
      * @param index 位置
      * @return 节点
+     * @throws IllegalArgumentException 如果位置不合法，抛出异常
      */
-    private Node findNode(Integer index) {
+    private Node findNode(Integer index) throws IllegalArgumentException {
         int i = 0;
         for (Node current = head; current != null; current = current.next, i++) {
             if (i == index) {
@@ -93,12 +79,25 @@ public class SinglyLinkedList implements Iterable<Integer> {
     }
     
     /**
+     * 获取指定位置的元素
+     *
+     * @param index 位置
+     * @return 元素值
+     * @throws IllegalArgumentException 如果位置不合法，抛出异常
+     */
+    public Integer get(Integer index) throws IllegalArgumentException {
+        Node node = findNode(index);
+        return node.value;
+    }
+    
+    /**
      * 在指定位置插入元素
      *
      * @param index 位置
      * @param value 元素值
+     * @throws IllegalArgumentException 如果位置不合法，抛出异常
      */
-    public void insert(Integer index, Integer value) {
+    public void insert(Integer index, Integer value) throws IllegalArgumentException {
         if (index == 0) {
             addHead(value);
             return;
@@ -108,14 +107,30 @@ public class SinglyLinkedList implements Iterable<Integer> {
         node.next = new Node(value, node.next);
     }
     
-    public void remove(Integer index) {
+    /**
+     * 删除指定位置的元素
+     *
+     * @param index 位置
+     * @return 被删除的元素值
+     * @throws IllegalArgumentException 如果位置不合法，抛出异常
+     */
+    public Integer remove(Integer index) throws IllegalArgumentException {
         Node currentNode = findNode(index);
+        if (index == 0) {
+            head = currentNode.next;
+            return currentNode.value;
+        }
+        Node beforeNode = findNode(index - 1);
+        beforeNode.next = currentNode.next;
+        return currentNode.value;
     }
     
     /**
      * while循环遍历
+     *
+     * @param consumer consumer函数接口
      */
-    public void loop(Consumer<Integer> consumer) {
+    public void loopWhile(Consumer<Integer> consumer) {
         Node current = head;
         while (current != null) {
             consumer.accept(current.value);
@@ -125,6 +140,8 @@ public class SinglyLinkedList implements Iterable<Integer> {
     
     /**
      * for循环遍历
+     *
+     * @param consumer consumer函数接口
      */
     public void loopFor(Consumer<Integer> consumer) {
         for (Node current = head; current != null; current = current.next) {
@@ -133,7 +150,9 @@ public class SinglyLinkedList implements Iterable<Integer> {
     }
     
     /**
-     * 实现Iterable接口，支持foreach循环
+     * 实现Iterable接口，支持for-each循环
+     *
+     * @return 迭代器
      */
     @Override
     public Iterator<Integer> iterator() {
@@ -154,10 +173,17 @@ public class SinglyLinkedList implements Iterable<Integer> {
         };
     }
     
+    @Override
+    public String toString() {
+        ArrayList<Integer> list = new ArrayList<>();
+        loopFor(list::add);
+        return list.toString();
+    }
+    
     /**
      * 节点内部类
      */
-    private static class Node {
+    protected static class Node {
         Integer value;
         Node next;
         

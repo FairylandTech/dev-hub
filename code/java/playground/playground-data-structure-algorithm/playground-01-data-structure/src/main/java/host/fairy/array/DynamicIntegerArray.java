@@ -5,7 +5,7 @@
  * @organization: https://github.com/FairylandFuture
  * @datetime: 2025-08-31 11:13:11 UTC+08:00
  ****************************************************/
-package host.fairy.datastructure.array;
+package host.fairy.array;
 
 import java.util.Arrays;
 import java.util.Iterator;

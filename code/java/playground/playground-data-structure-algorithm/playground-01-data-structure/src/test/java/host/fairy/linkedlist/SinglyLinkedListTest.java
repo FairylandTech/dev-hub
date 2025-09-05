@@ -5,14 +5,16 @@
  * @organization: https://github.com/FairylandFuture
  * @datetime: 2025-09-03 10:49:18 UTC+08:00
  ****************************************************/
-package host.fairy.demo;
+package host.fairy.linkedlist;
 
-import host.fairy.datastructure.linkedlist.SinglyLinkedList;
+import host.fairy.linkedlist.SinglyLinkedList;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Lionel Johnson
  */
-public class SinglyLinkedListDemo {
+public class SinglyLinkedListTest {
     public static void main(String[] args) {
         SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
         singlyLinkedList.addTail(1);
@@ -21,6 +23,16 @@ public class SinglyLinkedListDemo {
         
         singlyLinkedList.insert(3, 11);
         
-        singlyLinkedList.loopFor(System.out::println);
+        System.out.println("singlyLinkedList = " + singlyLinkedList);
+        
+        singlyLinkedList.remove(1);
+        
+        System.out.println("singlyLinkedList = " + singlyLinkedList);
+    }
+    
+    @Test
+    @DisplayName("SinglyLinkedList Demo")
+    public void testSinglyLinkedList() {
+        
     }
 }
