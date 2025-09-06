@@ -20,3 +20,9 @@ Development Environment
 - 初识算法
   - [二分查找](playground-00-startup/demo.py)
   - [时间复杂度 matplotlib](playground-00-startup/func_img.py)
+- 数据结构
+  - 递归
+    - [E01 递归](playground-01-data-structure/recursion/factorial.py)
+    - [E02 递归实现字符串反转打印](playground-01-data-structure/recursion/reverse_print_string.py)
+    - [E03 递归实现二分查找](playground-01-data-structure/recursion/binary_lookup.py)
+    - [E04 递归实现冒泡排序](playground-01-data-structure/recursion/bubble_sorting.py)
