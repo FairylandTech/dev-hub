@@ -25,3 +25,13 @@ Development Environment
   - [单向链表(哨兵节点)](src/main/java/host/fairy/linkedlist/SinglyLinkedListSentinel.java)
   - [双向链表(哨兵节点)](src/main/java/host/fairy/linkedlist/DoublyLinkedListSentinel.java)
   - [环形链表(哨兵节点)](src/main/java/host/fairy/linkedlist/CircularLinkedListSentinel.java)
+- 递归
+  - [E01 阶乘](src/main/java/host/fairy/recursion/Factorial.java)
+  - [E02 递归实现字符串反转打印](src/main/java/host/fairy/recursion/ReverseString.java)
+  - [E03 递归实现二分查找](src/main/java/host/fairy/recursion/RecursiveBinaryLookup.java)
+  - [E04 递归实现冒泡排序](src/main/java/host/fairy/recursion/RecursiveBubbleSorting.java)
+  - [E05 递归实现插入排序]()
+
+练习
+
+- [单链表递归遍历](src/main/java/host/fairy/recursion/RecursionLoop.java)
