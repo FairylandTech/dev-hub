@@ -33,7 +33,7 @@ public class SinglyLinkedList implements Iterable<Integer> {
      *
      * @return 最后一个节点
      */
-    private Node findLast() {
+    public Node findLast() {
         Node current = head;
         if (current == null) {
             return null;
@@ -68,7 +68,7 @@ public class SinglyLinkedList implements Iterable<Integer> {
      * @return 节点
      * @throws IllegalArgumentException 如果位置不合法，抛出异常
      */
-    private Node findNode(Integer index) throws IllegalArgumentException {
+    public Node findNode(Integer index) throws IllegalArgumentException {
         int i = 0;
         for (Node current = head; current != null; current = current.next, i++) {
             if (i == index) {
@@ -183,9 +183,9 @@ public class SinglyLinkedList implements Iterable<Integer> {
     /**
      * 节点内部类
      */
-    protected static class Node {
-        Integer value;
-        Node next;
+    public static class Node {
+        public Integer value;
+        public Node next;
         
         public Node(Integer value, Node next) {
             this.value = value;

@@ -23,7 +23,7 @@ public class SinglyLinkedListSentinel extends SinglyLinkedList {
      *
      * @return 最后一个节点
      */
-    private Node findLast() {
+    public Node findLast() {
         Node currentNode = hand;
         while (currentNode.next != null) {
             currentNode = currentNode.next;
@@ -49,7 +49,7 @@ public class SinglyLinkedListSentinel extends SinglyLinkedList {
      * @return 节点
      * @throws IndexOutOfBoundsException 索引越界异常
      */
-    private Node findNode(Integer index) throws IndexOutOfBoundsException {
+    public Node findNode(Integer index) throws IndexOutOfBoundsException {
         Integer currentIndex = -1;
         for (Node currentNode = hand; currentNode != null; currentNode = currentNode.next, currentIndex++) {
             if (currentIndex.equals(index)) {

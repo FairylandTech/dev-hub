@@ -1,10 +1,10 @@
-# Python - 爬虫
+# Python - 数据结构与算法
 
 > @software: PyCharm  
 > @author: [Lionel Johnson](https://fairy.host)  
 > @contact: [Blog](https://blog.fairy.host/) | [GitHub](https://github.com/FairylandTech) | [Telegram](https://t.me/FairylandFuture)  
 > @organization: [GitHub·FairylandFuture](https://github.com/FairylandFuture)  
-> @datetime: 2025-08-13 16:03:33 UTC+08:00
+> @datetime: 2025-09-05 21:15:44 UTC+08:00
 
 [![Author](https://img.shields.io/badge/Author-Lionel_Johnson-orange)](https://t.me/FairylandFuture) [![github](https://img.shields.io/badge/Github-PrettiestFairy-green)](https://github.com/FairylandTech) [![GitBook](https://img.shields.io/badge/GitBook-Interesting-green)](https://interestingbooks.gitbook.io/) [![Editor](https://img.shields.io/badge/Editor-Typora-yellow)]() [![Language](https://img.shields.io/badge/Language-Markdown-orange)]() [![Version](https://img.shields.io/badge/Version-Release-blue)]() [![Docs](https://img.shields.io/badge/Docs-Passing-brightgreen)]() [![Type](https://img.shields.io/badge/Type-Documents-blue)]() [![wakatime](https://wakatime.com/badge/user/fa851759-c657-4b1e-8bcb-3ec3a693a2cd.svg)](https://wakatime.com/@fa851759-c657-4b1e-8bcb-3ec3a693a2cd) [![Sign](https://img.shields.io/badge/%E7%AD%89%E6%88%91%E4%BB%A3%E7%A0%81%E7%BC%96%E6%88%90-%E5%A8%B6%E4%BD%A0%E4%B8%BA%E5%A6%BB%E5%8F%AF%E5%A5%BD-red)](https://github.com/FairylandTech)
 
@@ -17,4 +17,12 @@ Development Environment
 
 ---
 
-- [彼岸图网](pic.netbian.com/main.py)
+- 初识算法
+  - [二分查找](playground-00-startup/demo.py)
+  - [时间复杂度 matplotlib](playground-00-startup/func_img.py)
+- 数据结构
+  - 递归
+    - [E01 递归](playground-01-data-structure/recursion/factorial.py)
+    - [E02 递归实现字符串反转打印](playground-01-data-structure/recursion/reverse_print_string.py)
+    - [E03 递归实现二分查找](playground-01-data-structure/recursion/binary_lookup.py)
+    - [E04 递归实现冒泡排序](playground-01-data-structure/recursion/bubble_sorting.py)

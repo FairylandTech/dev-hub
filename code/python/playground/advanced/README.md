@@ -1,4 +1,4 @@
-# Python - Advanced
+# Python - 高级
 
 > @software: PyCharm  
 > @author: [Lionel Johnson](https://fairy.host)  

@@ -1,0 +1,99 @@
+#!/bin/bash
+# @software: PyCharm
+# @author: Lionel Johnson
+# @contact: https://fairy.host
+# @organization: https://github.com/FairylandFuture
+# @datetime: 2025-09-07 14:25:53 UTC+08:00
+
+# 生成TLS和CA证书
+# Version: 1.1: 已修复SANs问题
+
+# 服务器主机名
+SERVER="local.vm"
+# 服务器IP地址
+SERVER_IP="172.11.1.128"
+# 密码
+PASSWORD="iHsUQ7qYpmxjw5aA"
+# 国家
+COUNTRY="CN"
+# 省份
+STATE="四川省"
+# 城市
+CITY="成都市"
+# 机构名称
+ORGANIZATION="FairylandFuture Ltd."
+# 机构单位
+ORGANIZATIONAL_UNIT="IT Department"
+# 邮箱
+EMAIL="fairylandfuture@protonmail.com"
+
+# 生成CA密钥
+openssl genrsa -aes256 -passout pass:$PASSWORD -out ca-key.pem 2048
+
+# 生成CA证书
+openssl req -new -x509 -passin "pass:$PASSWORD" -days 3650 -key ca-key.pem -sha256 -out ca-cert.pem -subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORGANIZATION/OU=$ORGANIZATIONAL_UNIT/CN=$SERVER/emailAddress=$EMAIL"
+
+# 生成服务端密钥
+openssl genrsa -out server-key.pem 2048
+
+# 创建SAN配置文件
+cat >server-extfile.cnf <<EOF
+[req]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+prompt = no
+
+[req_distinguished_name]
+C = $COUNTRY
+ST = $STATE
+L = $CITY
+O = $ORGANIZATION
+OU = $ORGANIZATIONAL_UNIT
+CN = $SERVER
+emailAddress = $EMAIL
+
+[v3_req]
+subjectAltName = IP:0.0.0.0,@alt_names
+
+[alt_names]
+DNS.1 = $SERVER
+IP.1 = $SERVER_IP
+EOF
+
+# 生成服务端证书签名的请求文件（包含SAN）
+openssl req -new -key server-key.pem -out server-req.csr -config server-extfile.cnf
+
+# 生成服务端证书（应用SAN扩展）
+openssl x509 -req -days 3650 \
+  -in server-req.csr \
+  -CA ca-cert.pem \
+  -CAkey ca-key.pem \
+  -passin "pass:$PASSWORD" \
+  -CAcreateserial \
+  -out server-cert.pem \
+  -extensions v3_req \
+  -extfile server-extfile.cnf
+
+# 生成客户端密钥
+openssl genrsa -out client-key.pem 2048
+
+# 生成客户端证书签名的请求文件
+openssl req -subj '/CN=client' -new -key client-key.pem -out client-req.csr
+
+# 生成客户端证书
+sh -c 'echo "extendedKeyUsage=clientAuth" > client-extfile.cnf'
+openssl x509 -req -days 3650 \
+  -in client-req.csr \
+  -CA ca-cert.pem \
+  -CAkey ca-key.pem \
+  -passin "pass:$PASSWORD" \
+  -CAcreateserial \
+  -out client-cert.pem \
+  -extfile client-extfile.cnf
+
+# 更改密钥权限
+chmod 0400 ca-key.pem server-key.pem client-key.pem
+# 更改证书权限
+chmod 0444 ca-cert.pem server-cert.pem client-cert.pem
+# 删除无用文件
+rm -fv ca-cert.srl client-req.csr server-req.csr ./*.cnf
