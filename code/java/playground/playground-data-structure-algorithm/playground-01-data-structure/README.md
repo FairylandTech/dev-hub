@@ -38,3 +38,4 @@ Development Environment
 练习
 
 - [单链表递归遍历](src/main/java/host/fairy/recursion/RecursionLoop.java)
+- [递归求和](src/main/java/host/fairy/recursion/RSum.java)
