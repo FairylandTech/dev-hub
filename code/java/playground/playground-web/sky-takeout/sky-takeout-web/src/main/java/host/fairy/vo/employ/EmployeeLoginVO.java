@@ -17,7 +17,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class EmployeeLoginOV {
+public class EmployeeLoginVO {
     /**
      * 员工ID
      */

@@ -34,6 +34,8 @@ Development Environment
       - [E05 递归实现插入排序](src/main/java/host/fairy/recursion/InsertSorting.java)
    - 多路递归
       - [E01 斐波那契数列](src/main/java/host/fairy/recursion/FibonacciSequence.java)
+- 队列
+  - [队列公共接口](src/main/java/host/fairy/queue/Queue.java)
 
 练习
 

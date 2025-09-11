@@ -25,13 +25,18 @@ class RequestMethod(Enum):
 
 
 class ChargeTypeEnum(Flag):
+    liuyixuance = 20  # 六艺玄策
     junxiang = 302  # 军饷
+    wujingzhengyi = 170700  # 五经正义
 
 
 class Charge4TypeEnum(Flag):
     mucai_800w = 2107  # 800w木材
     jinkuang_480w = 2114  # 480w金矿
     liangcao_600w = 2121  # 600w粮草
+
+    # +
+    wuzhe_gongji = 185201
 
 
 class SendGood:
@@ -180,10 +185,10 @@ if __name__ == "__main__":
     futures: t.List[Future] = []
 
     params_info: t.List[t.Dict[str, t.Any]] = [
-        # SendGoodTypeParamsBuilder.charge(302, 100000000),
+        SendGoodTypeParamsBuilder.charge(170700, 100000000),
         # SendGoodTypeParamsBuilder.charge4(2107, 500),
-        SendGoodTypeParamsBuilder.charge4(2114, 9999),
-        SendGoodTypeParamsBuilder.charge4(2121, 9999),
+        # SendGoodTypeParamsBuilder.charge4(2114, 9999),
+        # SendGoodTypeParamsBuilder.charge4(2121, 9999),
     ]
 
     start_request_timestamp = time.time()
