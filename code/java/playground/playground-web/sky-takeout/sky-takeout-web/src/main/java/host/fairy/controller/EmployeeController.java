@@ -16,8 +16,8 @@ import host.fairy.result.ListRocord;
 import host.fairy.result.ResponseBodyResult;
 import host.fairy.service.EmployeeService;
 import host.fairy.service.JwtService;
-import host.fairy.vo.employ.EmployeeDetailOV;
-import host.fairy.vo.employ.EmployeeLoginOV;
+import host.fairy.vo.employ.EmployeeDetailVO;
+import host.fairy.vo.employ.EmployeeLoginVO;
 import host.fairy.vo.employ.EmployeeQueryVO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -55,12 +55,12 @@ public class EmployeeController {
      * @return 统一响应结果
      */
     @PostMapping("/login")
-    public ResponseBodyResult<EmployeeLoginOV> login(@Valid @RequestBody EmployeeLoginDTO employeeLoginDTO) {
+    public ResponseBodyResult<EmployeeLoginVO> login(@Valid @RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录参数: {}", employeeLoginDTO);
         EmployeeEntity employeeEntity = employeeService.login(employeeLoginDTO);
         String token = jwtService.generateToken(employeeEntity);
-        EmployeeLoginOV employeeLoginOV = convertToLoginVO(employeeEntity, token);
-        return ResponseBodyResult.success(employeeLoginOV);
+        EmployeeLoginVO employeeLoginVO = convertToLoginVO(employeeEntity, token);
+        return ResponseBodyResult.success(employeeLoginVO);
     }
     
     /**
@@ -102,11 +102,11 @@ public class EmployeeController {
      * @return 统一响应结果
      */
     @GetMapping("/detail")
-    public ResponseBodyResult<EmployeeDetailOV> detail(@Positive(message = "ID必须是正整数") @RequestParam Integer id) {
+    public ResponseBodyResult<EmployeeDetailVO> detail(@Positive(message = "ID必须是正整数") @RequestParam Integer id) {
         log.info("查询员工详情: id={}", id);
         EmployeeEntity employeeEntity = employeeService.queryById(id);
-        EmployeeDetailOV employeeDetailOV = convertToDetailVO(employeeEntity);
-        return ResponseBodyResult.success(employeeDetailOV);
+        EmployeeDetailVO employeeDetailVO = convertToDetailVO(employeeEntity);
+        return ResponseBodyResult.success(employeeDetailVO);
     }
     
     /**
@@ -147,12 +147,12 @@ public class EmployeeController {
      * @return 统一响应结果
      */
     @PutMapping
-    public ResponseBodyResult<EmployeeDetailOV> update(@Valid @RequestBody EmployeeDTO employeeDTO) {
+    public ResponseBodyResult<EmployeeDetailVO> update(@Valid @RequestBody EmployeeDTO employeeDTO) {
         log.info("更新员工参数: {}", employeeDTO);
         Boolean updateResult = employeeService.updateById(employeeDTO);
         log.info("更新员工结果: {}", updateResult);
         EmployeeEntity employeeEntity = employeeService.queryById(employeeDTO.getId());
-        EmployeeDetailOV result = convertToDetailVO(employeeEntity);
+        EmployeeDetailVO result = convertToDetailVO(employeeEntity);
         if (!updateResult) {
             return ResponseBodyResult.failure("更新失败");
         }
@@ -209,10 +209,10 @@ public class EmployeeController {
      * @param token  JWT令牌
      * @return 员工登录视图对象
      */
-    private EmployeeLoginOV convertToLoginVO(EmployeeEntity entity, String token) {
+    private EmployeeLoginVO convertToLoginVO(EmployeeEntity entity, String token) {
         if (entity == null) return null;
         
-        return EmployeeLoginOV.builder()
+        return EmployeeLoginVO.builder()
                 .id(entity.getId())
                 .username(entity.getUsername())
                 .name(entity.getName())
@@ -221,15 +221,15 @@ public class EmployeeController {
     }
     
     /**
-     * 将 EmployeeEntity 转换为 EmployeeDetailOV
+     * 将 EmployeeEntity 转换为 EmployeeDetailVO
      *
      * @param entity 员工实体对象
      * @return 员工详情视图对象
      */
-    private EmployeeDetailOV convertToDetailVO(EmployeeEntity entity) {
+    private EmployeeDetailVO convertToDetailVO(EmployeeEntity entity) {
         if (entity == null) return null;
         
-        return EmployeeDetailOV.builder()
+        return EmployeeDetailVO.builder()
                 .id(entity.getId())
                 .username(entity.getUsername())
                 .name(entity.getName())

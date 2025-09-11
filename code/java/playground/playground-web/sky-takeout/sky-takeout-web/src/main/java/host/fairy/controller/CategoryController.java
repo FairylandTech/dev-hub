@@ -13,8 +13,8 @@ import host.fairy.entity.CategoryEntity;
 import host.fairy.result.ListRocord;
 import host.fairy.result.ResponseBodyResult;
 import host.fairy.service.CategoryService;
-import host.fairy.vo.category.CategoryDetailOV;
-import host.fairy.vo.category.CategoryQueryOV;
+import host.fairy.vo.category.CategoryDetailVO;
+import host.fairy.vo.category.CategoryQueryVO;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -40,10 +40,10 @@ public class CategoryController {
     }
     
     @GetMapping
-    public ResponseBodyResult<ListRocord<CategoryQueryOV>> list(CategoryQueryDTO categoryQueryDTO) {
+    public ResponseBodyResult<ListRocord<CategoryQueryVO>> list(CategoryQueryDTO categoryQueryDTO) {
         ListRocord<CategoryEntity> queryList = categoryService.queryList(categoryQueryDTO);
         
-        List<CategoryQueryOV> queryOVList = queryList.getRocords().stream()
+        List<CategoryQueryVO> queryOVList = queryList.getRocords().stream()
                 .map(this::convertTOQueryVO)
                 .toList();
         
@@ -59,20 +59,20 @@ public class CategoryController {
     }
     
     @GetMapping("/detail")
-    public ResponseBodyResult<CategoryDetailOV> detail(@RequestParam Integer id) {
+    public ResponseBodyResult<CategoryDetailVO> detail(@RequestParam Integer id) {
         log.info("查询分类详情, id: {}", id);
         CategoryEntity categoryEntity = categoryService.queryByid(id);
-        CategoryDetailOV categoryDetailOV = convertToDetailVO(categoryEntity);
+        CategoryDetailVO categoryDetailVO = convertToDetailVO(categoryEntity);
         
-        if (categoryDetailOV == null) return ResponseBodyResult.success(CategoryDetailOV.builder().build());
+        if (categoryDetailVO == null) return ResponseBodyResult.success(CategoryDetailVO.builder().build());
         
-        return ResponseBodyResult.success(categoryDetailOV);
+        return ResponseBodyResult.success(categoryDetailVO);
     }
     
-    public CategoryQueryOV convertTOQueryVO(CategoryEntity categoryEntity) {
+    public CategoryQueryVO convertTOQueryVO(CategoryEntity categoryEntity) {
         if (categoryEntity == null) return null;
         
-        return CategoryQueryOV.builder()
+        return CategoryQueryVO.builder()
                 .id(categoryEntity.getId())
                 .name(categoryEntity.getName())
                 .type(categoryEntity.getType())
@@ -82,10 +82,10 @@ public class CategoryController {
                 .build();
     }
     
-    public CategoryDetailOV convertToDetailVO(CategoryEntity categoryEntity) {
+    public CategoryDetailVO convertToDetailVO(CategoryEntity categoryEntity) {
         if (categoryEntity == null) return null;
         
-        return CategoryDetailOV.builder()
+        return CategoryDetailVO.builder()
                 .id(categoryEntity.getId())
                 .name(categoryEntity.getName())
                 .type(categoryEntity.getType())

@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Builder
-public class EmployeeDetailOV implements Serializable {
+public class EmployeeDetailVO implements Serializable {
     /**
      * 员工ID
      */

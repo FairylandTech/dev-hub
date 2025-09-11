@@ -3,7 +3,7 @@
  * @author: Lionel Johnson
  * @contact: https://fairy.host
  * @organization: https://github.com/FairylandFuture
- * @datetime: 2025-08-29 16:28:11 UTC+08:00
+ * @datetime: 2025-08-29 16:00:31 UTC+08:00
  ****************************************************/
 package host.fairy.vo.category;
 
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Builder
-public class CategoryDetailOV {
+public class CategoryQueryVO {
     private Integer id;
     
     private String name;
@@ -28,19 +28,8 @@ public class CategoryDetailOV {
     
     private Integer sort;
     
-    @JsonFormat(pattern = DateTimeConstant.DEFAULT_DATE_TIME_FORMAT)
-    private LocalDateTime createAt;
+    private Boolean forbidden;
     
     @JsonFormat(pattern = DateTimeConstant.DEFAULT_DATE_TIME_FORMAT)
     private LocalDateTime updateAt;
-    
-    public String getType() {
-        if (type == null) return null;
-        
-        return switch (type) {
-            case 1 -> "菜品分类";
-            case 2 -> "套餐分类";
-            default -> "未知";
-        };
-    }
 }
