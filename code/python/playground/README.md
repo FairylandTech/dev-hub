@@ -17,6 +17,6 @@ Development Environment
 
 ---
 
-- [Python 高级](advanced/README.md)
+- [Python 高级](playground-advanced/README.md)
 - [数据结构与算法](playground-data-structure-algorithm/README.md)
 - [FastAPI](playground-fastapi/README.md)
