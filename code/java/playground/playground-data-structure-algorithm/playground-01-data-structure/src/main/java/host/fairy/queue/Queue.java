@@ -10,10 +10,42 @@ package host.fairy.queue;
 /**
  * @author Lionel Johnson
  * @version 1.0
- * @deprecated Queue: 队列接口
+ * @deprecated Queue interface
  */
 public interface Queue<E> {
-    Queue<E> enqueue(E e);
+    /**
+     * Insert into end of queue.
+     *
+     * @param value vaule.
+     * @return success or not.
+     */
+    Boolean offer(E value);
     
-    E dequeue();
+    /**
+     * Get value from queue head, but not remove.
+     *
+     * @return value or null if the queue is empty.
+     */
+    E peek();
+    
+    /**
+     * Get value from queue head and remove node.
+     *
+     * @return value or null if the queue is empty.
+     */
+    E pool();
+    
+    /**
+     * Check the queue is empty.
+     *
+     * @return empty or not.
+     */
+    Boolean isEmpty();
+    
+    /**
+     * Check the queue is full.
+     *
+     * @return full or not.
+     */
+    Boolean isFull();
 }
