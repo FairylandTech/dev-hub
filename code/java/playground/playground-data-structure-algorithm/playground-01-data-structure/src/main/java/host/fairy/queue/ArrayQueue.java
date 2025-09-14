@@ -3,14 +3,15 @@
  * @author: Lionel Johnson
  * @contact: https://fairy.host
  * @organization: https://github.com/FairylandFuture
- * @datetime: 2025-09-14 14:26:34 UTC+08:00
+ * @datetime: 2025-09-14 23:19:04 UTC+08:00
  ****************************************************/
 package host.fairy.queue;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 /**
- * Queue implement based on linked list.
+ * Queue implement based on array.
  *
  * @param <E> Queue elemant type.
  * @author Lionel Johnson
@@ -18,39 +19,25 @@ import java.util.Iterator;
  * @see Queue
  * @see Iterable
  */
-public class LinkedListQueue<E> implements Queue<E>, Iterable<E> {
+public class ArrayQueue<E> implements Queue<E>, Iterable<E> {
     /**
-     * Queue head node (Sentinel)
+     * Array to store queue.
      */
-    private final Node<E> head;
-    
-    /**
-     * Queue tail node
-     */
-    private Node<E> tail;
+    private final E[] array;
     
     /**
-     * Current quque size.
+     * Queue head index.
      */
-    private Integer index = 0;
+    private Integer head = 0;
     
     /**
-     * Max queue size.
+     * Queue tail index.
      */
-    private Integer size = 20;
+    private Integer tail = 0;
     
-    {
-        Node<E> sentinel = new Node<>(null, null); // sentinel node
-        sentinel.next = sentinel;
-        this.head = sentinel;
-        this.tail = sentinel;
-    }
-    
-    public LinkedListQueue() {
-    }
-    
-    public LinkedListQueue(Integer size) {
-        this.size = size;
+    @SuppressWarnings("all")
+    public ArrayQueue(Integer size) {
+        this.array = (E[]) new Object[size + 1];
     }
     
     /**
@@ -63,12 +50,10 @@ public class LinkedListQueue<E> implements Queue<E>, Iterable<E> {
     @Override
     public Boolean offer(E value) throws RuntimeException {
         if (this.isFull()) {
-            throw new RuntimeException("Queue is full.");
+            throw new RuntimeException("Queue is full");
         }
-        Node<E> currentNode = new Node<>(value, this.head);
-        this.tail.next = currentNode;
-        this.tail = currentNode;
-        this.index++;
+        this.array[this.tail] = value;
+        this.tail = (this.tail + 1) % this.array.length;
         return true;
     }
     
@@ -82,7 +67,8 @@ public class LinkedListQueue<E> implements Queue<E>, Iterable<E> {
         if (this.isEmpty()) {
             return null;
         }
-        return this.head.next.value;
+        
+        return this.array[this.head];
     }
     
     /**
@@ -96,17 +82,10 @@ public class LinkedListQueue<E> implements Queue<E>, Iterable<E> {
             return null;
         }
         
-        Node<E> currentNode = this.head.next;
+        E value = this.array[this.head];
+        this.head = (this.head + 1) % this.array.length;
         
-        if (currentNode.next == this.head) {
-            this.tail = this.head; // The queue if full, reset tail node point to head node.
-        } else {
-            this.head.next = currentNode.next;  // Move head next node point to first next node. head node -> Second node, remove first node.
-        }
-        
-        this.index--;
-        
-        return currentNode.value;
+        return value;
     }
     
     /**
@@ -116,7 +95,7 @@ public class LinkedListQueue<E> implements Queue<E>, Iterable<E> {
      */
     @Override
     public Boolean isEmpty() {
-        return this.head == this.tail;
+        return this.tail.equals(this.head);
     }
     
     /**
@@ -124,46 +103,32 @@ public class LinkedListQueue<E> implements Queue<E>, Iterable<E> {
      *
      * @return Ture expression full, otherwise false.
      */
+    @Override
     public Boolean isFull() {
-        return this.size.equals(this.index);
+        return (this.tail + 1) % this.array.length == this.head;
     }
     
     /**
      * An iterator, used loop.
      *
-     * @return Iterator.
+     * @return Iterator
      */
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            Node<E> current = head.next;
+            Integer currentIndex = head;
             
             @Override
             public boolean hasNext() {
-                return current != head;
+                return !Objects.equals(currentIndex, tail);
             }
             
             @Override
             public E next() {
-                E value = current.value;
-                current = current.next;
+                E value = array[currentIndex];
+                currentIndex = (currentIndex + 1) % array.length;
                 return value;
             }
         };
-    }
-    
-    /**
-     * Linked list node.
-     *
-     * @param <E> value type.
-     */
-    private static class Node<E> {
-        E value;
-        Node<E> next;
-        
-        public Node(E value, Node<E> next) {
-            this.value = value;
-            this.next = next;
-        }
     }
 }

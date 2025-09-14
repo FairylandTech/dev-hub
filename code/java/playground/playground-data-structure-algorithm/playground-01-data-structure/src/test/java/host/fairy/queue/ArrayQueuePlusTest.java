@@ -3,7 +3,7 @@
  * @author: Lionel Johnson
  * @contact: https://fairy.host
  * @organization: https://github.com/FairylandFuture
- * @datetime: 2025-09-14 20:55:18 UTC+08:00
+ * @datetime: 2025-09-15 00:43:08 UTC+08:00
  ****************************************************/
 package host.fairy.queue;
 
@@ -11,29 +11,28 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * LinkedListQueue Test
+ * ArrayQueuePlus Test
  *
  * @author Lionel Johnson
  * @version 1.0
- * @see LinkedListQueue
+ * @see ArrayQueuePlus
  */
-public class LinkedListQueueTest {
+public class ArrayQueuePlusTest {
     @Test
     @DisplayName(" offer ")
     void offer() {
-        LinkedListQueue<Integer> queue = new LinkedListQueue<>();
+        ArrayQueuePlus<Integer> queue = new ArrayQueuePlus<>(10);
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
+        System.out.println("queue = " + queue);
         queue.forEach(System.out::println);
-        System.out.println();
-        System.out.println("queue.isEmpty() = " + queue.isEmpty());
     }
     
     @Test
     @DisplayName(" peek ")
     void peek() {
-        LinkedListQueue<Integer> queue = new LinkedListQueue<>();
+        ArrayQueuePlus<Integer> queue = new ArrayQueuePlus<>(10);
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
@@ -47,7 +46,7 @@ public class LinkedListQueueTest {
     @Test
     @DisplayName(" pool ")
     void pool() {
-        LinkedListQueue<Integer> queue = new LinkedListQueue<>();
+        ArrayQueuePlus<Integer> queue = new ArrayQueuePlus<>(10);
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
@@ -57,22 +56,7 @@ public class LinkedListQueueTest {
         Integer second = queue.pool();
         System.out.println("second = " + second);
         
-        System.out.println();
+        System.out.println("queue = " + queue);
         queue.forEach(System.out::println);
-    }
-    
-    @Test
-    @DisplayName(" is full ")
-    void isFull() {
-        LinkedListQueue<Integer> queue = new LinkedListQueue<>();
-        LinkedListQueue<Object> fullQueue = new LinkedListQueue<>();
-        for (int i = 0; i < 15; i++) {
-            queue.offer(i);
-        }
-        for (int i = 0; i < 20; i++) {
-            fullQueue.offer(i);
-        }
-        System.out.println("queue.isFull() = " + queue.isFull());
-        System.out.println("fullQueue.isFull() = " + fullQueue.isFull());
     }
 }
