@@ -8,10 +8,11 @@
 """
 
 from fastapi import APIRouter
-from apps.example.api import test, params, body
+from apps.example.api import test, params, body, request
 
 router = APIRouter()
 
 router.include_router(test.router)
 router.include_router(params.router)
 router.include_router(body.router)
+router.include_router(request.router)

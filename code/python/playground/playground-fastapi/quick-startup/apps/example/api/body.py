@@ -20,23 +20,24 @@ controller = BodyController()
 
 
 @router.post("/json")
-async def body(dto: BodyDTO):
+async def body(dto: BodyDTO) -> Response:
     """处理 JSON 格式的请求体"""
     return await controller.json_body(dto)
 
 
 @router.post("/form")
-async def form(username: str = Form(), password: str = Form()):
+async def form(username: str = Form(), password: str = Form()) -> Response:
     """处理 Form 格式的请求体"""
     return controller.form_body(username, password)
 
 
 @router.post("/file")
-async def file(text: str = Form(), file: UploadFile = File()):
+async def file(text: str = Form(), file: UploadFile = File()) -> Response:
     """处理 文件 上传的请求体"""
     return await controller.form_file_body(text, file)
 
+
 @router.post("/files")
-async def files(text: str = Form(), files: t.List[UploadFile] = File()):
+async def files(text: str = Form(), files: t.List[UploadFile] = File()) -> Response:
     """处理 多文件 上传的请求体"""
     return await controller.form_files_body(text, files)

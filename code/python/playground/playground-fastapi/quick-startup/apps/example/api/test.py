@@ -18,6 +18,7 @@ async def info():
     """
     获取API信息
     """
+    print("开始请求")
     return {
         "code": 200,
         "message": "OK",

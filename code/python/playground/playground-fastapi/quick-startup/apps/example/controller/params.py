@@ -14,7 +14,7 @@ from utils.http.response import Response
 
 class ParamsController:
 
-    def get_url_params(self, uid: int):
+    def get_url_params(self, uid: int) -> Response:
         """
         获取URL的位置参数
 
@@ -26,7 +26,7 @@ class ParamsController:
         data = {"uid": uid}
         return Response(data=data)
 
-    def get_query_params(self, name: t.Optional[str] = None, page: int = 1, size: int = 10):
+    def get_query_params(self, name: t.Optional[str] = None, page: int = 1, size: int = 10) -> Response:
         """
         获取Query参数
 

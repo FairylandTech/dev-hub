@@ -9,6 +9,8 @@
 
 import typing as t
 import aiofiles
+import uuid
+import os
 
 from fastapi import UploadFile
 
@@ -16,8 +18,14 @@ from fastapi import UploadFile
 class FileHandler:
 
     @classmethod
-    async def save(cls, path: str, file: UploadFile):
+    def parse_filename(cls, filename: str) -> t.Tuple[str, str, str]:
+        name, ext = os.path.splitext(filename)
+        return f"{uuid.uuid4().hex}{ext}", name, ext
+
+    @classmethod
+    async def save(cls, filename: str, path: str, file: UploadFile):
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         async with aiofiles.open(path, "wb") as stream:
-            while chunk := await file.read(8192):
+            while chunk := await file.read(1024 * 1024):
                 await stream.write(chunk)
-        return path
+        return filename, path
