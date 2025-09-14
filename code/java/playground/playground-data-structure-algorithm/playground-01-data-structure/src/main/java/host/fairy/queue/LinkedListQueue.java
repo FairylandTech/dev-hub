@@ -10,9 +10,13 @@ package host.fairy.queue;
 import java.util.Iterator;
 
 /**
+ * Queue using lined list.
+ *
+ * @param <E> Queue elemant type.
  * @author Lionel Johnson
  * @version 1.0
- * @deprecated Queue implement using lined list.
+ * @see Queue
+ * @see Iterable
  */
 public class LinkedListQueue<E> implements Queue<E>, Iterable<E> {
     /**

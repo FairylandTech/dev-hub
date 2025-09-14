@@ -8,9 +8,10 @@
 package host.fairy.queue;
 
 /**
+ * Queue interface.
+ *
  * @author Lionel Johnson
  * @version 1.0
- * @deprecated Queue interface
  */
 public interface Queue<E> {
     /**
