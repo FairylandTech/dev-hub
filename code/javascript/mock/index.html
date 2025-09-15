@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!---------------------------------------------------------
+@software: PyCharm
+@author: Lionel Johnson
+@contact: https://fairy.host
+@organization: https://github.com/FairylandFuture
+@datetime: 2025-09-14 12:13:00 UTC+08:00
+---------------------------------------------------------->
+<!-- code/javascript/mock/index.html -->
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Mock</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        pre#output {
+            margin-top: 12px;
+            padding: 12px;
+            background: #f6f8fa;
+            border: 1px solid #e1e4e8;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body>
+<button id="sendBtn">发送请求</button>
+<pre id="output" aria-live="polite"></pre>
+
+<!-- 先加载 jQuery（request.js 使用了全局 $） -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- 使用模块脚本导入本目录下的 request.js -->
+<script type="module">
+    import fetchTest from './request.js';
+
+    const btn = document.getElementById('sendBtn');
+    const out = document.getElementById('output');
+
+    btn.addEventListener('click', async () => {
+        alert('点击了按钮，开始发送请求...');
+
+        btn.disabled = true;
+        out.textContent = '请求中...';
+        try {
+            const res = await fetchTest();
+            out.textContent = JSON.stringify(res, null, 2);
+        } catch (err) {
+            // 优先显示服务器返回的文本（若有）
+            const msg = err && (err.responseText || err.message || String(err));
+            out.textContent = `请求失败: ${msg}`;
+        } finally {
+            btn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>

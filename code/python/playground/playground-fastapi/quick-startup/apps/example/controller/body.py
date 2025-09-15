@@ -23,7 +23,7 @@ class BodyController:
     def service(self) -> BodyService:
         return self.__service
 
-    async def json_body(self, dto: BodyDTO):
+    async def json_body(self, dto: BodyDTO) -> Response:
         """
         处理JSON格式的请求体
 
@@ -34,7 +34,7 @@ class BodyController:
         """
         return Response(data={"dto": dto})
 
-    def form_body(self, username: str, password: str):
+    def form_body(self, username: str, password: str) -> Response:
         """
         处理Form格式的请求体
 
@@ -51,7 +51,7 @@ class BodyController:
         }
         return Response(data=data)
 
-    async def form_file_body(self, text: str, file: UploadFile):
+    async def form_file_body(self, text: str, file: UploadFile) -> Response:
         """
         处理文件上传的请求体
 
@@ -75,7 +75,7 @@ class BodyController:
         }
         return Response(data=data)
 
-    async def form_files_body(self, text: str, files: t.List[UploadFile]):
+    async def form_files_body(self, text: str, files: t.List[UploadFile]) -> Response:
         """
         处理多文件上传的请求体
 
@@ -86,16 +86,10 @@ class BodyController:
         :return: Response
         :rtype: Response
         """
-        file_names = []
-        for file in files:
-            content = await file.read()
-            with open(file.filename, "wb") as stream:
-                stream.write(content)
-            file_names.append(file.filename)
-            await file.close()
+        filenames = await self.service.save_files(files)
 
         data = {
             "text": text,
-            "files": file_names,
+            "files": filenames,
         }
         return Response(data=data)

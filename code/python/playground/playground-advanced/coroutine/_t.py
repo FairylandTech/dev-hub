@@ -13,20 +13,30 @@ import asyncio
 
 
 async def f(n: int) -> int:
-    time.sleep(2)
+    if n > 0:
+        await asyncio.sleep(5)
+    else:
+        await asyncio.sleep(3)
+    print(f"执行f: {time.time()}")
     return n
 
 
-async def main():
-    result1 = await f(20)
-    print("Step 1:", 1)
-    result2 = await f(10)
-
-    print("Done:")
+async def main(n):
+    result = await f(n)
+    print(f"Done: {result}")
 
 
 if __name__ == "__main__":
     start_timestamp = time.time()
-    asyncio.run(main())
+    print(f"start: {start_timestamp}")
+
+    tasks = [
+        asyncio.ensure_future(f(20)),
+        asyncio.ensure_future(f(-1)),
+    ]
+
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.wait(tasks))
+
     end_timestamp = time.time()
     print("Elapsed:", end_timestamp - start_timestamp)
