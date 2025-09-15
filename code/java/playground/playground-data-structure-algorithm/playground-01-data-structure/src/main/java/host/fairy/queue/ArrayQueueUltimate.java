@@ -3,41 +3,31 @@
  * @author: Lionel Johnson
  * @contact: https://fairy.host
  * @organization: https://github.com/FairylandFuture
- * @datetime: 2025-09-14 23:19:04 UTC+08:00
+ * @datetime: 2025-09-15 01:02:19 UTC+08:00
  ****************************************************/
 package host.fairy.queue;
 
 import java.util.Iterator;
-import java.util.Objects;
 
 /**
- * Queue implement based on array.
+ * Queue implement based on array, ultimate version.
  *
- * @param <E> Queue elemant type.
  * @author Lionel Johnson
  * @version 1.0
  * @see Queue
  * @see Iterable
  */
-public class ArrayQueue<E> implements Queue<E>, Iterable<E> {
-    /**
-     * Array to store queue.
-     */
+public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
     private final E[] array;
-    
-    /**
-     * Queue head index.
-     */
     private int head = 0;
-    
-    /**
-     * Queue tail index.
-     */
     private int tail = 0;
     
     @SuppressWarnings("all")
-    public ArrayQueue(int size) {
-        this.array = (E[]) new Object[size + 1];
+    public ArrayQueueUltimate(int size) throws IllegalArgumentException {
+        if ((size & (size - 1)) != 0) {
+            size = (int) Math.ceil(Math.log(size) / Math.log(2));
+        }
+        this.array = (E[]) new Object[size];
     }
     
     /**
@@ -50,10 +40,10 @@ public class ArrayQueue<E> implements Queue<E>, Iterable<E> {
     @Override
     public Boolean offer(E value) throws RuntimeException {
         if (this.isFull()) {
-            throw new RuntimeException("Queue is full");
+            throw new RuntimeException("Queue is full.");
         }
-        this.array[this.tail] = value;
-        this.tail = (this.tail + 1) % this.array.length;
+        this.array[this.tail & (this.array.length - 1)] = value;
+        this.tail++;
         return true;
     }
     
@@ -67,8 +57,7 @@ public class ArrayQueue<E> implements Queue<E>, Iterable<E> {
         if (this.isEmpty()) {
             return null;
         }
-        
-        return this.array[this.head];
+        return this.array[this.head & (this.array.length - 1)];
     }
     
     /**
@@ -82,9 +71,8 @@ public class ArrayQueue<E> implements Queue<E>, Iterable<E> {
             return null;
         }
         
-        E value = this.array[this.head];
-        this.head = (this.head + 1) % this.array.length;
-        
+        E value = this.array[this.head & (this.array.length - 1)];
+        this.head++;
         return value;
     }
     
@@ -95,7 +83,7 @@ public class ArrayQueue<E> implements Queue<E>, Iterable<E> {
      */
     @Override
     public Boolean isEmpty() {
-        return this.tail == this.head;
+        return this.head == this.tail;
     }
     
     /**
@@ -105,28 +93,28 @@ public class ArrayQueue<E> implements Queue<E>, Iterable<E> {
      */
     @Override
     public Boolean isFull() {
-        return (this.tail + 1) % this.array.length == this.head;
+        return (Integer.toUnsignedLong(this.tail) - Integer.toUnsignedLong(this.head)) == this.array.length;
     }
     
     /**
-     * An iterator, used loop.
+     * An iterator, used loop
      *
      * @return Iterator
      */
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            Integer currentIndex = head;
+            int currentIndex = head;
             
             @Override
             public boolean hasNext() {
-                return !Objects.equals(currentIndex, tail);
+                return currentIndex != tail;
             }
             
             @Override
             public E next() {
-                E value = array[currentIndex];
-                currentIndex = (currentIndex + 1) % array.length;
+                E value = array[currentIndex & (array.length - 1)];
+                currentIndex++;
                 return value;
             }
         };

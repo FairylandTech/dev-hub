@@ -26,16 +26,20 @@ Development Environment
    - [双向链表(哨兵节点)](src/main/java/host/fairy/linkedlist/DoublyLinkedListSentinel.java)
    - [环形链表(哨兵节点)](src/main/java/host/fairy/linkedlist/CircularLinkedListSentinel.java)
 - 递归
-   - 单路递归
+   1. 单路递归
       - [E01 阶乘](src/main/java/host/fairy/recursion/Factorial.java)
       - [E02 递归实现字符串反转打印](src/main/java/host/fairy/recursion/ReverseString.java)
       - [E03 递归实现二分查找](src/main/java/host/fairy/recursion/RecursiveBinaryLookup.java)
       - [E04 递归实现冒泡排序](src/main/java/host/fairy/recursion/RecursiveBubbleSorting.java)
       - [E05 递归实现插入排序](src/main/java/host/fairy/recursion/InsertSorting.java)
-   - 多路递归
+   2. 多路递归
       - [E01 斐波那契数列](src/main/java/host/fairy/recursion/FibonacciSequence.java)
 - 队列
-  - [队列公共接口](src/main/java/host/fairy/queue/Queue.java)
+   - [队列接口](src/main/java/host/fairy/queue/Queue.java)
+   - [基于链表实现的队列](src/main/java/host/fairy/queue/LinkedListQueue.java)
+   - [基于数组实现的队列](src/main/java/host/fairy/queue/ArrayQueue.java)
+   - [基于数组实现的队列 Plus版本](src/main/java/host/fairy/queue/ArrayQueuePlus.java)
+   - [基于数组实现的队列 Ultimate版本](src/main/java/host/fairy/queue/ArrayQueueUltimate.java)
 
 练习
 

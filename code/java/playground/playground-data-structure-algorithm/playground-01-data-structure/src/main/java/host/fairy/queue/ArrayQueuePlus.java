@@ -29,20 +29,20 @@ public class ArrayQueuePlus<E> implements Queue<E>, Iterable<E> {
     /**
      * Queue head index.
      */
-    private Integer head = 0;
+    private int head = 0;
     
     /**
      * Queue tail index.
      */
-    private Integer tail = 0;
+    private int tail = 0;
     
     /**
      * Queue current index.
      */
-    private Integer index = 0;
+    private int index = 0;
     
     @SuppressWarnings("all")
-    public ArrayQueuePlus(Integer size) {
+    public ArrayQueuePlus(int size) {
         this.array = (E[]) new Object[size];
     }
     
@@ -99,7 +99,7 @@ public class ArrayQueuePlus<E> implements Queue<E>, Iterable<E> {
      */
     @Override
     public Boolean isEmpty() {
-        return this.index.equals(0);
+        return this.index == 0;
     }
     
     /**
@@ -109,7 +109,7 @@ public class ArrayQueuePlus<E> implements Queue<E>, Iterable<E> {
      */
     @Override
     public Boolean isFull() {
-        return this.index.equals(this.array.length);
+        return this.index == this.array.length;
     }
     
     @Override

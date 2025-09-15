@@ -12,6 +12,7 @@
     <modules>
         <module>playground-00-startup</module>
         <module>playground-01-data-structure</module>
+        <module>playground-leetcode</module>
     </modules>
 
     <properties>
