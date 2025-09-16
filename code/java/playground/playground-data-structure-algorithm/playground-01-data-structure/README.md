@@ -44,6 +44,9 @@ Development Environment
    - [栈接口](src/main/java/host/fairy/stack/Stack.java)
    - [基于链表实现的栈](src/main/java/host/fairy/stack/LinkedListStack.java)
    - [基于数组实现的栈](src/main/java/host/fairy/stack/ArrayStack.java)
+- 双端队列
+   - [双端队列接口](src/main/java/host/fairy/deque/Deque.java)
+   - [基于环形链表实现的双端队列](src/main/java/host/fairy/deque/CircularlinkedListDeque.java)
 
 练习
 
