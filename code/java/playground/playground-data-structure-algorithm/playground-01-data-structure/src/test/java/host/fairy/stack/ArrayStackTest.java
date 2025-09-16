@@ -5,7 +5,7 @@
  * @organization: https://github.com/FairylandFuture
  * @datetime: 2025-09-16 00:33:18 UTC+08:00
  ****************************************************/
-package host.fairy.array.host.fairy.stack;
+package host.fairy.stack;
 
 import host.fairy.stack.ArrayStack;
 import org.junit.jupiter.api.DisplayName;
