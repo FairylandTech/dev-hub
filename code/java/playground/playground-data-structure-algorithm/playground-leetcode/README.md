@@ -18,4 +18,8 @@ Development Environment
 ---
 
 - [1. 两数之和](src/main/java/host/fairy/leetcode/LeetCode1.java)
+- [20. 有效的括号](src/main/java/host/fairy/leetcode/LeetCode20.java)
 - [102. 二叉树的层序遍历](src/main/java/host/fairy/leetcode/LeetCode102.java)
+- [150. 逆波兰表达式求值](src/main/java/host/fairy/leetcode/LeetCode150.java)
+- [225. 用队列实现栈](src/main/java/host/fairy/leetcode/LeetCode225.java)
+- [232. 用栈实现队列](src/main/java/host/fairy/leetcode/LeetCode232.java)
