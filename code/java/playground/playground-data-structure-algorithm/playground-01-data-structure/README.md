@@ -1,9 +1,9 @@
 # 数据结构
 
-> @software: IntelliJ IDEA  
-> @author: [Lionel Johnson](https://fairy.host)  
-> @contact: [Blog](https://blog.fairy.host/) | [GitHub](https://github.com/FairylandTech) | [Telegram](https://t.me/FairylandFuture)  
-> @organization: [GitHub·FairylandFuture](https://github.com/FairylandFuture)  
+> @software: IntelliJ IDEA
+> @author: [Lionel Johnson](https://fairy.host)
+> @contact: [Blog](https://blog.fairy.host/) | [GitHub](https://github.com/FairylandTech) | [Telegram](https://t.me/FairylandFuture)
+> @organization: [GitHub·FairylandFuture](https://github.com/FairylandFuture)
 > @datetime: 2025-09-05 21:02:11 UTC+08:00
 
 [![Author](https://img.shields.io/badge/Author-Lionel_Johnson-orange)](https://t.me/FairylandFuture) [![github](https://img.shields.io/badge/Github-FairylandFuture-green)](https://github.com/FairylandTech) [![GitBook](https://img.shields.io/badge/GitBook-Interesting-green)](https://interestingbooks.gitbook.io/) [![Editor](https://img.shields.io/badge/Editor-Typora-yellow)]() [![Language](https://img.shields.io/badge/Language-Markdown-orange)]() [![Version](https://img.shields.io/badge/Version-Release-blue)]() [![Docs](https://img.shields.io/badge/Docs-Passing-brightgreen)]() [![Type](https://img.shields.io/badge/Type-Documents-blue)]() [![wakatime](https://wakatime.com/badge/user/fa851759-c657-4b1e-8bcb-3ec3a693a2cd.svg)](https://wakatime.com/@fa851759-c657-4b1e-8bcb-3ec3a693a2cd) [![Sign](https://img.shields.io/badge/%E7%AD%89%E6%88%91%E4%BB%A3%E7%A0%81%E7%BC%96%E6%88%90-%E5%A8%B6%E4%BD%A0%E4%B8%BA%E5%A6%BB%E5%8F%AF%E5%A5%BD-red)](https://github.com/FairylandTech)
@@ -18,35 +18,35 @@ Development Environment
 ---
 
 - 数组
-   - [动态数组](src/main/java/host/fairy/array/DynamicIntegerArray.java)
-   - [二维数组](src/main/java/host/fairy/array/Array2D.java)
+  - [动态数组](src/main/java/host/fairy/array/DynamicIntegerArray.java)
+  - [二维数组](src/main/java/host/fairy/array/Array2D.java)
 - 链表
-   - [单向链表](src/main/java/host/fairy/linkedlist/SinglyLinkedList.java)
-   - [单向链表(哨兵节点)](src/main/java/host/fairy/linkedlist/SinglyLinkedListSentinel.java)
-   - [双向链表(哨兵节点)](src/main/java/host/fairy/linkedlist/DoublyLinkedListSentinel.java)
-   - [环形链表(哨兵节点)](src/main/java/host/fairy/linkedlist/CircularLinkedListSentinel.java)
+  - [单向链表](src/main/java/host/fairy/linkedlist/SinglyLinkedList.java)
+  - [单向链表(哨兵节点)](src/main/java/host/fairy/linkedlist/SinglyLinkedListSentinel.java)
+  - [双向链表(哨兵节点)](src/main/java/host/fairy/linkedlist/DoublyLinkedListSentinel.java)
+  - [环形链表(哨兵节点)](src/main/java/host/fairy/linkedlist/CircularLinkedListSentinel.java)
 - 递归
-   1. 单路递归
-      - [E01 阶乘](src/main/java/host/fairy/recursion/Factorial.java)
-      - [E02 递归实现字符串反转打印](src/main/java/host/fairy/recursion/ReverseString.java)
-      - [E03 递归实现二分查找](src/main/java/host/fairy/recursion/RecursiveBinaryLookup.java)
-      - [E04 递归实现冒泡排序](src/main/java/host/fairy/recursion/RecursiveBubbleSorting.java)
-      - [E05 递归实现插入排序](src/main/java/host/fairy/recursion/InsertSorting.java)
-   2. 多路递归
-      - [E01 斐波那契数列](src/main/java/host/fairy/recursion/FibonacciSequence.java)
+  1. 单路递归
+     - [E01 阶乘](src/main/java/host/fairy/recursion/Factorial.java)
+     - [E02 递归实现字符串反转打印](src/main/java/host/fairy/recursion/ReverseString.java)
+     - [E03 递归实现二分查找](src/main/java/host/fairy/recursion/RecursiveBinaryLookup.java)
+     - [E04 递归实现冒泡排序](src/main/java/host/fairy/recursion/RecursiveBubbleSorting.java)
+     - [E05 递归实现插入排序](src/main/java/host/fairy/recursion/InsertSorting.java)
+  2. 多路递归
+     - [E01 斐波那契数列](src/main/java/host/fairy/recursion/FibonacciSequence.java)
 - 队列
-   - [队列接口](src/main/java/host/fairy/queue/Queue.java)
-   - [基于链表实现的队列](src/main/java/host/fairy/queue/LinkedListQueue.java)
-   - [基于数组实现的队列](src/main/java/host/fairy/queue/ArrayQueue.java)
-   - [基于数组实现的队列 Plus版本](src/main/java/host/fairy/queue/ArrayQueuePlus.java)
-   - [基于数组实现的队列 Ultimate版本](src/main/java/host/fairy/queue/ArrayQueueUltimate.java)
+  - [队列接口](src/main/java/host/fairy/queue/Queue.java)
+  - [基于链表实现的队列](src/main/java/host/fairy/queue/LinkedListQueue.java)
+  - [基于数组实现的队列](src/main/java/host/fairy/queue/ArrayQueue.java)
+  - [基于数组实现的队列 Plus版本](src/main/java/host/fairy/queue/ArrayQueuePlus.java)
+  - [基于数组实现的队列 Ultimate版本](src/main/java/host/fairy/queue/ArrayQueueUltimate.java)
 - 栈
-   - [栈接口](src/main/java/host/fairy/stack/Stack.java)
-   - [基于链表实现的栈](src/main/java/host/fairy/stack/LinkedListStack.java)
-   - [基于数组实现的栈](src/main/java/host/fairy/stack/ArrayStack.java)
+  - [栈接口](src/main/java/host/fairy/stack/Stack.java)
+  - [基于链表实现的栈](src/main/java/host/fairy/stack/LinkedListStack.java)
+  - [基于数组实现的栈](src/main/java/host/fairy/stack/ArrayStack.java)
 - 双端队列
-   - [双端队列接口](src/main/java/host/fairy/deque/Deque.java)
-   - [基于环形链表实现的双端队列](src/main/java/host/fairy/deque/CircularlinkedListDeque.java)
+  - [双端队列接口](src/main/java/host/fairy/queue/deque/Deque.java)
+  - [基于环形链表实现的双端队列](src/main/java/host/fairy/queue/deque/CircularlinkedListDeque.java)
 
 练习
 

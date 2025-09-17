@@ -45,16 +45,16 @@ public class LinkedListQueueTest {
     }
     
     @Test
-    @DisplayName(" pool ")
-    void pool() {
+    @DisplayName(" poll ")
+    void poll() {
         LinkedListQueue<Integer> queue = new LinkedListQueue<>();
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
         
-        Integer first = queue.pool();
+        Integer first = queue.poll();
         System.out.println("first = " + first);
-        Integer second = queue.pool();
+        Integer second = queue.poll();
         System.out.println("second = " + second);
         
         System.out.println();

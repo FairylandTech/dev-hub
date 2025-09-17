@@ -5,7 +5,7 @@
  * @organization: https://github.com/FairylandFuture
  * @datetime: 2025-09-16 21:37:10 UTC+08:00
  ****************************************************/
-package host.fairy.deque;
+package host.fairy.queue.deque;
 
 /**
  * {@code Deque} 双端队列

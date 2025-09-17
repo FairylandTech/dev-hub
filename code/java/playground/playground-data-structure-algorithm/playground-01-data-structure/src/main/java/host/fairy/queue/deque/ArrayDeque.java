@@ -3,30 +3,50 @@
  * @author: Lionel Johnson
  * @contact: https://fairy.host
  * @organization: https://github.com/FairylandFuture
- * @datetime: 2025-09-16 21:47:29 UTC+08:00
+ * @datetime: 2025-09-17 13:26:00 UTC+08:00
  ****************************************************/
-package host.fairy.deque;
+package host.fairy.queue.deque;
 
 import java.util.Iterator;
 
 /**
- * Deque implement based on Circular linked list.
+ * Deque implement based on array.
  *
- * @param <E> Deque element type.
  * @author Lionel Johnson
  * @version 1.0
  * @see Deque
  * @see Iterable
  */
-public class CircularlinkedListDeque<E> implements Deque<E>, Iterable<E> {
-    private final Node<E> sentinel = new Node<>(null, null, null);
-    private final int size;
-    private int index;
+public class ArrayDeque<E> implements Deque<E>, Iterable<E> {
+    private final E[] array;
+    private int head;
+    private int tail;
     
-    public CircularlinkedListDeque(int size) {
-        sentinel.next = this.sentinel;
-        sentinel.prev = this.sentinel;
-        this.size = size;
+    @SuppressWarnings("all")
+    public ArrayDeque(int size) {
+        this.array = (E[]) new Object[size + 1];
+    }
+    
+    /**
+     * Calculate the next index.
+     *
+     * @param index Current index.
+     * @return Next index.
+     */
+    private int addIndex(int index) {
+        if (++index >= this.array.length) return 0;
+        return index;
+    }
+    
+    /**
+     * Calculate the previous index.
+     *
+     * @param index Current index.
+     * @return Previous index.
+     */
+    private int subIndex(int index) {
+        if (--index < 0) return this.array.length - 1;
+        return index;
     }
     
     /**
@@ -40,12 +60,8 @@ public class CircularlinkedListDeque<E> implements Deque<E>, Iterable<E> {
         if (this.isFull()) {
             return false;
         }
-        Node<E> prev = this.sentinel;
-        Node<E> next = this.sentinel.next;
-        Node<E> node = new Node<>(value, prev, next);
-        prev.next = node;
-        next.prev = node;
-        this.index++;
+        this.head = this.subIndex(this.head);
+        this.array[this.head] = value;
         return true;
     }
     
@@ -60,12 +76,8 @@ public class CircularlinkedListDeque<E> implements Deque<E>, Iterable<E> {
         if (this.isFull()) {
             return false;
         }
-        Node<E> prev = this.sentinel.prev;
-        Node<E> next = this.sentinel;
-        Node<E> node = new Node<>(value, prev, next);
-        prev.next = node;
-        next.prev = node;
-        this.index++;
+        this.array[this.tail] = value;
+        this.tail = this.addIndex(this.tail);
         return true;
     }
     
@@ -76,10 +88,10 @@ public class CircularlinkedListDeque<E> implements Deque<E>, Iterable<E> {
      */
     @Override
     public E peekFirst() {
-        if (this.isFull()) {
+        if (this.isEmpty()) {
             return null;
         }
-        return this.sentinel.next.value;
+        return this.array[this.head];
     }
     
     /**
@@ -89,10 +101,10 @@ public class CircularlinkedListDeque<E> implements Deque<E>, Iterable<E> {
      */
     @Override
     public E peekLast() {
-        if (this.isFull()) {
+        if (this.isEmpty()) {
             return null;
         }
-        return this.sentinel.prev.value;
+        return this.array[this.subIndex(this.tail)];
     }
     
     /**
@@ -102,14 +114,13 @@ public class CircularlinkedListDeque<E> implements Deque<E>, Iterable<E> {
      */
     @Override
     public E pollFirst() {
-        if (this.isFull()) {
+        if (this.isEmpty()) {
             return null;
         }
-        Node<E> node = this.sentinel.next;
-        this.sentinel.next = node.next;
-        node.next.prev = this.sentinel;
-        this.index--;
-        return node.value;
+        E value = this.array[this.head];
+        this.array[this.head] = null; // Help GC
+        this.head = this.addIndex(this.head);
+        return value;
     }
     
     /**
@@ -119,14 +130,13 @@ public class CircularlinkedListDeque<E> implements Deque<E>, Iterable<E> {
      */
     @Override
     public E pollLast() {
-        if (this.isFull()) {
+        if (this.isEmpty()) {
             return null;
         }
-        Node<E> node = this.sentinel.prev;
-        this.sentinel.prev = node.prev;
-        node.prev.next = this.sentinel;
-        this.index--;
-        return node.value;
+        this.tail = this.subIndex(this.tail);
+        E value = this.array[this.tail];
+        this.array[this.tail] = null; // Help GC
+        return value;
     }
     
     /**
@@ -136,7 +146,7 @@ public class CircularlinkedListDeque<E> implements Deque<E>, Iterable<E> {
      */
     @Override
     public boolean isEmpty() {
-        return this.index == 0;
+        return this.tail == this.head;
     }
     
     /**
@@ -146,42 +156,31 @@ public class CircularlinkedListDeque<E> implements Deque<E>, Iterable<E> {
      */
     @Override
     public boolean isFull() {
-        return this.index == this.size;
+        if (this.tail > this.head) {
+            return this.tail - this.head == this.array.length - 1;
+        } else if (this.tail < this.head) {
+            return this.head - this.tail == 1;
+        } else {
+            return false;
+        }
     }
     
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            Node<E> node = sentinel.next;
+            int index = head;
             
             @Override
             public boolean hasNext() {
-                return node != sentinel;
+                return index != tail;
             }
             
             @Override
             public E next() {
-                E value = node.value;
-                node = node.next;
+                E value = array[index];
+                if (++index >= array.length) index = 0;
                 return value;
             }
         };
-    }
-    
-    /**
-     * Node of circular linked list.
-     *
-     * @param <E> Node value type.
-     */
-    static class Node<E> {
-        E value;
-        Node<E> prev;
-        Node<E> next;
-        
-        public Node(E value, Node<E> prev, Node<E> next) {
-            this.value = value;
-            this.prev = prev;
-            this.next = next;
-        }
     }
 }

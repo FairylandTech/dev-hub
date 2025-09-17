@@ -34,7 +34,7 @@ public interface Queue<E> {
      *
      * @return Value or null if the queue is empty.
      */
-    E pool();
+    E poll();
     
     /**
      * Check the queue is empty.
