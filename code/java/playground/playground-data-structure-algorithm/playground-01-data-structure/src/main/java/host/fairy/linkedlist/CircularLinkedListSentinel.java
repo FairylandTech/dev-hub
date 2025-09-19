@@ -10,6 +10,8 @@ package host.fairy.linkedlist;
 import java.util.Iterator;
 
 /**
+ * 环形链表
+ *
  * @author Lionel Johnson
  */
 public class CircularLinkedListSentinel implements Iterable<Integer> {

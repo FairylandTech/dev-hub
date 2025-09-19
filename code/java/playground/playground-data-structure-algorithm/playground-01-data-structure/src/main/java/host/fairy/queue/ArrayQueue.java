@@ -77,7 +77,7 @@ public class ArrayQueue<E> implements Queue<E>, Iterable<E> {
      * @return Value or null if the queue is empty.
      */
     @Override
-    public E pool() {
+    public E poll() {
         if (this.isEmpty()) {
             return null;
         }

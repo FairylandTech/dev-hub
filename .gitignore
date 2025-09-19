@@ -9,6 +9,7 @@ logs
 
 ### Python ###
 *.cookies
+*.token
 input
 output
 

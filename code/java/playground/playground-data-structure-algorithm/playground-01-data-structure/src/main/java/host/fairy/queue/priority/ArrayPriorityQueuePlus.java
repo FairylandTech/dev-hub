@@ -3,31 +3,40 @@
  * @author: Lionel Johnson
  * @contact: https://fairy.host
  * @organization: https://github.com/FairylandFuture
- * @datetime: 2025-09-15 01:02:19 UTC+08:00
+ * @datetime: 2025-09-17 16:50:04 UTC+08:00
  ****************************************************/
-package host.fairy.queue;
+package host.fairy.queue.priority;
+
+import host.fairy.queue.Queue;
 
 import java.util.Iterator;
 
 /**
- * Queue implement based on array, ultimate version.
+ * Priority Queue based on array (asc)
  *
+ * @param <E> Queue element type.
  * @author Lionel Johnson
  * @version 1.0
  * @see Queue
  * @see Iterable
+ * @see Priority
  */
-public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
+public class ArrayPriorityQueuePlus<E extends Priority> implements Queue<E>, Iterable<E> {
     private final E[] array;
-    private int head = 0;
-    private int tail = 0;
+    private int index;
     
-    @SuppressWarnings("all")
-    public ArrayQueueUltimate(int size) throws IllegalArgumentException {
-        if ((size & (size - 1)) != 0) {
-            size = (int) Math.ceil(Math.log(size) / Math.log(2));
+    @SuppressWarnings("unchecked")
+    public ArrayPriorityQueuePlus(int size) {
+        this.array = (E[]) new Priority[size];
+    }
+    
+    private void insert(E value) {
+        int i = this.index - 1;
+        while (i >= 0 && value.getPriority() < this.array[i].getPriority()) {
+            array[i + 1] = array[i];
+            i--;
         }
-        this.array = (E[]) new Object[size];
+        array[i + 1] = value;
     }
     
     /**
@@ -35,15 +44,14 @@ public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
      *
      * @param value Value.
      * @return Successfully added.
-     * @throws RuntimeException If the queue is full.
      */
     @Override
-    public Boolean offer(E value) throws RuntimeException {
+    public Boolean offer(E value) {
         if (this.isFull()) {
-            throw new RuntimeException("Queue is full.");
+            return false;
         }
-        this.array[this.tail & (this.array.length - 1)] = value;
-        this.tail++;
+        insert(value);
+        this.index++;
         return true;
     }
     
@@ -57,7 +65,7 @@ public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
         if (this.isEmpty()) {
             return null;
         }
-        return this.array[this.head & (this.array.length - 1)];
+        return this.array[this.index - 1];
     }
     
     /**
@@ -70,9 +78,8 @@ public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
         if (this.isEmpty()) {
             return null;
         }
-        
-        E value = this.array[this.head & (this.array.length - 1)];
-        this.head++;
+        E value = this.array[this.index - 1];
+        this.array[--this.index] = null;  // Help GC
         return value;
     }
     
@@ -83,7 +90,7 @@ public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
      */
     @Override
     public Boolean isEmpty() {
-        return this.head == this.tail;
+        return this.index == 0;
     }
     
     /**
@@ -93,29 +100,25 @@ public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
      */
     @Override
     public Boolean isFull() {
-        return (Integer.toUnsignedLong(this.tail) - Integer.toUnsignedLong(this.head)) == this.array.length;
+        return this.index == this.array.length;
     }
     
     /**
-     * An iterator, used loop
+     * Returns an iterator over elements of type {@code T}.
      *
-     * @return Iterator
+     * @return an Iterator.
      */
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            int currentIndex = head;
-            
             @Override
             public boolean hasNext() {
-                return currentIndex != tail;
+                return false;
             }
             
             @Override
             public E next() {
-                E value = array[currentIndex & (array.length - 1)];
-                currentIndex++;
-                return value;
+                return null;
             }
         };
     }

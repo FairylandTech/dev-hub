@@ -3,31 +3,31 @@
  * @author: Lionel Johnson
  * @contact: https://fairy.host
  * @organization: https://github.com/FairylandFuture
- * @datetime: 2025-09-15 01:02:19 UTC+08:00
+ * @datetime: 2025-09-17 15:19:28 UTC+08:00
  ****************************************************/
-package host.fairy.queue;
+package host.fairy.queue.priority;
+
+import host.fairy.queue.Queue;
 
 import java.util.Iterator;
 
 /**
- * Queue implement based on array, ultimate version.
+ * Prioritized queue, based on unordered array implementation
  *
+ * @param <E> Queue element type.
  * @author Lionel Johnson
  * @version 1.0
  * @see Queue
  * @see Iterable
+ * @see Priority
  */
-public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
+public class ArrayPriorityQueue<E extends Priority> implements Queue<E>, Iterable<E> {
     private final E[] array;
-    private int head = 0;
-    private int tail = 0;
+    private int index;
     
-    @SuppressWarnings("all")
-    public ArrayQueueUltimate(int size) throws IllegalArgumentException {
-        if ((size & (size - 1)) != 0) {
-            size = (int) Math.ceil(Math.log(size) / Math.log(2));
-        }
-        this.array = (E[]) new Object[size];
+    @SuppressWarnings("unchecked")
+    public ArrayPriorityQueue(int size) {
+        this.array = (E[]) new Priority[size];
     }
     
     /**
@@ -35,16 +35,41 @@ public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
      *
      * @param value Value.
      * @return Successfully added.
-     * @throws RuntimeException If the queue is full.
      */
     @Override
-    public Boolean offer(E value) throws RuntimeException {
+    public Boolean offer(E value) {
         if (this.isFull()) {
-            throw new RuntimeException("Queue is full.");
+            return false;
         }
-        this.array[this.tail & (this.array.length - 1)] = value;
-        this.tail++;
+        this.array[this.index++] = value;
         return true;
+    }
+    
+    /**
+     * Find index of max priority element.
+     *
+     * @return Index of max priority element.
+     */
+    private int findMaxPriorityIndex() {
+        int maxIndex = 0;
+        for (int i = 1; i < this.index; i++) {
+            if (this.array[maxIndex].getPriority() < this.array[i].getPriority()) {
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+    
+    /**
+     * Remove element by max index.
+     *
+     * @param maxIndex Max index.
+     */
+    private void removeByIndex(int maxIndex) {
+        if (maxIndex < this.index - 1) {
+            System.arraycopy(this.array, maxIndex + 1, this.array, maxIndex, this.index - maxIndex - 1);
+        }
+        this.index--;
     }
     
     /**
@@ -57,7 +82,7 @@ public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
         if (this.isEmpty()) {
             return null;
         }
-        return this.array[this.head & (this.array.length - 1)];
+        return this.array[this.findMaxPriorityIndex()];
     }
     
     /**
@@ -70,9 +95,9 @@ public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
         if (this.isEmpty()) {
             return null;
         }
-        
-        E value = this.array[this.head & (this.array.length - 1)];
-        this.head++;
+        int maxIndex = this.findMaxPriorityIndex();
+        E value = this.array[maxIndex];
+        removeByIndex(maxIndex);
         return value;
     }
     
@@ -83,7 +108,7 @@ public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
      */
     @Override
     public Boolean isEmpty() {
-        return this.head == this.tail;
+        return this.index == 0;
     }
     
     /**
@@ -93,29 +118,22 @@ public class ArrayQueueUltimate<E> implements Queue<E>, Iterable<E> {
      */
     @Override
     public Boolean isFull() {
-        return (Integer.toUnsignedLong(this.tail) - Integer.toUnsignedLong(this.head)) == this.array.length;
+        return this.index == this.array.length;
     }
     
-    /**
-     * An iterator, used loop
-     *
-     * @return Iterator
-     */
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            int currentIndex = head;
+            int loopIndex = 0;
             
             @Override
             public boolean hasNext() {
-                return currentIndex != tail;
+                return loopIndex < index;
             }
             
             @Override
             public E next() {
-                E value = array[currentIndex & (array.length - 1)];
-                currentIndex++;
-                return value;
+                return array[loopIndex++];
             }
         };
     }
