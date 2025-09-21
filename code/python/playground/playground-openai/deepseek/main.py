@@ -6,9 +6,11 @@
 @organization: https://github.com/FairylandFuture
 @datetime: 2025-09-19 11:21:29 UTC+08:00
 """
+
 import functools
 import time
 import typing as t
+import types as ts
 from dataclasses import dataclass
 
 from openai import OpenAI
@@ -38,7 +40,13 @@ class Retry:
         self.delay = delay
         self.exceptions = exceptions
 
-    def __call__(self, func: t.Callable[P, R]) -> t.Callable[P, R]:
+    def __get__(self, instance, owner):
+        if not instance:
+            return self
+
+        return ts.MethodType(self.__call__, instance)
+
+    def __call__(self, func: t.Callable[P, R], *args, **kwargs) -> t.Callable[P, R]:
         @functools.wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             for attempt in range(1, self.retries + 1):
@@ -51,6 +59,8 @@ class Retry:
 
             return RuntimeError("Unreachable code")
 
+        # wrapper.__signature__ = inspect.signature(func)
+        # return t.cast(t.Callable[P, R], wrapper)
         return wrapper
 
 
@@ -78,7 +88,7 @@ class DeepSeekAgent:
         }
 
     @Retry(3)
-    def _invoke(self, messages: t.List[t.Dict[str, str]], **overrides) -> t.Union[ChatCompletion, Stream[ChatCompletionChunk]]:
+    def __invoke(self, messages: t.List[t.Dict[str, str]], **overrides) -> t.Union[ChatCompletion, Stream[ChatCompletionChunk]]:
         params = {
             "model": overrides.get("model", self.config.model),
             "messages": messages,
@@ -92,7 +102,7 @@ class DeepSeekAgent:
         return self.client.chat.completions.create(**params)
 
     def chat(self, messages: t.List[t.Dict[str, str]], **overrides):
-        response = self._invoke(messages=messages, **overrides)
+        response = self.__invoke(messages=messages, **overrides)
         if overrides.get("stream") or self.config.stream:
             result: t.List[str] = []
             for chunk in response:
