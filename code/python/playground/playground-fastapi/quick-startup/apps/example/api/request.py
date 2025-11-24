@@ -14,9 +14,9 @@ from apps.example.controller.request import RequestController
 from utils.http.response import Response
 
 router = APIRouter(prefix="/request", tags=["Request 对象示例"])
-controller = RequestController()
+# controller = RequestController()
 
 
 @router.get("/info")
 async def info(request: Request) -> Response:
-    return await controller.request_info(request)
+    return await RequestController.request_info(request)
